@@ -12,6 +12,7 @@ def main():
 		'select body from ForumRaw where course_display_name="' + \
 			course_name + '" limit 10'):
 		result_str = str(result)
+		f = open(outfile + str(file_suffix), 'w')
 		f.write(result_str[result_str.index('\'') + 1:result_str.rindex('\'')].strip('\n'))
 		f.close()
 		file_suffix += 1
