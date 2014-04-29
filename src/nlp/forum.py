@@ -1,4 +1,5 @@
 import mysqldb
+import nltk
 
 # A struct of sorts that holds information field values
 # for a given post (e.g. body, author_id), depending on the query.
@@ -42,5 +43,8 @@ class Forum:
 
 		return posts
 
-if __name__ == "__main__":
-    main()
+class Format:
+	def __init__(self):
+		self.sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
+	def split_sentences(self, post):
+		  return self.sent_detector.tokenize(post.strip())
