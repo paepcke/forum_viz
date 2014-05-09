@@ -18,7 +18,7 @@ def retrieve_posts():
 
 	# Fetch posts
 	forum = Forum(host, user, password, db)
-	return forum.post_contents(table, course_name, ['author_id', 'body'])
+	return forum.post_contents(['author_id', 'body'], table, course_name)
 
 def classify_and_write_results(posts):
 	formatter = Format()
