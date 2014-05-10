@@ -11,12 +11,6 @@ happy_emoticons = '.*(:-?|=|;)[])DP].*'
 sad_emoticons = '.*(:-?|=)[[(].*'
 all_emoticons = '.*(:-?|=|;)[])DP[(].*'
 
-#TODO: Pickle the training data s.t. we have a dataset
-# that can be easily manipulated.
-#
-# Idea: (features_list, emoticon)
-# Do not make any decisions here about which features
-# to remove, etc. Dump them all.
 def write_posts_to_file(f, posts, label):
 	count = 0
 	for post in posts:
