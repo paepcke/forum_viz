@@ -1,21 +1,28 @@
 import argparse
 from forum import Forum
+import pickle
 
 default_course_name = 'Medicine/HRP258/Statistics_in_Medicine'
 table = 'contents'
-attr = ['anon_screen_name', 'type', 'anonymous', 'anonymous_to_peers', \
-		'body', 'created_at', 'votes', 'down_count', 'up_count', \
-			'comment_thread_id', 'parent_id', 'parent_ids']
+attr = ['body']
+			
 fields = ','.join(attr)
 happy_emoticons = '.*(:-?|=|;)[])DP].*'
 sad_emoticons = '.*(:-?|=)[[(].*'
 all_emoticons = '.*(:-?|=|;)[])DP[(].*'
 
-def write_posts_to_file(f, posts):
+#TODO: Pickle the training data s.t. we have a dataset
+# that can be easily manipulated.
+#
+# Idea: (features_list, emoticon)
+# Do not make any decisions here about which features
+# to remove, etc. Dump them all.
+def write_posts_to_file(f, posts, label):
 	count = 0
 	for post in posts:
-		f.write(str(count) + ':<' + post.body + '>\n')
-		count += 1
+		words  = [w.lower() for w in post.body.split()]
+		entry = (words, label)
+		pickle.dump(entry, f)
 
 def write_all_training(forum, path):
 	# Get list of all course names
@@ -36,15 +43,15 @@ def write_all_training(forum, path):
 			course = course.replace('/', '_')
 			try:
 				f_pos = open(path + 'positive/' + course + '_' + \
-					str(pos_len) + '_pos_tr', 'w')
+					str(pos_len) + '_pos_tr', 'wb')
 				f_neg = open(path + 'negative/' + course + '_' + \
-					str(neg_len) + '_neg_tr', 'w')
+					str(neg_len) + '_neg_tr', 'wb')
 			except IOError:
 				print 'failed to open file for course ' + course
 				return
 			print 'Writing posts for course ' + course
-			write_posts_to_file(f_pos, pos_posts)
-			write_posts_to_file(f_neg, neg_posts)
+			write_posts_to_file(f_pos, pos_posts, "positive")
+			write_posts_to_file(f_neg, neg_posts, "negative")
 			f_pos.close()
 			f_neg.close()
 			
