@@ -11,11 +11,12 @@ class Post:
 # and returns formatted results.
 class Forum:
 	_host = 'datastage.stanford.edu'
-	_user = 'akshayka'
 	_db = 'EdxForum'
 
-	def __init__(self, passwd='', host=_host, user=_user, db=_db):
-		if (passwd == ''):
+	def __init__(self, user='', passwd='', host=_host, db=_db):
+		if user == '':
+			user = raw_input("Username: ")
+		if passwd == '':
 			passwd = getpass.getpass("Password: ")
 		self.db = mysqldb.MySQLDB(host, user=user, passwd=passwd, db=db)
 

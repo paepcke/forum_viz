@@ -2,6 +2,8 @@ import argparse
 from forum import Forum
 import pickle
 
+host = 'datastage.stanford.edu'
+db = 'EdxForum'
 default_course_name = 'Medicine/HRP258/Statistics_in_Medicine'
 table = 'contents'
 attr = ['body']
@@ -60,10 +62,12 @@ def print_course_emoticons(forum, course_name, regex):
 		count += 1
 
 def main():
-	# Args: (course name [optional], emotion [optional]) or (path [optional])
+	# Args: username [optional] (course name [optional], emotion [optional]) or (path [optional])
 	parser = argparse.ArgumentParser(description='Simple tool to fetch ' \
 		'posts with emoticons. Includes options to simply print the data, '\
 			'or to dump it as pickled files.')
+	parser.add_argument('-u', '--username', type=str,
+		help='username for database')
 	parser.add_argument('-cn', '--coursename', type=str,
 		help='Retrieve posts for a particular course; course defaults to ' \
 			+ default_course_name)
@@ -76,7 +80,8 @@ def main():
 				'directory must have subdirectories \'positive\', \'negative\'.')
 	args = parser.parse_args()
 
-	forum = Forum()
+	user = args.username if args.username is not None else ''
+	forum = Forum(user=user, host=host, db=db)
 	if args.path is not None:
 		if not args.path.endswith('/'):
 			args.path = args.path.append('/')
