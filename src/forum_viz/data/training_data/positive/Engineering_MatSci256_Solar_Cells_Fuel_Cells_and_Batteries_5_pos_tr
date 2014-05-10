@@ -1,7 +1,0 @@
-0:<rtholmes - you're just doing integration numerically. :)
-
-The integral is the sum of the function evaluated at each of those points.  As for the original question, there are two potential problems: Draw out a picture of what your angle "x" looks like.  Do your limits of integration make sense?  Second, should your power density be higher or lower at the north pole compared to the equator?  Does sin(x) reproduce this behavior?>
-1:<Oh well, good think I checked this discussion board :)>
-2:<We already know that electron and hole are both carrier. In intrinsic semiconductors, n=p=ni. I wonder why the carrier concentration here is ni, not the sum of n and p which is 2 ni.>
-3:<Thanks for the reference!  That really helped. :)>
-4:<Can you provide more details about the calculations you've done?  It's hard to see what errors you may be having.  A few lines of the math (and the answers you've gotten) would help :)>

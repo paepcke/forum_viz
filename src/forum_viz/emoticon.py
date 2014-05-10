@@ -19,7 +19,6 @@ def write_posts_to_file(f, posts, label):
 		pickle.dump(entry, f)
 
 def write_all_training(forum, path):
-	# Get list of all course names
 	courses = forum.course_names()
 	for course in courses:
 		print 'Fetching posts for course ' + course
@@ -37,9 +36,9 @@ def write_all_training(forum, path):
 			course = course.replace('/', '_')
 			try:
 				f_pos = open(path + 'positive/' + course + '_' + \
-					str(pos_len) + '_pos_tr', 'wb')
+					str(pos_len) + '_pos', 'wb')
 				f_neg = open(path + 'negative/' + course + '_' + \
-					str(neg_len) + '_neg_tr', 'wb')
+					str(neg_len) + '_neg', 'wb')
 			except IOError:
 				print 'failed to open file for course ' + course
 				return
@@ -61,20 +60,27 @@ def print_course_emoticons(forum, course_name, regex):
 		count += 1
 
 def main():
-	# Args: course name and emotion
+	# Args: (course name [optional], emotion [optional]) or (path [optional])
 	parser = argparse.ArgumentParser(description='Simple tool to fetch ' \
-		'posts with emoticons.')
+		'posts with emoticons. Includes options to simply print the data, '\
+			'or to dump it as pickled files.')
 	parser.add_argument('-cn', '--coursename', type=str,
-		help='name of course; defaults to' + default_course_name)
+		help='Retrieve posts for a particular course; course defaults to ' \
+			+ default_course_name)
 	parser.add_argument('-em', '--emotion', type=str,
-		help='one of \'happy\', \'sad\', \'all\'; defaults to \'all\'.')
-	parser.add_argument('-ac', '--allcourses', type=str,
-		help='updates all training data, path to sentiment directory (include trailing /')
+		help='Retrieve posts matching a particular emoticon type: ' \
+			'one of \'happy\', \'sad\', or \'all\'; defaults to \'all\'.')
+	parser.add_argument('-p', '--path', type=str,
+		help='For every course, fetch all posts containing an emoticon ' \
+			'and write them to files specificed directory. The supplied ' \
+				'directory must have subdirectories \'positive\', \'negative\'.')
 	args = parser.parse_args()
 
 	forum = Forum()
-	if args.allcourses is not None:
-		write_all_training(forum, args.allcourses)
+	if args.path is not None:
+		if not args.path.endswith('/'):
+			args.path = args.path.append('/')
+		write_all_training(forum, args.path)
 	else:
 		if args.coursename is None:
 			course_name = default_course_name
