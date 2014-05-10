@@ -1,0 +1,307 @@
+0:<Hi, my name is Eduardo and I live in Sao Paulo - Brazil. This may be a bit odd, but I am a Computer Scientist (BSc and PhD in Computer Science) - I am sure that when Prof. Zoback said interdisciplinary field he didn't think that :-) Anyway, I have background in computational science and I want to learn more about applications.
+
+Eduardo>
+1:<Hi everyone. I am Xiang Zhai, a physics grad student in Caltech,CA, USA. I study fluid dynamics and magnetohydrodynamics in Caltech. I am interested in the geophysics and geomechanics. Hopefully I am able to follow up the course:)>
+2:<I am at the University of Houston, TX and I also want to participate in group meetings to discuss with anyone interested. I think that Skype meetings are great opportunities to share our knowledge.
+
+add me: the_small_father (great Skype nicknames, right? youth times :D).>
+3:<great idea!!! :)
+vincenzosavoca@yahoo.it>
+4:< absolutely a fantastic idea here's mine <emailRedac> :)>
+5:<Hola soy Jorge de España, poco petroleo por aqui pero muchos problemas sobretodos sismicos con el desarrollo de almacenamientos;).
+Un placer seguir el cusro con vosotros.>
+6:<Nice!
+This is my e-mail fuq93@hotmail.com :)>
+7:<Hi! I'm Elisabetta! I'm working as wellbore stability specialist!...a question: if this is an italian group, why don't we speak in italian? as the portogues group does? :P
+
+Good day to everybody!>
+8:<in effetti hai ragione! :)
+avete fatto gli esercizi? com'è andata?>
+9:<Hi,
+
+It is very good :)
+
+Mohammadhadimehranpour@gmail.com>
+10:<:)>
+11:<Salam everyone, 
+I'm Fadhlan from Malaysia, reservoir engineer for the national oil company. Currently working on CFD modelling for sand screen completion design. Nice to meet all of you. Looking forward to learn geomechanics. :)>
+12:<Agreed, some people are very particular with the small details. Good job for having a very sharp eyes. :)>
+13:<Hi Elizabeth, 
+The vertical stress needs to be calculated using integration where it can also mean summation.
+Based on Newton's law for hydrostatic pressure equation, P1=P0+dP, where dP=density*g*dh.
+where P1 is at deeper depth than P0.
+dh here is the increment of your depth.
+Therefore you can calculate the vertical stress from the surface and put 0 MPa vertical stress at surface.
+Then you can use directly the depth increment given by Dr. Zoback.
+For example for the Sv at 2nd depth at 1000 ft, you can calculate 
+Sv(1000ft)=Sv(0ft)+(density(1000ft)*g*(1000-0)ft)
+Dont forget to use the correct units, dont use my equation directly, you need to input the unit conversion.
+Hope that helps.
+Bella>
+14:<Hi there, two of us doing the course over in New Zealand are also interested in geothermal applications :-)>
+15:<Thanks for the warm welcome!  :)
+
+I brought up political views because most people working "in the oilfield" are conservatives, by far.
+
+I've tried saving them, and have so far been unsuccessful, which is why I brought it up.  In the past, I was able to download both, but those classes were through coursera.  And, those instructors did not provide all files up front, so I could not simply download them all.  When I went to work in a South American country, I was not able to download the videos that were uploaded towards the end of the course.
+
+I intend to use a work laptop to download the files, then send them to my devices.  But, it would be more convenient if they were easily able to be downloaded directly to the devices, and if all files were available now.  (I conceivably can be sent to work in a foreign country soon, and if so, I might be in a location with very poor Internet connectivity.)
+
+Are you two involved in running the class?  Can you help me by offering all downloads now?  (If so, I'll download them using the laptop, soon)>
+16:<Awesome Idea :-) 
+My email is thunderbird299@gmail.com>
+17:<I've plotted the data in Excel, and now have to divide it into 5 blocks of similar densities.
+
+How would I do this in Excel? Thanks.
+
+ps. Please don't say use matlab. If it comes to it, I'll spend a few hours playing with matplotlib, but I'd rather get it done in Excel.
+
+Thanks :)
+
+![http://puu.sh/7WHcQ.png][1]
+
+
+  [1]: http://puu.sh/7WHcQ.png>
+18:<**Hello from Iceland**
+
+My name is Björn Már Sveinbjörnsson and I´m from Iceland.
+I studied Civil Engineering - Construction Management and have been working in the geothermal industry.
+I´m happy to have the opportunity to participate in this course to learn something new.
+
+Good luck to everyone :)>
+19:<we all are here to guide you jayendra...good to see anybody from my neighboring country :)>
+20:<To say the trueth, in this particular case everything is simple and don't think about pore pressure as about result of vertical stress or something. It is normal pore pressure with the same equation in both data sets:) At least, I did it and it was correct.>
+21:<For example, 0-1000 ft, 1001-3515 ft, 3<phoneRedac> ft, 4<phoneRedac>. There are only 4 blocks but it is not much worse then 5 blocked case. It is not completely prompt result, you may and you should correct it according to your preferences and knowledges because I am sure that there are better variants. Nevertheless, it is something that you can push off from:)>
+22:<Cute animation:) 
+Thank you.>
+23:<Hi,
+
+You have to derive the formula yourself from phi=phi_0 exp(-beta*sigma_v)
+
+Just rearrange the terms and it should all work out!>
+24:<Right! Sorry, i'm a little bit tired. Thanks once more time :)>
+25:<Yes, now I see. It won't work. Can we use P=dgh? where P is pore preassure, d - fluid density (so water = 1), g is 10m/s^2 and h i depth>
+26:<No!!!! Usted está más engañada jajajaja la sequía poco tiene que ver con nosotros, por favor documentese y no crea lo que dicen los medios de comunicación.
+
+Por otro lado, cualquier ayuda con gusto :p>
+27:<Ah - doubting Thomas (sorry - I couldn't resist the connection) :-)  No - it's not my first time with computer-based-training, but it is in fact my first online university course with homework assignments in a topic I'm totally unfamiliar with, and I jumped the gun on clicking before finishing all of the related questions.>
+28:<Grazie Chiara, manteniamo in vita la comunita' italiana del corso! :)
+Io non partecipero' all'EAGE a giugno ma sono sicuro che sara' una buona opportunita' di fare networking.
+Buona giornata!>
+29:<1. Sv(5000)=density*10*5000 you have to be carefull with the units since the answer has to be in MPa.
+2. Sv(5000)=density(1 g/cc)*10*1000 + density(water depth)*10*4000 the same with the units the answer has to be in MPa
+The lectures says that the pore pressure is 10 MPa/Km. that´s the main idea you have to know for pore pressure in Barnett.>
+30:<Hi, I initially did it wrong as well. The key is to extrapolate the density from 1000ft to where the data is starting. you probably have used 1.7 all the way from sea bed. ;) Cheers Ali>
+31:<Hi everyone.
+As far as I understand, to find the onset of overpressure, we should do next:
+1) calculate density porosity ((pmatrix-pbulk)/(pmatrix-pfluid)), p-density
+2) calculate porosity using equaton phi=phi_0 exp(-beta*sigma_v), where phi_0=0,386, B=0,0131, Sv=density*depth*g.
+3) find a spot of overpressure trend
+Is this correct? I have doubts because derived plot does not give the obvious answer.
+There are few places, where deviation from trend might be observed.>
+32:<Sv=density*depth*g.- hydrostatic p because it is the effective v stress>
+33:<Hola a todos, Hi to everyone.
+
+I am very exiting with this course, this is my first virtual course, and this is free :D, anyway. I hope to give all of me, I love this topics (about Geology and geomechanics process). I want to improve my skills and knowledge about Geomechanics applied to petroleum industry too!.
+
+Thanks!
+
+Stvn-son>
+34:<Hi Will1987 :)
+
+I am enrolled in UNI Freiburg, but actually I was living in AC, I wrote there my M.Sc.Thesis in fact in RWTH in Bergbau Gebaude..
+What do you study?>
+35:<The theoretical compaction trend is found using the constants given for the GOM and the  effective vertical stress, not vertical stress due to overburden. Use the hydrostatic pore pressure calculated in HW1 and the vertical stress due to overburden from HW1 to calculate the effective vertical stress. This is what is used in the theoretical trend line calculation, which is used to look for the onset of overpressure.
+
+The second part is using the same formula but solving for a different variable, so no longer assuming hydrostatic Pp since Pp is what we wish to calculate. This time you use the porosity from the density log (HW1) to calculate the vertical effective stress by rearranging the equation, phi=phi0*e^(-B*EffStress), to solve for effective stress. Now you know effective vertical stress and vertical stress (still due to the overburden calculated in HW1), giving you a way of calculating Pp (the difference between these two). Remember, this method of determining Pp is for shales only, assuming that porosity deviation from the normal compaction trend is related strictly to over pressure.>
+36:<I am confused with the questions in Part 1. b & c of HW2.  It looks quite obvious to solve question b.  I get the Sv and hydrostatic pressure P_h from HW1.  It looks like we need to assume the pore pressure is hydrostatic, so I calculate the effective stress from sigma=Sv-P_h, then plug into the equation phi=phi_0*exp(-beta*sigma) to get porosity as a function of depth.
+
+Question c ask us to calculate the theoretical compression trend.  Isn't the theoretical compression trend just the equation in question b?  We are asked to use Sv from HW1 and values of phi_0 and beta from question b, it then sounds like we are just asked to do exactly the same thing in question b, doesn't it?  Or did I misunderstand the question?>
+37:<Hi,
+I am having problems with rearranging the equation 
+phi=phi0*e^(-B*(Sv-Pp)) to isolate the Pp. Maths is definitely not my strength... Can someone indicate me where I can find some help on online available math books that explain how to sort out this math problem?
+Many thanks,
+Mariana>
+38:<Can I ask you IanScotland ?
+I get the same results for EffStress when I calculate it as the difference of Vs-hydroPress, than if I calculate it taking Ln natural log on the relation phi=phi0*e^(-B*EffStress) ie Effstress = (ln(Phi) - ln(0.386)/-Beta
+
+do you get different results? please comment
+thanks>
+39:<:)>
+40:<I hope I won't say somethin' wrong now. But I thought it's the difference between hydrostatic pp and the calculated pp (rearranged from the already often discussed formula=> phi=phi_0*exp....) ?! And the magnitude is how high or how much more is the calculated pp than the hydrostatic pp.
+Or did I misunderstood somethin' ?>
+41:<Hi SLeone, I think it means ***"Midnight between Sunday, April 13, 2014 and Monday, April 14, 2014"*** and the PDT Time zone is ***"UTC - 7 hours"***.
+I hope that was helpful :)>
+42:<My hydrostatic pressure at <zipRedac>0000ft is 30.48MPa so we are close.
+They are asking for the magnitude of the overpressure. In this cas I understand is the difference between the PorePressure - HydroPressure.
+For PorePresure the Professor is indicating to use the formula Phi=Phi0Exp(-BetaSigma)=Phi0Exp(-Beta(Vs-Pp)
+remember Sigma is Vs-Pp, if you take the Natural Logarith on each side and resolve for Pp you get that
+Pp=(Ln(Porosity) - LnPhi0 +BetaVs)/Beta.
+
+Mohamed, I noticed you are talking about "theoretical and calculated"
+You seem to be thinking theoretical Porosity (the exponential compaction trend) So I hope you are not mixing Porosity and Pressure as comparable quantities.
+??>
+43:<Mark_Kelley and comentators,
+I have done the same I believe. I plotted Porosity based on the Exponential relation given for porosity change under 'normal'compaction.
+Phi=Phi0Exp(-BetaSigma)
+  Sigma coming from Sigma = Vs - HydroPressure
+and compare to Phi coming from Phi is coming from the equation in Homework <zipRedac> (logdensity=(<zipRedac>-Phi)DensityMatrix - Phi*densityWater
+Then when I plot them together, I see departures at various points, and its hard to tell which is the real operpressure onset. I see divergence at 6638ft and again at say 8473 ft and then a very significant departure, though shorter interval at <zipRedac><zipRedac>000 ft
+Dont know what depth to pick !! ????>
+44:<Otra mas! :)>
+45:<The difference is your A=Pp, which is calculated from Sv-Eff stress using your porosity values from HW<zipRedac>. B=Hydrostatic .44 psi/ft at <zipRedac>0000 ft.
+
+then magnitude of overpressure is A-B>
+46:<I don't think it has to be more the 70% for each Home Work but I think it will be more the 70% for Overall Average of Home Work, But the interesting thing here is when you go to the Progress page you will find each 3 type of percentages: one for each separate **Home work (HW 01, HW 02, ...)**, another for the **Home Work Average (HW AVG)**, and the Last one is **Total** which actually surprised me when i found it different from the Home Work Average???
+
+So Does anyone know the difference between HW Avg and Total?
+
+PS. If anyone know if there's a difference between Certificate and Statement of accomplishment?
+
+Thanks :)>
+47:<Yes for both the Barnett Shale Well Case and the Golf of Mexico Case :)>
+48:<Hey my friend, you can't imagine how much you helped me, i am studying petroleum Engineering, and we never dealt with a large set of data before and Excel, and we about to Learn MATLAB this year, not to tell that English is not my first language, so this was hard, and you really helped a lot simplifying the problem, so thanks so much.
+
+
+and about the **Pore Pressure**, i think we assume the pores are saturated 100% so pore pressure will be the hydro-static pressure which is the same for both cases, the Bernatt Shale Well and the Golf of Mexico.
+
+**`Pp =(Density of water Rho = 1g/cc )*(g = 10m/s^2)*(Height of Hydraulic Column =5000ft for both cases)`**
+
+Then,
+**`Pp=Rho*g*h`**
+
+i hope that was helpful.
+
+Good Luck My friend :)>
+49:<Thanks AMyLHill, and for your question I think I answered it just the reply before yours :)>
+50:<I am sorry if I am being extremely slow, but I am stuck on the Sv of the GOM data.  I have read through other discussions and it appears that we can assume the well depth is the water depth at 5000 ft because the first thousand feet is water, and the remaining 4000 ft of rock is saturated with water. Then when we solve the pore pressure at each depth can we neglect the second part of the formula?  Therefore Sv=density of water 
+(1g/cc*1000) * g (10m/s^2)* (water depth in ft*.3408).  And water depth is the same as well depth provided by the raw data?>
+51:<Am I correct in assuming that this is the *difference* between the calculated Pore Pressure (from the relationship between porosity and effective stress) and the hydrostatic PP? or should it simply be the calculated pore pressure itself?
+
+I've tried both answers, believing at least one of these would be correct, but it seems there may be an issue with my calculations as neither were correct.. so only 1 more submission attempt left, so would like to get it correct this time.. ;)>
+52:<never mind.. I worked it out already. turned out that the mistake was in calculating the exponential; my math is a bit rusty after not having used it for ~ 10 years.. ;)>
+53:<Hi,
+
+I'm Ester. I have a little question just to double check. I submitted all the questions and everything is fine. But, should we submit also the spreadsheets or send them via e-mail?
+
+I ask because I was a little surprised by the fact there were no questions of the blocked profiles. 
+
+Thanks and cheers!!
+
+:)>
+54:<Hi Esther, Check the "Progress" tab (the fifth) at the top of the page for this course. That will show your results if you submitted everything correctly. No need to submit anything else through email. I believe the key point of the blocked profiles is to demonstrate to you how well (or poor) calculations based on your chosen blocks correlate with the full density log dataset calculations. Moreover, you may get a smoother answer (less scattered data points) for some of the questions with the blocked profiles.
+
+Hope this helps :-)>
+55:<Ok My Friend, i will tell you why because as it said it's for the Shallowest seafloor **Sediments** and from the definition of the Pore Pressure it has nothing to do with the sediments, it's all about the Hydro-static Pressure and of course the Density of the Liquid which in our case is the water, so we should use 1g/cc. and yes the very same thing happened to me, I think the 1.7 g/cc value was a trick and we bought it at first :)
+
+I really hope that was helpful.>
+56:<You are welcome my friends :)>
+57:<Thanks! Yes, I see everything is alright :) I forgot to check that tab :P>
+58:<Tyal and Ianscotland, For the magnitude of overpressure is it the difference between observed pore pressure and hydrostatic pore pressure or just the observed pore pressure from phi=phi0*e^(-B*(Sv-Pp)formula. I will appreciate your reply. Thanks>
+59:<Tyal and Ianscotland, For the magnitude of overpressure is it the difference between observed pore pressure and hydrostatic pore pressure or just the observed pore pressure from phi=phi0*e^(-B*(Sv-Pp)formula. I will appreciate your reply. Thanks>
+60:<For the magnitude of overpressure is it the difference between observed pore pressure and hydrostatic pore pressure or just the observed pore pressure from phi=phi0*e^(-B*(Sv-Pp)formula. I will appreciate your reply. Thanks>
+61:<PDT! In Europe, GMT would not have helped. I also missed the train ! :)>
+62:<when u submit if its right green check mark and if wrong red cross appears :-)>
+63:<visit this web
+for time :-)
+http://www.thetimenow.com/pdt/pacific_daylight_time
+hope it helps u>
+64:<Here is a YES, to your concept of measuring 'overburden stress' with a pressure sensor. But probably a pressure sensor would not be able to bear the load of thousands of meters of earth. :)>
+65:<anyone here that has actually got the question right? please share your knowledge ... and answers :D>
+66:<or alternately take the max density for the section (or each formation?)...(i.e. assume that the max density for each formation has zero porosity ?)
+Some guidance from Stanford would be good... :)>
+67:<Hello Nitesh!
+Of course you'd be here~
+Greetings from Miri :D
+I just joined today btw.>
+68:<Reposted here...
+or alternately take the max density for the section (or each formation?)...(i.e. assume that the max density for each formation has zero porosity ?) Some guidance from Stanford would be good... :)>
+69:<nice :)>
+70:<I see at least 3 zones of large deviation from the trend. Maybe all of them overpressured. But perhaps we need to just take the First One. A guess :)>
+71:<You're welcome, glad to help :)
+The discussions on HW #1 really helped me (I needed a refresher!).>
+72:<You got it!. shorter to write 0.386 :-D>
+73:<until a certain depth you will see an almost equal porosity and theoretical compaction trend... after that point you wouldnt even think the theoretical compaction trend is an aproximation, it just doesnt fit the calculated porosity...
+
+i hope this might help you :)
+
+ps: try setting the X axis to plot the porosity between 0 and 1 or 2. it will help you to see deviation more clearly (if you're doing this on excel you just gotta right click the axis and choose "format axis" and then set the minimum and maximum)>
+74:<Thank you so much IbrahimGhoneim & venkat_ram, I had problems to calculate Poisson's Ratio and Porosity (As in Hw1)... But I followed your steps and obtained the correct answers! :)>
+75:<Thanks Hcastorp ! spent 5 mins on Markdown. It is kind of intimidating to me :(
+will take a look at latex later :)>
+76:<i'm glad i could help :)>
+77:<At first you should use from ?log = (1-?)?matrix + ??fluid to estimate **?** at HM1.then you can using from Sv at HM1 and ?0,? to estimates pore pressure (its called calculated pore pressure) with this formula:Pp = Sv ?((1/?)*ln(?0/?))
+then you should plot Pp(calculated) and Pp(normal that it is equal 10mp/km) vs. depth (at the one figure) and compare both of them.(every depth that the Difference of these start and the Difference was steady increase this point is top of overpressure or onset of over pressure...)
+be careful that the Difference of Pp(calculated) and Pp(normal) must be steady and the Pp(calculated) be **steady high** than Pp(normal).>
+78:<Lets see - 
+From eq.  
+phi=phi_o*exp(-beta*sigma)
+ 
+where - sigma - effective stress (Sv-PP)
+
+we get 
+
+sigma = - (1/beta)*ln(phi/phi_o)
+
+where phi - from density log
+and then we get 
+
+*PP = Sv - sigma*
+
+is it right?>
+79:<thank you for your help guys
+
+:)>
+80:<Hi every one I am Mohammed AboAli from Egypt ,, i am A mud engineer (BSc In Geology) .
+Good Luck for All of You :)>
+81:<I got 100% on the quiz, George :)>
+82:<(Q1:D) **How is overpressure generated above the centroids of sealed, tilted sand bodies within shale formations?**
+
+the solution is: Relative mechanical weakness of the shale allows for the pressure within it to increase at the lithostatic gradient.
+and I think it's not right because the question not ask about overpressure at bottom of centroids and it's not take about shale.
+
+the question take about sand body at top of centroids and overpressure generated due to migration mechanisms or faults as exist in the end of section(4) so I thought right answer is: **Net fluid flow from the shale formation into the top of the sand body.**
+
+this mean migration and density of fluid generate pressure.
+![enter image description here][1]
+
+----------
+(Q3) there is difference between our results and results in HW solution
+
+**our result is 16.032 ,but hw solution result is 11.673**
+
+we use the same equation and it's high difference why?
+
+
+  [1]: http://imageshack.com/a/img845/9302/lpa9.png>
+83:<Ok lets see if I can help without giving the answer. So like you said if we have Shmax > Sv = Shmin, that's SS/RF meaning 2 types of faulting. Admiting that you have all the stresses equal, if a small perturbation would affect any of the streses, what would happen?! Hope it helps :-). Cause otherwise I would be giving the answer.>
+84:<Never mind guys got everything right on first submission :-D>
+85:<William, Good that you answered your own questions :-)
+However, just to be sure exp(x) is the same as e^x where "e" is the natural exponential (2.718...).>
+86:<David, thanks got it. Lately I am impressed with the type of things I can learn in You tube :-D>
+87:<E = 2G(1+v)
+
+This is the correct form ;)>
+88:<Thanks for your help!!! :)>
+89:<Nice "Zobackogram" :-)>
+90:<Hi Ela94:
+
+Table 4.3, Equation 22: UCS=0.4067*(E^0.51); Where E(Young's Modulus) 
+Table 4.3, Equation 26: UCS=135.9*(e^(-4.8?); Where ?=porosite
+Table 4.3, Equation 23: UCS=2.4*(E^0.34); Where E(Young's Modulus) 
+Table 4.2, Equation 16: UCS=0.0528*(E^0.712); Where E(Young's Modulus) 
+Table 4.2, Equation 17: UCS=1.001*(?^(-1.143)); Where ?=porosite>
+91:<Your way of approach is correct. You just missed something. Look carefully, it's easy to find. :)>
+92:<Why every body uses 0.6 and calculate the equation? when using 3.1 is way easier its already calculated :P>
+93:<excuse me, if i use the ?matrix=2.79, i will get this ?=2.79-?log/1.79 right??<br>
+because the ?fluid = 1?
+
+and thank you very much for the help :)>
+94:<It is very helpful.... Thank you very much @IOGeophysicist :)>
+95:<me too :)>
+96:<Hi all!
+I noticed something very unusual in the accepted answers for HW3. First, I made a mistake while computing the Young's modulus, E for the three formations. The mistake was that I used E=Depth*Vs^2*(3*Vp^2-4*Vs^2)/(Vp^2-Vs^2) instead of E=rho*Vs^2*(3*Vp^2-4*Vs^2)/(Vp^2-Vs^2). Surprisingly, the server accepted both results as correct, even though the disparity between the two sets of results is significantly high (i.e. greater than 20% tolerance). I hope Arjun will take note of this. Thank you.>
+97:<Hey pple,
+
+I'm getting Shmax= 3.1^2( Shmin-Pp) + Pp.
+What am I doing wrong ( or right :) )>

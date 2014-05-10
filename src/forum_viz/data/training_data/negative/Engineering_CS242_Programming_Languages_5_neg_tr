@@ -1,0 +1,63 @@
+0:<Does this question want us to count the number of array elements equal to 1 or the number of 1's across all array elements?
+
+Ex array=[1,111,2,9,4]
+
+Should the correct answer be 1 or 4?>
+1:<Hmm... it did not do the trick :(>
+2:<metafunc func =
+        let inner_func x = x
+        in inner_func
+    -- works
+    -- (metafunc anyfunc) x --output--> x
+    
+    
+    metafunc func =
+        let inner_func x = 
+        	let inner_inner_func k = k
+            in inner_inner_func
+        in inner_func
+    -- Doesn't work
+    -- Should it not be such that
+    -- ((metafunk anyfunk) x) y --output--> y
+
+I am confused, really badly :(>
+3:<The third 'fac n' line you're seeing is an openedx bug -- it should not be there! and the 2nd line should be intented. Fail :( 
+Here is what I want: https://www.learnbyhacking.org/posts/<zipRedac>2<zipRedac>4c<zipRedac><zipRedac>213c6142d4f<zipRedac><zipRedac><zipRedac><zipRedac><zipRedac>b>
+4:<Thanks a lot! 
+
+With this I understood that the problem was not with the let indentation, but something to do with type inference...
+
+And I am even more confused now :(
+For example, let's consider metafunc as following
+
+
+----------
+
+
+    metafunc func =
+        let inner_func x = x
+        in inner_func
+
+
+----------
+
+
+and the invocation
+
+
+----------
+
+
+    (metafunc show) 42
+
+
+----------
+
+
+Let that the be the whole program. wouldn't type inference lead to metafunc's type to be 
+
+    a -> (b -> b)
+
+where b is a type variable and a as the type of show?
+
+I did not understand the error...>

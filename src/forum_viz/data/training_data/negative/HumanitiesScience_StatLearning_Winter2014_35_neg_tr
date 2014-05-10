@@ -1,0 +1,956 @@
+0:<Unfortunately YOUTUBE is filtered in our country and I can't watch the video lectures :(
+Would you please put a download button (with a direct link) for each video lecture?
+If the answer in NO, please tell me how I can watch them?>
+1:<Wish I had read this before blithely going ahead not knowing they wanted multiple answers... :(>
+2:<Thanks! It matches to my requirement but forgotten to mention that I am searching for any free service, http://iweb.com/cloud/servers is also a choice but again its not free :( 
+
+If you can suggest any free service it will be a big help!
+
+In case unable to find any free service one of them will be my only choice.>
+3:<I understand this problem as follos:
+I think this formula is not an ideal equation, but rather a realistic equation. This equation must be satisfied in realistic case.
+Suppose we have an observation set of output Y and predictor X :(Y1, X1).
+Even if the true function is Y=f(X), there would be some error E, for example the error from the measurement devices etc. 
+So in actual situation, Y1 is not equal to X1, there must be some error E1 between ideal value f(X1) and observed value Y1. So, in general, Y1 is not equal to f(X1), and discrepancy between them is the error E1 = Y1 - f(X1).
+If we assume some error E1, then the equation Y1 = f(X1) + E1 will be satisfied in this case.
+More general notation would be 
+   Y = f(X) + E
+
+Regards, 
+<nameRedac_anon_screen_name_redacted>>
+4:<*From the dept of "too much free time," I created SAS programs to duplicate the output from the R code in the Chapter 4 Lab.;
+
+proc datasets memtype=data library=work kill; run;
+options nodate nonumber ps=68 ls=120 mprint mlogic sgen; title; footnote; ods graphics off;
+
+* csv file created from Smarket dataset (> write.csv(Smarket,file="Smarket.csv");
+* note: need to delete 1st column in resulting csv file before importing into sas;
+proc import out=Smarket dbms=dlm replace
+     datafile='\Cu-ynk-fsdeptsStatisticsTraining Courses and MaterialsStatisticalLearningCourseTextbookSmarket.csv';
+   getnames=yes;
+   delimiter=',';
+   guessingrows=100;
+run;
+
+***** 4.6.2 Logistic Regression *****;
+title '4.6.2 Logistic Regression';
+
+* > glm.fit=glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume,data=Smarket,family=binomial)
+  > summary(glm.fit)
+  > glm.probs=predict(glm.fit,type ="response");
+proc logistic data=Smarket;
+   title2 'Full Model: All Data';
+   model Direction(event='Up') = Lag1 Lag2 Lag3 Lag4 Lag5 Volume;
+   output out=Preds resdev=DevResid predprobs=i;
+run;
+
+proc means data=Preds min p25 median p75 max;
+   var DevResid;
+run;
+
+* > glm.probs [1:10];
+proc print data=Preds (obs=10);
+   var IP_Up;
+run;
+
+* confusion matrix (http://support.sas.com/kb/22/603.html);
+* > glm.pred=rep("Down",1250)
+  > glm.pred[glm.probs > .5]="Up"
+  > table(glm.pred,Direction);
+proc freq data=Preds;
+   table _INTO_*Direction / out=CellCounts norow nocol nopercent;
+run;
+
+* calculate % logistic regression correctly predicted;
+* > mean(glm.pred==Direction);
+data CellCounts;
+   set CellCounts;
+   Match = 0;
+   if Direction = _INTO_ then Match = 1;
+run;
+
+proc means data=CellCounts mean;
+   freq count;
+   var Match;
+run;
+
+* create model from training data (year < 2005);
+* > train=(Year < 2005)
+  > Smarket.2005=Smarket[!train,]
+  > Direction.2005=Direction[!train];
+data TrainingData Smarket2005;
+   set Smarket;
+   if Year < 2005 then output TrainingData;
+     else output Smarket2005;
+run;
+
+* fit reduced model on training data and apply to test data;
+* > glm.fit=glm(Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume,data=Smarket,family=binomial,subset=train);
+proc logistic data=TrainingData;
+   title2 'Full Model';
+   model Direction(event='Up') = Lag1 Lag2 Lag3 Lag4 Lag5 Volume;
+   * > glm.probs=predict(glm.fit,Smarket.2005,type="response");
+   score data=Smarket2005 out=Preds2;
+run;
+
+* confusion matrix on test data (http://support.sas.com/kb/22/603.html);
+* > glm.pred=rep("Down",252)
+  > glm.pred[glm.>
+5:<This forum needs some tender love.  :)  Looking for an answer is like digging through a dumpster.  :(
+Moderator, I suggest the following:
+
+ 1. Could you expand the list of questions (left side) bigger?  Working through that on my 13' MBA is tedious.
+ 2. Sort the chapter questions by chapter.  Say, I want to know about interaction from chapter 3.3, I'd head to that sub-category.  I don't want to see "how to install R package".
+ 3. I am aware of the search box, but what if the person failed to use a keyword which came to my mind.  I could be double posting on here.
+
+Thanks,  
+<nameRedac_anon_screen_name_redacted>>
+6:<* I created SAS programs to duplicate the output from the R code in the Chapter 5 Lab.;
+* No warranty.  :-);
+* Sorry about the formatting. It appears to be automatic.;
+
+proc datasets memtype=data library=work kill; run;
+options nodate nonumber ps=68 ls=120 mprint mlogic sgen; title; footnote; ods graphics off;
+
+***** 5.3.1 The Validation Set Approach *****;
+title '5.3.1 The Validation Set Approach';
+
+* csv file created from Auto dataset (> write.csv(Auto,file="Auto.csv");
+* note: need to delete 1st column in resulting csv file before importing into sas;
+* note: sas imports horsepower as character;
+proc import out=Auto(rename=(horsepower=horsepowerchar)) dbms=dlm replace
+     datafile='\Cu-ynk-fsdeptsStatisticsTraining Courses and MaterialsStatisticalLearningCourseTextbookAuto.csv';
+   getnames=yes;
+   delimiter=',';
+   guessingrows=1000;
+run;
+
+data Auto;
+   set Auto;
+   horsepower = horsepowerchar + 0;
+   drop horsepowerchar;
+   horsepowersq = horsepower**2;
+   horsepowercb = horsepower**3;
+run;
+
+* randomly sample 196 obs for the training and test datasets & fit first order model to training data;
+* > set.seed(1)
+  > train=sample(392,196)
+  > lm.fit=lm(mpg~horsepower,data=Auto,subset=train);
+ods listing close;  * supress printed output;
+proc glmselect data=Auto seed=1;
+   title2 'Seed = 1, 1st Order Model';
+   model mpg = horsepower / selection=none;  * keep all variables in the model;
+   partition fraction(test=0.5);  * randomly split the data in half between training & test;
+   ods output fitstatistics=FitStats1;
+run;
+ods listing;
+
+* estimate MSE;
+* > mean((mpg-predict(lm.fit,Auto))[-train]^2);
+proc print data=FitStats1 noobs;
+   where substr(Label1,1,3) in ('ASE');
+run;
+
+* repeat for quadratic model;
+* > lm.fit2=lm(mpg~poly(horsepower,2),data=Auto,subset=train);
+ods listing close;
+proc glmselect data=Auto seed=1;
+   title2 'Seed = 1, 2nd Order Model';
+   model mpg = horsepower horsepowersq / selection=none;
+   partition fraction(test=0.5);
+   ods output fitstatistics=FitStats2;
+run;
+ods listing;
+
+* > mean((mpg-predict(lm.fit2,Auto))[-train]^2);
+proc print data=FitStats2 noobs;
+   where substr(Label1,1,3) in ('ASE');
+run;
+
+* repeat for cubic model;
+* > lm.fit3=lm(mpg~poly(horsepower,3),data=Auto,subset=train);
+ods listing close;
+proc glmselect data=Auto seed=1;
+   title2 'Seed = 1, 3rd Order Model';
+   model mpg = horsepower horsepowersq horsepowercb / selection=none;
+   partition fraction(test=0.5);
+   ods output fitstatistics=FitStats3;
+run;
+ods listin>
+7:<* I created SAS programs to duplicate the output from the R code in the Chapter 5 Lab.;
+* No warranty.  :-);
+* Sorry about the formatting. It appears to be automatic.;
+
+proc datasets memtype=data library=work kill; run;
+options nodate nonumber ps=68 ls=120 mprint mlogic sgen; title; footnote; ods graphics off;
+
+***** 5.3.1 The Validation Set Approach *****;
+title '5.3.1 The Validation Set Approach';
+
+* csv file created from Auto dataset (> write.csv(Auto,file="Auto.csv");
+* note: need to delete 1st column in resulting csv file before importing into sas;
+* note: sas imports horsepower as character;
+proc import out=Auto(rename=(horsepower=horsepowerchar)) dbms=dlm replace
+     datafile='\Cu-ynk-fsdeptsStatisticsTraining Courses and MaterialsStatisticalLearningCourseTextbookAuto.csv';
+   getnames=yes;
+   delimiter=',';
+   guessingrows=1000;
+run;
+
+* randomly sample 196 obs for the training and test datasets;
+* > set.seed(1)
+  > train=sample(392,196);
+proc surveyselect data=Auto method=srs sampsize=196 rep=1 seed=1 out=AutoSelect1 outall noprint;
+   * 'method=srs' specifies without replacement;
+   * 'outall' option keeps all data in output dataset and adds 'selected' variable (0,1);
+run;
+
+data AutoTraining1 AutoTest1;
+   set AutoSelect1;
+   horsepower = horsepowerchar + 0;
+   drop horsepowerchar;
+   horsepowersq = horsepower**2;
+   horsepowercb = horsepower**3;
+   if Selected = 1 then output AutoTraining1;
+     else output AutoTest1;
+run;
+
+* fit first order model to training data;
+* > lm.fit=lm(mpg~horsepower,data=Auto,subset=train);
+proc reg data=AutoTraining1 outest=RegEst1 noprint;
+   title2 'Seed = 1, 1st Order Model';
+   mpghat: model mpg = horsepower;
+   * label the model 'mpghat' for naming predicted column in score outout dataset;
+run;
+
+* apply model to test data and estimate MSE;
+* > mean((mpg-predict(lm.fit,Auto))[-train]^2);
+proc score data=AutoTest1 score=RegEst1 type=parms out=ScoreOut1;
+   var horsepower;
+run;
+
+data ScoreOut1;
+   set ScoreOut1;
+   SqError = (mpg - mpghat)**2;
+run;
+
+proc means data=ScoreOut1 mean;
+   var SqError;
+run;
+
+* repeat for quadratic model;
+* > lm.fit2=lm(mpg~poly(horsepower,2),data=Auto,subset=train);
+proc reg data=AutoTraining1 outest=RegEst2 noprint;
+   title2 'Seed = 1, 2nd Order Model';
+   mpghat: model mpg = horsepower horsepowersq;
+run;
+
+* > mean((mpg-predict(lm.fit2,Auto))[-train]^2);
+proc score data=AutoTest1 score=RegEst2 type=parms out=ScoreOut2;
+   var horsepower horsepowersq;
+run;
+
+data ScoreOut2;
+   set ScoreO>
+8:<* I created SAS programs to duplicate the output from the R code in the Chapter 5 Lab.;
+* No warranty.  :-);
+* Sorry about the formatting. It appears to be automatic.;
+
+proc datasets memtype=data library=work kill; run;
+options nodate nonumber ps=68 ls=120 mprint mlogic sgen; title; footnote; ods graphics off;
+
+***** 5.3.2 Leave-One-Out Cross-Validation *****;
+title '5.3.2 Leave-One-Out Cross-Validation';
+
+* csv file created from Auto dataset (> write.csv(Auto,file="Auto.csv");
+* note: need to delete 1st column in resulting csv file before importing into sas;
+* note: sas imports horsepower as character;
+proc import out=Auto(rename=(horsepower=horsepowerchar)) dbms=dlm replace
+     datafile='\Cu-ynk-fsdeptsStatisticsTraining Courses and MaterialsStatisticalLearningCourseTextbookAuto.csv';
+   getnames=yes;
+   delimiter=',';
+   guessingrows=1000;
+run;
+
+data Auto;
+   set Auto;
+   horsepower = horsepowerchar + 0;
+   horsepowersq = horsepower**2;
+   horsepowercb = horsepower**3;
+   horsepower4th = horsepower**4;
+   horsepower5th = horsepower**5;
+run;
+
+* use glm to perform linear regression;
+* > glm.fit=glm(mpg~horsepower,data=Auto)
+  > coef(glm.fit);
+proc glm data=Auto;
+   title2 'GLM';
+   model mpg = horsepower;
+run;
+
+* > lm.fit =lm(mpg~horsepower,data=Auto)
+  > coef(lm.fit);
+proc reg data=Auto;
+   title2 'Regression';
+   model mpg = horsepower;
+run;
+
+* fit first order model using LOOCV;
+* > library=(boot)
+  > glm.fit=glm(mpg~horsepower,data=Auto)
+  > cv.err=cv.glm(Auto,glm.fit)
+  > cv.err$delta;
+proc pls data=Auto cv=one noprint;  * 'cv=one' requests one-at-a-time cross validation; 
+   title2 '1st Order Model';
+   model mpg = horsepower;
+   output out=plsout1 press=ApproxPredResid;
+run;
+
+data plsout1;
+   set plsout1;
+   SqPredResid = ApproxPredResid**2;
+run;
+
+proc means data=plsout1 mean;
+   var SqPredResid;
+run;
+
+* fit models using LOOCV up to order 5;
+* > cv.error=rep (0,5)
+  > for (i in 1:5){
+  + glm.fit=glm(mpg~poly(horsepower ,i),data=Auto)
+  + cv.error[i]=cv.glm (Auto ,glm .fit)$delta [1]
+  + }
+  > cv.error;
+proc pls data=Auto cv=one noprint;
+   title2 '2nd Order Model';
+   model mpg = horsepower horsepowersq;
+   output out=plsout2 press=ApproxPredResid;
+run;
+
+proc pls data=Auto cv=one noprint;
+   title2 '3rd Order Model';
+   model mpg = horsepower horsepowersq horsepowercb;
+   output out=plsout3 press=ApproxPredResid;
+run;
+
+proc pls data=Auto cv=one noprint;
+   title2 '4th Order Model';
+   model mpg = horsepower horsepowersq horsepowercb horsepower4th;
+>
+9:<* I created SAS programs to duplicate the output from the R code in the Chapter 5 Lab.;
+* No warranty.  :-);
+* Sorry about the formatting. It appears to be automatic.;
+
+proc datasets memtype=data library=work kill; run;
+options nodate nonumber ps=68 ls=120 mprint mlogic sgen; title; footnote; ods graphics off;
+
+***** 5.3.3 k-Fold Cross-Validation *****;
+title '5.3.3 k-Fold Cross-Validation';
+
+* csv file created from Auto dataset (> write.csv(Auto,file="Auto.csv");
+* note: need to delete 1st column in resulting csv file before importing into sas;
+* note: sas imports horsepower as character;
+proc import out=Auto(rename=(horsepower=horsepowerchar)) dbms=dlm replace
+     datafile='\Cu-ynk-fsdeptsStatisticsTraining Courses and MaterialsStatisticalLearningCourseTextbookAuto.csv';
+   getnames=yes;
+   delimiter=',';
+   guessingrows=1000;
+run;
+
+* > set.seed(17)
+  > cv.error.10= rep(0,10)
+  > for(i in 1:10){
+  + glm.fit=glm(mpg~poly(horsepower,i),data=Auto)
+  + cv.error.10[i]=cv.glm(Auto,glm.fit,K=10)$delta[1]
+  + }
+  > cv.error .10;
+
+data Auto;
+   set Auto;
+   horsepower1 = horsepowerchar + 0;  * convert horsepower to numeric;
+   * create horsepower squared, cubed ... 10th;
+   array h{9} horsepower2-horsepower10;
+   do j = 2 to 10;
+      h{j-1} = horsepower1**j;
+   end;
+   drop j;
+   fold = ranuni(1);  * needed to create folds using proc rank below;
+run;
+
+* create dataset for k=10;
+* note: use of proc surveymeans with rep option will create datasets for RANDOM k-fold cross validation;
+proc rank data=Auto out=AutoRanked groups=10; * divides data into k=10 folds;
+   var fold;  * fold is assigned a value from 0 to 9;
+run;
+
+%macro KFCV;  * macro to loop thru each of the k=10 validation datasets and  increasing complex polynomial fits;
+
+%do PolyOrder = 1 %to 10;  * loop thru increasing complex polynomial fits;
+
+data MSEs&PolyOrder;  * blank dataset to append MSEs (from each of the k=10 validation datasets) to;
+run;
+
+   %do mfold = 0 %to 9;  * loop thru each of the k=10 validation (held-out) datasets;
+
+* ensure that data from a previous loop is not used;
+proc datasets memtype=data library=work; 
+   save AutoRanked MSEs&PolyOrder;
+run;
+
+* fit model on non-held-out folds;
+proc reg data=AutoRanked outest=RegEst noprint;
+   where fold ne &mfold;
+   title2 "Order &PolyOrder Model";
+   mpghat: model mpg = %do i = 1 %to &PolyOrder; horsepower&i %end;;  * loop adds higher order variables each time thru;
+   * label the model 'mpghat' for naming predicted column in score outout da>
+10:<* I created SAS programs to duplicate the output from the R code in the Chapter 5 Lab.;
+* No warranty.  :-);
+* Sorry about the formatting. It appears to be automatic.;
+
+proc datasets memtype=data library=work kill; run;
+options nodate nonumber ps=68 ls=120 mprint mlogic sgen; title; footnote; ods graphics off;
+
+***** 5.3.4 The Bootstrap *****;
+title '5.3.4 The Bootstrap';
+
+* csv file created from Portfolio dataset (> write.csv(Portfolio,file="Portfolio.csv");
+* note: need to add "index" to 1st row in resulting csv file before importing into sas;
+proc import out=Portfolio dbms=dlm replace
+     datafile='\Cu-ynk-fsdeptsStatisticsTraining Courses and MaterialsStatisticalLearningCourseTextbookPortfolio.csv';
+   getnames=yes;
+   delimiter=',';
+   guessingrows=1000;
+run;
+
+* > alpha.fn=function (data ,index){
+  + X=data$X [index]
+  + Y=data$Y [index]
+  + return ((var(Y)-cov (X,Y))/(var(X)+var(Y) -2* cov(X,Y)))
+  + };
+* > alpha.fn(Portfolio ,1:100);
+* get variances & covariances;
+ods listing close;
+proc corr data=Portfolio cov;
+   var X Y;
+   ods output cov=CovMatrix1;
+run;
+ods listing;
+
+* calculate alpha;
+data Alphas1(keep=alpha where=(alpha ne .));
+   set CovMatrix1;
+   lagX = lag(X);  * lag function cant be used after a if-then;
+   if Variable = 'Y' then do;
+      VarX = lagX; VarY = Y; CovXY = X;
+      alpha = (VarY - CovXY)/((VarX + VarY) - (2*CovXY));
+   end;
+run;
+
+proc print data=Alphas1 noobs;
+   title2 'Portfolio Data: All Data';
+run;
+
+* > set.seed(1)
+  > alpha.fn(Portfolio,sample(100,100,replace=T));
+* create sample of 100 obs w/ replacement;
+proc surveyselect data=Portfolio method=urs sampsize=100 rep=1 seed=1 out=PortfolioSelect2 noprint;
+   * 'method=urs' specifies with replacement and adds 'NumberHits' variable which MUST BE USED IN ALL SUBSEQUENT PROCS;
+run;
+
+ods listing close;
+proc corr data=PortfolioSelect2 cov;
+   var X Y;
+   freq NumberHits;  * MUST BE USED IN ALL PROCS;
+   ods output cov=CovMatrix2;
+run;
+ods listing;
+
+* calculate alpha;
+data Alphas2(keep=alpha where=(alpha ne .));
+   set CovMatrix2;
+   lagX = lag(X);  * lag function cant be used after a if-then;
+   if Variable = 'Y' then do;
+      VarX = lagX; VarY = Y; CovXY = X;
+      alpha = (VarY - CovXY)/((VarX + VarY) - (2*CovXY));
+   end;
+run;
+
+proc print data=Alphas2 noobs;
+   title2 'Portfolio Data: Single Bootstrap Data';
+run;
+
+* > boot(Portfolio,alpha.fn,R=1000);
+* sample 100 ods w/ replacement 1000 times;
+proc surveyselect data=Portfolio method=urs sampsize=100 rep=1000 seed=1 out=P>
+11:<You can try also change MULT = 1000; xs=[x1 x2 x3 x4 x5];y = 3*xs+3*sin(xs); and there will be a difference about 25% with 5000 values>
+12:<Thanks. yes I missed "*blockSize" part in the seq. It should have been:
+
+unifnum=c(unifnum,seq(from=(blocknum[j]-1)*blockSize+1,to=blocknum[j]*blockSize))
+
+Then I'll get the correct result.
+
+Your code is much more elegant and condense, that's very helpful. I'm new to R and starts to see the beauty of it.>
+13:<My data has a binary response variable with probability 50%.  The actual event rate is right around 7%.  I'm not necessarily concerned about classifying the data as 0's and 1's, but more interested in rank ordering them in terms of the predicted probability.  
+
+I have a few thoughts on my cross validation measure.  The first is to use the misclassification rate as defined in the notes (using the parameter estimates with the intercept adjusted for the rare event).  The second is to use the mean deviance =(-2*loglikelihood)/n_k, where n_k is the number of observations from the kth fold.  I consider the mean deviance because the size of the data is not a multiply of k.  The third is using percent concordant - this seems desirable since I'm interested in ranking customers.    
+
+
+Any thoughts on which may be best for my purposes, or where they may be flaws that I have not considered?  Thank you!>
+14:<I haven't used splines and this felt a bit rushed, so let me try to see if I understand correctly.
+
+I can see that for (K+1) knots X_k (k=0..K, including start and end point), ie K intervals, we fit (using LSE or whatever) 4*K parameters beta_{ik}, where k=0..K is the index of the interval and i=0..3 denotes coefficient of x^i, to give us K f_k third-order polynomials. With the additional constraints that f_k^(i)(X_k)=f_{k+1}^(i)(X_k), where f^(i) means i-th derivative of f, i=0..2, and k=1..(K-1). This means 3*(K-1) conditions, which leaves us with K+3 independent coefficients (where did the K+4) come from?
+
+I can buy that this is equivalent to a fitting on the whole interval, where the variables being fit are 1, x, x^2 and (x-X_k)^3_+, with k=0..K-1 (is this correct?).
+
+I am not sure what the difference is for natural splines. Is it correct to understand that, for natural splines, the variables (regressors) are a collection of functions that are g_k(x)=(x-X_k)^3 between X_K and X_{k+1}, then g_k^(0)(X_{k+1})+g_k^(1)(X_{k+1})*x or x>X_{K+1}? Is it correct to understand that this eliminates the need to add 'global' 1, x and x^2 as regressors, which is why we are left with K parameters being fit? Or have I got it all wrong?
+
+If I got this right: we saw how natural splines compares to polynomial fit, but how do natural splines compare to a direct spline it?
+
+Many thanks for clarifying.>
+15:<* sorry about the formatting - appears the be the default;
+
+proc datasets memtype=data library=work kill; run;
+options nodate nonumber ps=68 ls=120 mprint mlogic sgen; title; footnote; ods graphics off;
+
+***** 6.5.1 Best Subset Selection *****;
+title '6.5.1 Best Subset Selection';
+
+* csv file created from Portfolio dataset (> write.csv(Hitters,file="Hitters.csv");
+* note: need to add "Player" to 1st row in resulting csv file before importing into sas;
+proc import out=HittersAll(rename=(Salary=SalaryChar)) dbms=dlm replace
+     datafile='\Cu-ynk-fsdeptsStatisticsTraining Courses and MaterialsStatisticalLearningCourseTextbookHitters.csv';
+   getnames=yes;
+   delimiter=',';
+   guessingrows=1000;
+run;
+
+* delete row if any variable missing;
+* > Hitters=na.omit(Hitters);
+data Hitters;
+   set HittersAll;
+   Salary = SalaryChar + 0;
+   * delete row if any variable missing;
+   if nmiss(of _numeric_) + cmiss(of _character_) > 0 then delete;
+   * sas needs numeric variables only for best subset selection (which is available only in procs reg & phreg); 
+   if League = 'A' then League01 = 0; else League01 = 1;
+   if Division = 'E' then Division01 = 0; else Division01 = 1;
+   if NewLeague = 'A' then NewLeague01 = 0; else NewLeague01 = 1;
+run;
+
+* use contents & sql to get list of (numeric only) predictors for model statement;
+proc contents data=Hitters(keep=_numeric_) noprint out=ContentsOut(keep=Name);
+run;
+
+proc sql noprint;
+   select Name into :Predictors separated by ' '
+   from ContentsOut
+   where Name ne 'Salary';
+quit;
+
+* > library (leaps)
+  > regfit .full=regsubsets (Salary~.,Hitters )
+  > summary (regfit .full);
+* perform best subset selection, up to 8 predictors - note that glmselect cannot perform best subset selection;
+proc reg data=Hitters;
+   title2 'Hitters Dataset: Up to 8 Predictors';
+   model Salary = &Predictors / selection=rsquare stop=8 sse;  * 'sse' displayed since book used RSS to quantify best;
+run;quit;
+
+* > regfit.full=regsubsets(Salary~.,data=Hitters,nvmax=19)
+  > reg.summary=summary(regfit.full)
+  > par(mfrow=c(2,2))
+  > plot(reg.summary$rss,xlab="Number of Variables",ylab="RSS",type="l")
+  > plot(reg.summary$adjr2,xlab="Number of Variables",ylab="Adjusted RSq",type="l")
+  > plot(reg.summary$cp,xlab="Number of Variables",ylab="Cp",type=’l’)
+  > plot(reg.summary$bic,xlab="Number of Variables",ylab="BIC",type=’l’);
+* perform best subset selection, up to 19 predictors and plot the fit statistics;
+ods graphics on;
+proc reg data=Hitters outest=Reg>
+16:<* sorry about the formatting - it appears to be automatic;
+
+proc datasets memtype=data library=work kill; run;
+options nodate nonumber ps=68 ls=120 mprint mlogic sgen; title; footnote; ods graphics off;
+
+***** 6.5.2 Forward and Backward Stepwise Selection *****;
+title '6.5.2 Forward and Backward Stepwise Selection';
+
+* csv file created from Portfolio dataset (> write.csv(Hitters,file="Hitters.csv");
+* note: need to add "Player" to 1st row in resulting csv file before importing into sas;
+proc import out=HittersAll(rename=(Salary=SalaryChar)) dbms=dlm replace
+     datafile='\Cu-ynk-fsdeptsStatisticsTraining Courses and MaterialsStatisticalLearningCourseTextbookHitters.csv';
+   getnames=yes;
+   delimiter=',';
+   guessingrows=1000;
+run;
+
+* delete row if any variable missing;
+* > Hitters=na.omit(Hitters);
+data Hitters;
+   set HittersAll;
+   Salary = SalaryChar + 0;
+   * delete row if any variable missing;
+   if nmiss(of _numeric_) + cmiss(of _character_) > 0 then delete;
+   * sas needs numeric variables only for best subset selection (which is available only in procs reg & phreg); 
+   if League = 'A' then League01 = 0; else League01 = 1;
+   if Division = 'E' then Division01 = 0; else Division01 = 1;
+   if NewLeague = 'A' then NewLeague01 = 0; else NewLeague01 = 1;
+run;
+
+* use contents & sql to get list of (numeric only) predictors for model statement;
+proc contents data=Hitters(keep=_numeric_) noprint out=ContentsOut(keep=Name);
+run;
+
+proc sql noprint;
+   select Name into :Predictors separated by ' '
+   from ContentsOut
+   where Name ne 'Salary';
+quit;
+
+* > regfit.fwd=regsubsets(Salary~.,data=Hitters,nvmax=19,method="forward")
+  > summary(regfit.fwd);
+* perform forward stepwise selection, up to 19 predictors;
+proc reg data=Hitters;
+   title2 'Hitters Dataset: Forward Selection';
+   model Salary = &Predictors / selection=forward;
+run;quit;
+
+* > regfit.fbd=regsubsets(Salary~.,data=Hitters,nvmax=19,method="backward")
+  > summary(regfit.bwd);
+* perform backward stepwise selection, up to 19 predictors;
+proc reg data=Hitters;
+   title2 'Hitters Dataset: Backward Selection';
+   model Salary = &Predictors / selection=backward;
+run;quit;
+
+quit;>
+17:<* sorry about the formatting - it appears to be automatic;
+
+proc datasets memtype=data library=work kill; run;
+options nodate nonumber ps=68 ls=120 mprint mlogic sgen; title; footnote; ods graphics off;
+
+***** 6.5.3 Choosing Among Models Using the Validation Set Approach and Cross-Validation *****;
+title '6.5.3 Choosing Among Models Using the Validation Set Approach and Cross-Validation';
+
+* csv file created from Portfolio dataset (> write.csv(Hitters,file="Hitters.csv");
+* note: need to add "Player" to 1st row in resulting csv file before importing into sas;
+proc import out=HittersAll(rename=(Salary=SalaryChar)) dbms=dlm replace
+     datafile='\Cu-ynk-fsdeptsStatisticsTraining Courses and MaterialsStatisticalLearningCourseTextbookHitters.csv';
+   getnames=yes;
+   delimiter=',';
+   guessingrows=1000;
+run;
+
+* delete row if any variable missing;
+* > Hitters=na.omit(Hitters);
+data Hitters;
+   set HittersAll;
+   Salary = SalaryChar + 0;
+   * delete row if any variable missing;
+   if nmiss(of _numeric_) + cmiss(of _character_) > 0 then delete;
+   * sas needs numeric variables only for best subset selection (which is available only in procs reg & phreg); 
+   if League = 'A' then League01 = 0; else League01 = 1;
+   if Division = 'E' then Division01 = 0; else Division01 = 1;
+   if NewLeague = 'A' then NewLeague01 = 0; else NewLeague01 = 1;
+run;
+
+* use contents & sql to get list of (numeric only) predictors for model statement;
+proc contents data=Hitters(keep=_numeric_) noprint out=ContentsOut(keep=Name);
+run;
+
+proc sql noprint;
+   select Name into :Predictors separated by ' '
+   from ContentsOut
+   where Name ne 'Salary';
+quit;
+
+* > set.seed(1)
+  > train=sample(c(TRUE,FALSE),nrow(Hitters),rep=TRUE)
+  > test=(!train);
+* randomly split the data into training and test datasets;
+proc surveyselect data=Hitters method=srs samprate=0.5 rep=1 seed=1 out=HittersSelect1 outall noprint;
+   * 'method=srs' specifies without replacement;
+   * 'outall' option keeps all data in output dataset and adds 'selected' variable (0,1);
+run;
+
+data HittersTrain1 HittersTest1;
+   set HittersSelect1;
+   if selected = 1 then output HittersTrain1;
+   * create mutiple reps of test data to merge with models of each size in score procedure;
+     else do _in_ = 1 to 19;  * _in_ = # of variables included in the model;
+        output HittersTest1;
+     end;
+run;
+
+* > regfit.best=regsubsets(Salary~.,data=Hitters[train,],nvmax=19)
+* perform best subset selection, up to 19 predictors - note that glmsel>
+18:<There has been a video change of some sort. Before, I could slow down or speed up the video. No more. :(>
+19:<Why is the solution not unique? It depends. For instance, if $$X=matrix 1,1,-1,-1\ 1,0,2,1\ 0,1,-3,-2$$ (sorry about the alignment), and $Y=(1,-1,0)$, then I think  the (only) projection of $Y$ onto the column space of $X$ is  $Z=(1/3, -1/3, 2/3)$, since $ Y - Z$ is orthogonal to the column space. Also, the formula for beta above is not quite right.>
+20:<I'm not understanding the set up on the R quiz on section 9.  I have 10 observations with y=0 and x~N(0,1)   and then have 10 more observations with y=1 and x~N(mu,1) with mu=(1,1,1,1,1,0,0,0,0,0)
+
+I take 50 random samples with replacement from the y=0 set and 50 random samples with replacement from the y=1 set.  This is where I am getting off track.  with 50 samples with replacement from either set of 10 I've used up all of the observations in the training set.  There isn't anything left for the test set.  I am not following this set up at all.  Anyone getting this able to shed some light?>
+21:<yeah I was trying it this way thinking we select the first 50 rows from multivariate normal (0,1)
+
+    matrix(mvrnorm(500,rep(0,10),diag(10)),nrow=50,ncol=10)
+
+and likewise for the other 50 rows(y=1) with multivariate normal(mu=(1,0),1)
+
+    matrix(mvrnorm(500,c(rep(1,5),rep(0,5)),diag(10)),50,10)
+then stacking them and combining with y vector of 50 0's and 50 1's
+
+I fitted the model, predicted test error creating a test set similarly and averaged the result  but haven't got it right.>
+22:<Lets try dissecting the question
+
+"In this problem, you will use simulation to evaluate (by Monte Carlo) the expected misclassification error rate given a particular generating model."
+
+*<zipRedac>) We first identify that the error of interest is the misclassification error. That is; number of wrong classification over total number of classification*
+
+
+"Let yi be equally divided between classes 0 and <zipRedac>, and let xi?R<zipRedac>0 be normally distributed."
+
+*2) This says that we have 2 different kinds of responses, 0 and <zipRedac>. Each of these responses can be explained by <zipRedac>0 independent/explanatory variables.*
+
+"Given yi=0, xi?N<zipRedac>0(0,I<zipRedac>0).  Given yi=<zipRedac>, xi?N<zipRedac>0(?,I<zipRedac>0) with ?=(<zipRedac>,<zipRedac>,<zipRedac>,<zipRedac>,<zipRedac>,0,0,0,0,0). "
+
+*3) This tells us the distribution of the <zipRedac>0 independent/explanatory variables. Corresponding to the responses y=<zipRedac>, we have that the x's are distributed according to a multivariate normal (mvn) distribution with mean being a <zipRedac>0 by <zipRedac> vector ? and variance equal to the <zipRedac>0 by <zipRedac>0 identity matrix. Similarly, corresponding to the responses y = 0, we have that the x's are distributed according to a mvn distribution with mean being a <zipRedac>0 by <zipRedac> vector of zeros and variance equal to the <zipRedac>0 by <zipRedac>0 identity matrix.*
+
+"Now, we would like to know the expected test error rate if we fit an SVM to a sample of 50 random training points from class <zipRedac> and 50 more from class 0.  We can calculate this to high precision by <zipRedac>) generating a random training sample to train on, 2) evaluating the number of mistakes we make on a large test set, and then 3) repeating (<zipRedac>-2) many times and averaging the error rate for each trial."
+
+4) 
+This describes how a typical training data should look like. The training data should contain <zipRedac>00 observations:
+
+50 observations with responses yi = 0, and <zipRedac>0 xi?N<zipRedac>0(0,I<zipRedac>0)
+
+50 observations with responses yi = <zipRedac>, and <zipRedac>0 xi?N<zipRedac>0(?,I<zipRedac>0)
+
+(train data should have <zipRedac>00 rows and <zipRedac><zipRedac> columns)
+
+(hint: use mvrnorm in MASS package)
+
+We can generate one test data with say a large enough observation <zipRedac>0000 such that
+
+5000 observations with responses yi = 0, and <zipRedac>0 xi?N<zipRedac>0(0,I<zipRedac>0)
+
+5000 observations with responses yi = <zipRedac>, a>
+23:<"#Courseware Question 9.R.1
+"#Reference ISLR pages 359-362 with radial kernel substituted
+
+"#Load SVM and Set up for loop to capture errors from 1000 train/test runs
+
+library(e1071)
+
+error = rep(0,1000)
+for (i in 1:1000) {
+
+  #Generate training data set with 50 observations from one class and 50 observations from the other
+  x1=matrix(rnorm(50*10), ncol=10)
+  y1=c(rep(0, 50))
+  x2=matrix(rnorm(50*10), ncol=10)
+  x2[,1:5]=x2[,1:5] + 1
+  y2=c(rep(1,50))
+  xdat1=rbind(x1,x2)
+  ydat1=c(y1,y2)
+  traindat=data.frame(x=xdat1, y=as.factor(ydat1))
+  
+  #Fit default support vector classifier
+  svmfit=svm(y~., data=traindat)
+    
+  #Generate test data set
+  x1test=matrix(rnorm(50*10), ncol=10)
+  y1test=c(rep(0, 50))
+  x2test=matrix(rnorm(50*10), ncol=10)
+  x2test[,1:5]=x2test[,1:5] + 1
+  y2test=c(rep(1,50))
+  xdat1test=rbind(x1,x2)
+  ydat1test=c(y1,y2)
+  testdat=data.frame(x=xdat1test, y=as.factor(ydat1test))
+  
+  #Predict the class labels of these test observations using default svmfit and calculate the error
+  ypred=predict(svmfit, testdat)
+  error[i]=(sum(ypred != testdat$y))/100
+}
+hist(error)
+mean(error)
+sd(error)>
+24:<I got ambitious and ran randomForest along the same line as indicated in chapter 9.R section. 
+I then ran the code that Dr.Hastie used to generate the error plots with obvious modifications. Here is the piece of code I used:
+
+oob.err=double(10)
+test.err=double(10)
+for(mtry in 1:10){
+  
+  rf.fit = randomForest(trainData,as.factor(trainResponse),mtry=mtry)
+ 
+  oob.err[mtry] =(rf.fit$confusion[1,2] + rf.fit$confusion[2,1])/sum(rf.fit$confusion[,-3])
+  rf.pred=predict(rf.fit, newdata = testData)
+  
+ 
+  test.err[mtry] = mean(rf.pred != testResponse)
+
+  cat(mtry," ")
+
+}
+
+
+matplot(1:mtry,cbind(test.err,oob.err),pch=19,col=c("red","blue"),type="b",ylab="")
+legend("topleft",legend=c("OOB","Test"),pch=19,col=c("red","blue"))
+
+since I was using classification, I found the OOB error rate the hard way (there must be other slicker way to find it that I don't know). 
+
+![enter image description here][1]
+
+However, it doesn't match the figure generated by Dr.Hastie in the file ch8.Rmd . Can anybody explain the difference here. Thanks a lot.
+[1]: https://edx-west-uploads.s3.amazonaws.com/1<phoneRedac><phoneRedac>86.jpg>
+25:<Hello all, 
+
+I've followed all of the advice for doing 9.R.1, but my three submitted answers are still incorrect. Could someone please provide some advice? 
+
+**I'm guessing I've made a mistake with the simulated dataset?** I've looked over the related threads and use the mvnorm() function, following the suggestions. (Thanks to everyone commenting on this problem!)
+
+I've tried to create the 1) training dataset and fit the model, 2) create the larger test data set, calculate the test error --- and then repeat this process in the Monte Carlo storing the test error as an element in the test error vector.  
+
+I don't know if it would violate the rules to dump the entire code, so here's the gist and some code mostly from the right side of the <- operator:
+
+    initialize the error vector
+    start the i in 1:1000 for loop {
+          x1<-mvrnorm(n=50, mu=rep(0,10), Sigma=diag(10)) 
+          # do the draws and store as object
+
+          x2<-mvrnorm(n=50, mu=rep(c(1,0), c(5,5)), Sigma=diag(10)) 
+          # thanks to you all on the other threads
+    
+       train<-rbind(x1,x2)
+     classes<-rep(c(0,1),c(50,50))
+         dat<-data.frame(train,classes=as.factor(classes))
+      svmfit<-svm(classes~.,data=dat)
+              predict(svmfit,dat)
+    
+          # is the problem in the test dataset mvnorm()?
+    
+              mvrnorm(n=500, mu=rep(0,10), Sigma=diag(10))
+              mvrnorm(n=500, mu=rep(c(1,0), c(5,5)), Sigma=diag(10))
+              rbind(x1a,x2a)
+              rep(c(0,1),c(500,500))
+              data.frame(test, classest=as.factor(classest))
+              svm(classest~.,data=testdata )
+              predict(svmfitt,testdata)
+              sum(testdata$fit1 != testdata$classest)/1000 
+          
+              # calc error rate on element [i]
+    } 
+    
+    mean(errorrate) # doesn't give me the correct answer :(
+
+
+Could anyone provide some advice about where I'm not understanding how to correctly answer the problem? 
+
+Thanks very much!>
+26:<I'm not sure if it is ok to post code here, so admin please notify me if I need to remove it. 
+
+Basically, I am generating the data (including train and test), than sampling 50 from them to train, finally testing the model and the rest data. The result I got for all three method (raidal svm, linear svm, logistic regression) all resulted in accuracy around 83%, which were seen as incorrect when I submit them. 
+
+    set.seed(101)
+    require(MASS)
+    nobs = 550 # per class
+    cv.ntrain = 50
+    nfeat = 10 # number of features
+    nsimu = 1000 # number of simulation (cross-validation)
+    
+    # Generate multi-normal distributions for each class
+    # Given yi=0, xi?N10(0,I10).
+    mu0    = rep(0, nfeat)
+    sigma0 = diag(nfeat)
+    x0     = mvrnorm(nobs, mu0, sigma0)
+    y0     = rep(0, nobs)
+    dat0   = data.frame(x0, y = factor(y0))
+    
+    # Given yi=1, xi?N10(?,I10) with ?=(1,1,1,1,1,0,0,0,0,0).
+    mu1    = rep(c(1,0), each = nfeat/2)
+    sigma1 = diag(nfeat)
+    x1     = mvrnorm(nobs, mu1, sigma1)
+    y1     = rep(1, nobs)
+    dat1   = data.frame(x1, y = factor(y1))
+    
+    # start monte carlo simulation of svm classification
+    # randomly sample 50 obs from each class, and test on the rest
+    svm.accu = matrix(0, ncol=3, nrow=nsimu)
+    nobs.test = 2 * (nobs - cv.ntrain)
+    for (i in 1:nsimu) {
+      idx.train = sample(1:nobs, cv.ntrain, replace = FALSE)
+      dat.train = rbind(dat0[idx.train, ], dat1[idx.train, ])
+      dat.test  = rbind(dat0[-idx.train, ], dat1[-idx.train, ])
+      
+      fit.radial = svm(y~., data=dat.train, kernel="radial")
+      fit.linear = svm(y~., data=dat.train, kernel="linear")
+      fit.logit  = glm(y~., data=dat.train, family="binomial")
+      
+      pred.radial= predict(fit.radial, dat.test[, 1:nfeat])
+      pred.linear= predict(fit.linear, dat.test[, 1:nfeat]) 
+      pred.logit = predict(fit.logit, dat.test[, 1:nfeat]) 
+    
+      svm.accu[i,1]  = sum(pred.radial == dat.test$y) / nobs.test
+      svm.accu[i,2]  = sum(pred.linear == dat.test$y) / nobs.test
+      svm.accu[i,3]  = sum(ifelse(pred.logit >0.5, 1, 0)  == dat.test$y) / nobs.test
+    }>
+27:<I had a bad time with this item :-( only got OK at 3rd trial.
+
+I was fooled by the phrase *"using the first five principal components ***(computed on rbind(x,x.test))*** instead as low-dimensional derived features"* and due to the bold comment I regressed an lm() in the PCA vectors obtained with all the data!
+
+If the lm() model is trained in the 5 first PCA vectors coming for all the data (x and x.test merged with rbind()) and then it is used to predict y.test, we get a wrong answer. So beware, *you must train using only x to get the first 5 PCA,* then apply lm() to these reduced features in the test data and then predict in the (x.test,y.test) data set and calculate the MSE. 
+
+To get the first 5 PCA vectors you do:
+
+    pr.out = prcomp (x , scale =TRUE)
+    rot = pr.out$rotation[,1:5]
+
+To get the 5 dimension reduced features in train data
+
+    xred=pr.out$x[,1:5]     # the reduced features
+
+Or also works this
+
+    xmat=data.matrix(x, rownames.force = NA)
+    xred = xmat %*% rot
+
+To get the 5 dimension reduced features in test data
+
+    xtestmat=data.matrix(x.test, rownames.force = NA)
+    xtestred = xtestmat %*% rot
+
+And from here you fit the lm(), predict, etc... switching between maatrices and data frames...
+
+Note that in the reduced data you can use simply 
+
+    lmfit=lm(y~.,data=...)
+
+without worrying with boundaries.
+
+HTH
+
+Tony>
+28:<On the bracket challenge, you have like a 1 in 9 quintillion chance of winning. (For those who don't know about it:(https://tournament.fantasysports.yahoo.com/quickenloansbracket/challenge/) 
+
+ This guy has given it some serious thought: [https://www.youtube.com/watch?v=pdnxTr6hG14][1]
+
+I don't have suggestions for data, but second the call for references on any stat/machine learning approaches that have proven successful --- for having the smallest error rate in the office pool! 
+
+
+  [1]: https://www.youtube.com/watch?v=pdnxTr6hG14>
+29:<Thanks for the tip.  I browsed some of Daniella's material ... looks a bit complex and could take a good while for me to understand it :-(
+
+So I take it that without learning 'sparse PCA', which is well beyond the scope of the current course, the issue in my question cannot be addressed.>
+30:<Now it is over :( I really would like to thank you both for the excellent material presented and knowledge shared, which resulted extremely valuable to my position - Marketing analytics,I am totally convinced statistics is leading Marketing into another whole Era, greetings from Guadalajara, Mexico!!!
+
+As simple as a day to day pleasure watching you both every morning. I already miss you!!
+
+Warm regards,
+
+Gina :)>
+31:<Just found the class was closed. I'm working on the assignments :(>
+32:<Ozgur, your link show 11:00 pm, I think the actual deadlines are 11:00 am. They seem to be past 25 minutes ago. :(
+
+I thought all deadlines were 16:30?>
+33:<Yes, unfortunately that was a shocking surprise for me as well... :(>
+34:<I have the same problem. The hardcopy of ESL is not available anymore:(>
