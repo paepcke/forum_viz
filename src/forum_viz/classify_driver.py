@@ -33,6 +33,17 @@ def classify_and_write_results(posts):
 			f.write(output)
 		else:
 			print output
+
+def sentiment_test(train_path, test_path):
+	classifier = PostClassifier()
+	classifier.classify_sentiment_train(train_path)
+	print 'done training'
+	result = classifier.classify_sentiment_test(test_path)
+	print 'Accuracy: ' + str(result[0])
+	print 'Num Errors: ' + str(len(result[1]))
+	for elem in result[1]:
+		print elem 
+		print '\n\n\n'
 	
 def main():
 	parser = argparse.ArgumentParser(description='Uses classify module ' \
@@ -42,12 +53,21 @@ def main():
 	parser.add_argument('-cn', '--coursename', type=str,
 		help='Retrieve posts for a particular course; course defaults to ' \
 			+ default_course_name)
+	parser.add_argument('-c', '--classifier', type=str,
+		help='Applies a particular classifier: \'s\' for sentiment')
+	parser.add_argument('-tr', '--train', type=str,
+		help='Path to training data.')
+	parser.add_argument('-tst', '--test', type=str,
+		help='Path to testing data.')
 	args = parser.parse_args()
 
-	user = args.username if args.username is not None else ''
-	course = args.course if args.coursename is not None else default_course_name
-	posts = retrieve_posts(user, course)
-	classify_and_write_results(posts)
+	if args.classifier == 's':
+		sentiment_test(args.train, args.test)
+	else:
+		user = args.username if args.username is not None else ''
+		course = args.course if args.coursename is not None else default_course_name
+		posts = retrieve_posts(user, course)
+		classify_and_write_results(posts)
 
 if __name__ == "__main__":
     main()

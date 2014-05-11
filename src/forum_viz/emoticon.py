@@ -14,7 +14,6 @@ sad_emoticons = '.*(:-?|=)[[(].*'
 all_emoticons = '.*(:-?|=|;)[])DP[(].*'
 
 def write_posts_to_file(f, posts, label):
-	count = 0
 	for post in posts:
 		words  = [w.lower() for w in post.body.split()]
 		entry = (words, label)
@@ -34,6 +33,7 @@ def write_all_training(forum, path):
 					'body rlike "' + sad_emoticons + '"')
 		pos_len = len(pos_posts)
 		neg_len = len(neg_posts)
+		upper_bound = pos_len if pos_len < neg_len else neg_len
 		if (pos_len + neg_len > 0):
 			course = course.replace('/', '_')
 			try:
@@ -41,14 +41,26 @@ def write_all_training(forum, path):
 					str(pos_len) + '_pos', 'wb')
 				f_neg = open(path + 'negative/' + course + '_' + \
 					str(neg_len) + '_neg', 'wb')
+				f_all = open(path + 'all/' + course + '_' + \
+					str(pos_len + neg_len) + '_all', 'wb')	
+				f_balance = open(path + 'balance/' + course + '_' + \
+					str(upper_bound) + '_bal', 'wb')	
 			except IOError:
 				print 'failed to open file for course ' + course
 				return
 			print 'Writing posts for course ' + course
 			write_posts_to_file(f_pos, pos_posts, "positive")
+			write_posts_to_file(f_all, pos_posts, "positive")
 			write_posts_to_file(f_neg, neg_posts, "negative")
+			write_posts_to_file(f_all, neg_posts, "negative")
+
+			write_posts_to_file(f_balance, pos_posts[:upper_bound], "positive")
+			write_posts_to_file(f_balance, neg_posts[:upper_bound], "negative")
+
 			f_pos.close()
 			f_neg.close()
+			f_all.close()
+			f_balance.close()
 			
 def print_course_emoticons(forum, course_name, regex):
 	emoticon_posts = forum.post_contents(attr,
