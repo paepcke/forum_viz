@@ -5,13 +5,26 @@ import util
 
 class PostClassifier:
 	
-	# Public Interface
 	def classify_topic_unsupervised(self, post):
 		# TODO: Implementation
 		return 'education'
 	def classify_topic_supervised(self, post):
 		# TODO: Implementation
 		return 'education'
+
+	'''
+	Given a path to a file containing word-label tuples for each post
+	it describes, determines the space of features and trains a naive
+	Bayes classifier accordingly. The file must contain pickled objects,
+	each object a tuple
+						(word list, sentiment),
+	where 'word list' is a list of the words that appear in the post
+	and 'sentiment' is a string describing the tone of the post. The
+	trained classifier is stored in self.sentiment_classifier.
+
+	@param path_to_labeled_data: The path to the labeled data file
+	@type path_to_labeled_data: string
+	'''
 	def classify_sentiment_train(self, path_to_labeled_data):
 		# 1) Unpickle Data
 		posts = util.unpickle_file(path_to_labeled_data)
@@ -25,6 +38,24 @@ class PostClassifier:
 		# 4) Train Classifier
 		self.sentiment_classifier = \
 			naivebayes.NaiveBayesClassifier.train(training_set)	
+
+	'''
+	Given a path to a testing file (formatted in the same manner
+	as the training data set -- see classify_sentiment_train),
+	classifies the testing data and returns metrics describing
+	its success (or lack thereof)
+	
+	@precondition classify_sentiment_train must be invoked
+				  before calling this method.
+	@param path_to_testing_data: The path to the testing file.
+	@type path_to_testing_data: string
+	@return A tuple (accuracy, errors), where accuracy is a double
+			describing the success rate and errors is a list of three-tuples
+			(guess, sentiment, post), where guess is the classification result,
+			sentiment is the label attached to the post, and post is the text of
+			the post (broken into words). A tuple appears in errors if and only
+			if the guess did not match the sentiment.
+	'''
 	def classify_sentiment_test(self, path_to_testing_data):
 		# 1) Unpickle data
 		posts = util.unpickle_file(path_to_testing_data)
@@ -42,8 +73,15 @@ class PostClassifier:
 				errors.append((guess, sentiment, post))
 		return (test_accuracy, errors)
 
-	def classify_sentiment(self, sentence):
-		features = self.extract_features(sentence.split())
+	'''
+	Classify a single post by sentiment.
+
+	@precondition classify_sentiment_train must be invoked before calling
+				  this method.
+	@return The label guessed for this post.
+	'''
+	def classify_sentiment(self, post):
+		features = self.extract_features(post.split())
 		return self.sentiment_classifier.classify(features)
 
 	path_to_corenlp_jars = \
