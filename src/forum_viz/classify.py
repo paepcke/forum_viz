@@ -10,8 +10,6 @@ path_to_corenlp_jars = \
 path_to_corenlp_sentiment = \
 		'edu.stanford.nlp.sentiment.SentimentPipeline'
 
-# TODO: Clean this file up ...
-
 def unpickle_file(path_to_file):
 	# Open the file for unpickling.
 	try:
@@ -29,7 +27,6 @@ def unpickle_file(path_to_file):
 
 class PostClassifier:
 	
-	@staticmethod
 	# Public Interface
 	def classify_topic_unsupervised(self, post):
 		# TODO: Implementation
