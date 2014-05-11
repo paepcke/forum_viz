@@ -3,6 +3,11 @@ from nltk.classify.util import LazyMap
 from subprocess import Popen, PIPE, STDOUT
 import util
 
+path_to_corenlp_jars = \
+	'../lib/corenlp-python/stanford-corenlp-full-2013-11-12/*'
+path_to_corenlp_sentiment = \
+	'edu.stanford.nlp.sentiment.SentimentPipeline'
+
 class PostClassifier:
 	
 	def classify_topic_unsupervised(self, post):
@@ -11,6 +16,18 @@ class PostClassifier:
 	def classify_topic_supervised(self, post):
 		# TODO: Implementation
 		return 'education'
+
+	'''
+	Classify a single post by sentiment.
+
+	@precondition classify_sentiment_train must be invoked before calling
+				  this method.
+	@return The label guessed for this post.
+	'''
+	def classify_sentiment(self, post):
+		features = self.sentiment_extract_features(post.split())
+		return self.sentiment_classifier.classify(features)
+
 
 	'''
 	Given a path to a file containing word-label tuples for each post
@@ -25,7 +42,7 @@ class PostClassifier:
 	@param path_to_labeled_data: The path to the labeled data file
 	@type path_to_labeled_data: string
 	'''
-	def classify_sentiment_train(self, path_to_labeled_data):
+	def sentiment_train(self, path_to_labeled_data):
 		# 1) Unpickle Data
 		posts = util.unpickle_file(path_to_labeled_data)
 
@@ -35,6 +52,7 @@ class PostClassifier:
 		# Build the training set	
 		training_set = self.lazy_apply_feautres(posts)
 
+		print 'Training ... '
 		# 4) Train Classifier
 		self.sentiment_classifier = \
 			naivebayes.NaiveBayesClassifier.train(training_set)	
@@ -56,12 +74,13 @@ class PostClassifier:
 			the post (broken into words). A tuple appears in errors if and only
 			if the guess did not match the sentiment.
 	'''
-	def classify_sentiment_test(self, path_to_testing_data):
+	def sentiment_test(self, path_to_testing_data):
 		# 1) Unpickle data
 		posts = util.unpickle_file(path_to_testing_data)
 		# 2) Extract features
 		testing_set = self.lazy_apply_feautres(posts)
 		# 3) Test with classifier
+		print 'Testing ...'
 		test_accuracy = accuracy(self.sentiment_classifier, testing_set)
 		errors = []
 		f_iter  = testing_set.iterate_from(0)
@@ -73,22 +92,6 @@ class PostClassifier:
 				errors.append((guess, sentiment, post))
 		return (test_accuracy, errors)
 
-	'''
-	Classify a single post by sentiment.
-
-	@precondition classify_sentiment_train must be invoked before calling
-				  this method.
-	@return The label guessed for this post.
-	'''
-	def classify_sentiment(self, post):
-		features = self.extract_features(post.split())
-		return self.sentiment_classifier.classify(features)
-
-	path_to_corenlp_jars = \
-		'../lib/corenlp-python/stanford-corenlp-full-2013-11-12/*'
-	path_to_corenlp_sentiment = \
-		'edu.stanford.nlp.sentiment.SentimentPipeline'
-
 	def classify_sentiment_core_nlp(self, sentences):
 		# A basic implementation that uses the stanford sentiment classifier
 		args = ['java', '-cp', path_to_corenlp_jars, \
@@ -98,7 +101,7 @@ class PostClassifier:
 		sentiment_list = sentiment_str.split('\n')[8:]
 		return [sentiment.strip() for sentiment in sentiment_list]
 
-	def extract_features(self, post):
+	def sentiment_extract_features(self, post):
 		post_set = set(post)
 		features = {}
 		for word in self.sentiment_features:
@@ -107,7 +110,8 @@ class PostClassifier:
 			
 	def lazy_apply_feautres(self, toks):
 		def lazy_func(labeled_token):
-			return (self.extract_features(labeled_token[0]), labeled_token[1])
+			return (self.sentiment_extract_features(
+				labeled_token[0]), labeled_token[1])
 		return LazyMap(lazy_func, toks)
 
 	#TODO Filter out stop words 
