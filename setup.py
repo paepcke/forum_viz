@@ -18,6 +18,8 @@ setup(
     install_requires = ['pymysql_utils>=0.33',
 			'configparser>=3.3.0',
 			#'json_to_relation>=0.3',
+			'numpy>=1.8.1',
+			'scipy>=0.14.0',
 			'scikit-learn>=0.14'
 			],
     tests_require    = ['sentinels>=0.0.6', 'nose>=1.0'],
