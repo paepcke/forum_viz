@@ -1,3 +1,12 @@
+'''
+
+A simple tool that fetches posts from a specified course that
+have emoticons in them. Allows clients to either print or
+pickle the fetched posts.
+
+@author Akshay Agrawal: akshayka@cs.stanford.edu
+'''
+
 import argparse
 from forum import Forum
 import pickle

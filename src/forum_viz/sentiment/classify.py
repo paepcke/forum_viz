@@ -1,5 +1,6 @@
 from nltk.classify import naivebayes, accuracy
 from nltk.classify.util import LazyMap
+from nltk.corpus import stopwords
 from subprocess import Popen, PIPE, STDOUT
 import util
 
@@ -7,6 +8,7 @@ path_to_corenlp_jars = \
 	'../lib/corenlp-python/stanford-corenlp-full-2013-11-12/*'
 path_to_corenlp_sentiment = \
 	'edu.stanford.nlp.sentiment.SentimentPipeline'
+stop_words = stopwords.words('english')
 
 class PostClassifier:
 	
@@ -77,8 +79,10 @@ class PostClassifier:
 	def sentiment_test(self, path_to_testing_data):
 		# 1) Unpickle data
 		posts = util.unpickle_file(path_to_testing_data)
+
 		# 2) Extract features
 		testing_set = self.lazy_apply_feautres(posts)
+
 		# 3) Test with classifier
 		print 'Testing ...'
 		test_accuracy = accuracy(self.sentiment_classifier, testing_set)
@@ -104,8 +108,8 @@ class PostClassifier:
 	def sentiment_extract_features(self, post):
 		post_set = set(post)
 		features = {}
-		for word in self.sentiment_features:
-			features['contains(%s)' % word] = (word in post_set)
+		for feature in self.sentiment_features:
+			features['contains(%s)' % feature] = (feature in post_set)
 		return features
 			
 	def lazy_apply_feautres(self, toks):
@@ -117,7 +121,8 @@ class PostClassifier:
 	#TODO Filter out stop words 
 	@staticmethod
 	def build_sentiment_features(posts):
-		features = []
+		features = set()
 		for (words, sentiment) in posts:
-			features.extend(words)
+			for feature in [x for x in words if x not in stop_words]:
+				features.add(feature)
 		return features	

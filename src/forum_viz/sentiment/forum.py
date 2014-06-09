@@ -20,25 +20,27 @@ class Forum:
 			passwd = getpass.getpass("Password: ")
 		self.db = mysqldb.MySQLDB(host, user=user, passwd=passwd, db=db)
 
-	# Returns a list of Post structures, where each Post contains information
-	# about a given post retrieved from the specificed table.
-	#
-	# More concretely, for each field in attr, there exists a corresponding
-	# member variable in Post with the same name that contains that field's value.
-	#
-	# For example, if post_contents were called with
-	# 	attr=['author_id', 'body'],
-	# then each post p in posts would have
-	#	p.author_id
-	#	p.body
-	# as valid members variables.
-	#
-	# args:
-	# 	One of query or (table, course_name) are required.
-	#	The latter args are meant to abstract away the sql command,
-	#	but raw sql queries are accepted. 	
-	#	NB: attr _must_ correspond to the selected attributes in
-	#		the query.
+	'''
+		Returns a list of Post structures, where each Post contains information
+	    about a given post retrieved from the specificed table.
+	
+	 	More concretely, for each field in attr, there exists a corresponding
+	 	member variable in Post with the same name that contains that field's value.
+	
+	 	For example, if post_contents were called with
+			attr=['author_id', 'body'],
+	 	then each post p in posts would have
+			p.author_id
+			p.body
+	 	as valid members variables.
+	
+	 	args:
+	 		One of query or (table, course_name) are required.
+			The latter args are meant to abstract away the sql command,
+			but raw sql queries are accepted. 	
+			NB: attr _must_ correspond to the selected attributes in
+			the query.
+	'''
 	def post_contents(self, attr, table='', course_name='', query='', \
 					verbose=False):
 		posts = []
