@@ -1,0 +1,465 @@
+Training ... 
+done training
+Testing ...
+Accuracy: 0.874659400545
+Num Errors: 92
+('negative', 'positive', ['mark_kelley', 'and', 'comentators,', 'i', 'have', 'done', 'the', 'same', 'i', 'believe.', 'i', 'plotted', 'porosity', 'based', 'on', 'the', 'exponential', 'relation', 'given', 'for', 'porosity', 'change', 'under', "'normal'compaction.", 'phi=phi0exp(-betasigma)', 'sigma', 'coming', 'from', 'sigma', '=', 'vs', '-', 'hydropressure', 'and', 'compare', 'to', 'phi', 'coming', 'from', 'phi', 'is', 'coming', 'from', 'the', 'equation', 'in', 'homework', '<zipredac>', '(logdensity=(<zipredac>-phi)densitymatrix', '-', 'phi*densitywater', 'then', 'when', 'i', 'plot', 'them', 'together,', 'i', 'see', 'departures', 'at', 'various', 'points,', 'and', 'its', 'hard', 'to', 'tell', 'which', 'is', 'the', 'real', 'operpressure', 'onset.', 'i', 'see', 'divergence', 'at', '6638ft', 'and', 'again', 'at', 'say', '8473', 'ft', 'and', 'then', 'a', 'very', 'significant', 'departure,', 'though', 'shorter', 'interval', 'at', '<zipredac><zipredac>000', 'ft', 'dont', 'know', 'what', 'depth', 'to', 'pick', '!!', '????'])
+
+
+
+
+('negative', 'positive', ['*from', 'the', 'dept', 'of', '"too', 'much', 'free', 'time,"', 'i', 'created', 'sas', 'programs', 'to', 'duplicate', 'the', 'output', 'from', 'the', 'r', 'code', 'in', 'the', 'chapter', '4', 'lab.;', 'proc', 'datasets', 'memtype=data', 'library=work', 'kill;', 'run;', 'options', 'nodate', 'nonumber', 'ps=68', 'ls=120', 'mprint', 'mlogic', 'sgen;', 'title;', 'footnote;', 'ods', 'graphics', 'off;', '*****', '4.6.6', 'an', 'application', 'to', 'caravan', 'insurance', 'data', '*****;', 'title', "'4.6.6", 'an', 'application', 'to', 'caravan', 'insurance', "data';", '*', 'csv', 'file', 'created', 'from', 'caravan', 'dataset', '(>', 'write.csv(caravan,file="caravan.csv");', '*', 'note:', 'need', 'to', 'delete', '1st', 'column', 'in', 'resulting', 'csv', 'file', 'before', 'importing', 'into', 'sas;', 'proc', 'import', 'out=caravan', 'dbms=dlm', 'replace', "datafile='\\cu-ynk-fsdeptsstatisticstraining", 'courses', 'and', "materialsstatisticallearningcoursetextbookcaravan.csv';", 'getnames=yes;', "delimiter=',';", 'guessingrows=1000;', 'run;', '*', '>', 'attach(caravan)', '>', 'summary(purchase);', 'proc', 'freq', 'data=caravan;', 'table', 'purchase', '/', 'nopercent', 'nocum;', 'run;', '*', 'standardize', 'the', 'data;', '*', '>', 'standardized.x=scale(caravan[,-86]);', 'proc', 'standard', 'data=caravan', 'mean=0', 'std=1', 'out=standardizedx;', 'run;', '*', 'check', 'variances', 'of', 'original', '&', 'standardized', 'data;', '*', '>', 'var(caravan[,1])', '>', 'var(caravan[,2]);', 'proc', 'means', 'data=caravan', 'var;', 'title2', "'original", 'data', "variances';", 'run;', '*', '>', 'var(', 'standardized.x[,1])', '>', 'var(', 'standardized.x[,2]);', 'proc', 'means', 'data=standardizedx', 'var;', 'title2', "'standardized", 'data', "variances';", 'run;', '*', 'create', 'test', '&', 'training', 'datasets;', '*', '>', 'test=1:1000', '>', 'train.x=standardized.x[-test,]', '>', 'test.x=standardized.x[test,]', '>', 'train.y=purchase[-test]', '>', 'test.y=purchase[test];', 'data', 'trainx', 'testx;', 'set', 'standardizedx;', 'if', '_n_', 'le', '1000', 'then', 'output', 'testx;', 'else', 'output', 'trainx;', 'run;', '*', 'model', 'using', 'k=1', '(results', 'may', 'differ', 'slightly', 'from', 'r', 'b/c', 'of', 'ties/use', 'of', 'seed', '-', 'i', 'think);', '*', '>', 'set.seed', '(1)', '>', 'knn.pred=knn', '(train', '.x,test.x,train', '.y,k=1);', 'proc', 'discrim', 'data=trainx', 'testdata=testx', 'method=npar', 'k=1', 'testout=preds8', 'noprint;', 'title2', "'knn:", "k=1';", 'class', 'purchase;', 'priors', 'proportional;', 'run;', '*', 'confusion', 'matrix;', 'proc', 'freq', 'data=preds8;', 'table', '_into_*purchase', '/', 'out=cellcounts8', 'norow', 'nocol', 'nopercent;', 'run;', '*', '>', 'mean(test.y!=', 'knn.pred)', '>', 'mean(test.y!="', 'no");', 'data', 'cellcounts8;', 'set', 'cellcounts8;', 'nomatch', '=', '0;', 'if', '_into_', 'ne', 'purchase', 'then', 'nomatch', '=', '1;', 'if', 'purchase', '=', "'yes'", 'then', 'yes01', '=', '1;', 'else', 'yes01', '=', '0;', 'run;', 'proc', 'means', 'data=cellcounts8', 'mean;', 'freq', 'count;', 'var', 'nomatch', 'yes01;', 'run;', '*', 'model', 'using', 'k=3', '(results', 'may', 'differ', 'slightly', 'from', 'r', 'b/c', 'of', 'ties/use', 'of', 'seed', '-', 'i', 'think);', '*', '>', 'knn.pred=knn(train.x,test.x,train.y,k=3);', 'proc', 'discrim', 'data=trainx', 'testdata=testx', 'method='])
+
+
+
+
+('negative', 'positive', ['*from', 'the', 'dept', 'of', '"too', 'much', 'free', 'time,"', 'i', 'created', 'sas', 'programs', 'to', 'duplicate', 'the', 'output', 'from', 'the', 'r', 'code', 'in', 'the', 'chapter', '4', 'lab.;', 'proc', 'datasets', 'memtype=data', 'library=work', 'kill;', 'run;', 'options', 'nodate', 'nonumber', 'ps=68', 'ls=120', 'mprint', 'mlogic', 'sgen;', 'title;', 'footnote;', 'ods', 'graphics', 'off;', '*****', '4.6.1', 'the', 'stock', 'market', 'data', '*****;', 'title', "'4.6.1", 'the', 'stock', 'market', "data';", '*', 'csv', 'file', 'created', 'from', 'smarket', 'dataset', '(>', 'write.csv(smarket,file="smarket.csv");', '*', 'note:', 'need', 'to', 'delete', '1st', 'column', 'in', 'resulting', 'csv', 'file', 'before', 'importing', 'into', 'sas;', 'proc', 'import', 'out=smarket', 'dbms=dlm', 'replace', "datafile='\\cu-ynk-fsdeptsstatisticstraining", 'courses', 'and', "materialsstatisticallearningcoursetextbooksmarket.csv';", 'getnames=yes;', "delimiter=',';", 'guessingrows=100;', 'run;', '*', '>', 'names(smarket);', 'proc', 'contents', 'data=smarket;', 'run;', '*', '>', 'summary(smarket);', 'proc', 'univariate', 'data=smarket;', 'run;', '*', '>', 'cor(smarket[,9]);', 'proc', 'corr', 'data=smarket;', 'run;', '*', '>', 'plot(volume);', 'data', 'smarket;', 'set', 'smarket;', 'index', '+', '1;', 'run;', 'proc', 'sgplot', 'data=smarket;', '*', 'note:', 'by', 'default,', 'places', 'a', 'png', 'file', 'in', 'current', 'folder;', 'scatter', 'x=index', 'y=volume;', 'run;', 'quit;'])
+
+
+
+
+('positive', 'negative', ['guys', 'it', 'is', 'a', 'pity', 'that', 'this', 'forum', 'is', 'so', 'overwhelming', ':(', 'i', 'hardly', 'have', 'time', 'or', 'energy', 'to', 'browse', 'through', 'all', 'the', 'threads.', 'however', 'i', 'recognise', 'something', 'similar', 'to', 'my', 'comment', 'in', 'what', 'diana', 'said,', 'and', 'i', 'am', 'sure', 'i', 'have', 'graded', 'you', '15!', 'if', 'it', 'was', 'me', '-', 'it', 'must', 'have', 'been', 'technical', 'glitch', '-', 'there', 'was', 'one', 'review', 'where', 'the', 'system', 'did', 'not', 'let', 'me', 'even', 'finish', 'writing', 'my', 'comment', 'and', 'already', 'communicated', 'it', 'was', 'done.'])
+
+
+
+
+('positive', 'negative', ['no', 'luck..', 'there', 'is', 'no', 'change', 'in', 'the', 'result.', ':-('])
+
+
+
+
+('positive', 'negative', ['i', "wasn't", 'very', 'clear', 'on', 'what', 'the', 'task', 'expected', 'either', ':('])
+
+
+
+
+('positive', 'negative', ['i', 'was', 'also', 'under', 'the', 'assumption', 'that', 'usually', 'the', 'deadline', 'would', 'be', 'sunday', 'midnight,', 'missed', 'all', 'problems', 'except', 'one', ':('])
+
+
+
+
+('positive', 'negative', ['i', 'thank', 'you', 'for', 'this', 'information,', 'karl.', ':)', 'i', 'think', 'i', 'might', 'not', 'have', 'been', 'clear', 'in', 'my', 'question', 'and', 'i', 'apologize', 'for', 'this.', 'my', 'problem', 'is', 'that', 'i', "don't", 'understand', 'how', 'the', 'floating', 'feeling', 'fits', 'into', 'the', 'lecture', 'on', 'microgravity.', 'enough', 'time', 'was', 'made', 'of', 'it', 'that', "it's", 'probably', 'important,', 'but', 'i', "can't", 'see', 'how', 'it', 'relates!', ':('])
+
+
+
+
+('positive', 'negative', ['yes', ':('])
+
+
+
+
+('positive', 'negative', ["i'm", 'so', 'sad.', 'i', 'have', 'had', 'the', 'same', 'problem', 'of', 'you', 'all.', ':(', 'i', 'had', 'read', 'the', 'deadline', 'was', 'at', '17:00', 'and', 'i', 'was', 'thinking', 'it', 'was', 'the', 'time', 'in', 'california.', 'right', 'now,', 'i', 'just', 'read', 'that', 'it', 'is', 'written', '"homework', '2', 'is', 'due', 'by', 'noon', 'pacific', 'time', 'tomorrow"', 'in', 'the', 'message', 'that', 'was', 'sent', 'yesterday.', 'anyway,', 'i', 'think', 'that', 'the', 'time', 'written', 'in', 'the', 'homework', 'was', 'really', 'confusing.', 'i', 'hope', 'the', 'staff', 'consider', 'our', 'situation,', 'because', 'we', "don't", 'want', 'to', 'drop', 'our', 'grades.', ':('])
+
+
+
+
+('positive', 'negative', ['hey', 'my', 'friend,', 'you', "can't", 'imagine', 'how', 'much', 'you', 'helped', 'me,', 'i', 'am', 'studying', 'petroleum', 'engineering,', 'and', 'we', 'never', 'dealt', 'with', 'a', 'large', 'set', 'of', 'data', 'before', 'and', 'excel,', 'and', 'we', 'about', 'to', 'learn', 'matlab', 'this', 'year,', 'not', 'to', 'tell', 'that', 'english', 'is', 'not', 'my', 'first', 'language,', 'so', 'this', 'was', 'hard,', 'and', 'you', 'really', 'helped', 'a', 'lot', 'simplifying', 'the', 'problem,', 'so', 'thanks', 'so', 'much.', 'and', 'about', 'the', '**pore', 'pressure**,', 'i', 'think', 'we', 'assume', 'the', 'pores', 'are', 'saturated', '100%', 'so', 'pore', 'pressure', 'will', 'be', 'the', 'hydro-static', 'pressure', 'which', 'is', 'the', 'same', 'for', 'both', 'cases,', 'the', 'bernatt', 'shale', 'well', 'and', 'the', 'golf', 'of', 'mexico.', '**`pp', '=(density', 'of', 'water', 'rho', '=', '1g/cc', ')*(g', '=', '10m/s^2)*(height', 'of', 'hydraulic', 'column', '=5000ft', 'for', 'both', 'cases)`**', 'then,', '**`pp=rho*g*h`**', 'i', 'hope', 'that', 'was', 'helpful.', 'good', 'luck', 'my', 'friend', ':)'])
+
+
+
+
+('positive', 'negative', ['why', 'is', 'the', 'solution', 'not', 'unique?', 'it', 'depends.', 'for', 'instance,', 'if', '$$x=matrix', '1,1,-1,-1\\', '1,0,2,1\\', '0,1,-3,-2$$', '(sorry', 'about', 'the', 'alignment),', 'and', '$y=(1,-1,0)$,', 'then', 'i', 'think', 'the', '(only)', 'projection', 'of', '$y$', 'onto', 'the', 'column', 'space', 'of', '$x$', 'is', '$z=(1/3,', '-1/3,', '2/3)$,', 'since', '$', 'y', '-', 'z$', 'is', 'orthogonal', 'to', 'the', 'column', 'space.', 'also,', 'the', 'formula', 'for', 'beta', 'above', 'is', 'not', 'quite', 'right.'])
+
+
+
+
+('positive', 'negative', ['hi,', 'i', 'think', 'the', 'wrong', 'answer', 'is', 'provided.', 'it\x92s', 'significant', 'at', 'the', '0.05', 'level,', 'but', 'not', '0.01', 'level:', 't=(0.77-0)/0.23=3.3478,', 'p(t<=', '3.3478)=0.9971,', 'for', '2', 'sided', '99%', 'confidence', 'interval:', '2*', '(1-0.9971)=0.0058,', '0.0058>0.005', 'for', '2', 'sided', '95%', 'confidence', 'interval:', '0.0058<0.025', 'it\x92s', 'significant.', 'what', 'do', 'you', 'think?', 'j'])
+
+
+
+
+('positive', 'negative', ["i'm", 'also', 'unable', 'to', 'do', 'it', 'during', 'that', 'time', ':(', 'i', "don't", 'understand', 'why', "it's", 'necessary', 'to', 'have', 'such', 'a', 'small', 'time', 'window.'])
+
+
+
+
+('positive', 'negative', ['first,', 'get', 'the', 'probability', 'that', 'someone', 'is', 'not', 'hiv+', '(2999/3000),', 'which', 'equals', '.<phoneredac>67.', 'as', '1000', 'people', 'contribute', 'to', 'one', 'lot', 'of', 'clotting', 'factor,', 'you', 'then', 'need', 'to', 'calculate', 'the', 'probability', 'based', 'on', 'all', '1000', 'people', '=', '.<phoneredac>67', 'to', 'the', 'power', 'of', '1000.', 'in', 'excel,', 'the', 'equation', 'looks', 'like', 'this', '=(power(2999/3000,1000),', 'which', 'equals', '.<phoneredac>96.', 'then', 'to', 'get', 'the', 'probability', 'of', 'someone', 'being', 'hiv+', 'in', 'the', '1000', 'pool', 'lot,', 'simply', 'bust', 'out', 'the', '1-(a)', 'trick.', 'in', 'excel,', 'it', 'looks', 'like', 'this', '=((1-(power(2999/3000,1000)))*100)', 'note:', 'this', 'equation', 'returns', 'the', 'percentage', 'value', '28.4', 'as', 'requested', 'in', 'the', 'question.'])
+
+
+
+
+('positive', 'negative', ['i', 'guess', 'the', 'physicist', 'in', 'me', 'showed', 'through', 'and', 'i', 'found', '3', 'simplest', 'to', 'solve', 'by', 'considering', 'the', 'two', 'rates', 'of', 'painting,', 'which', 'logically', 'add', 'together:', 'the', 'number', 'of', 'houses', 'painted', 'is', '(1/3)*t', '+', '(1/5)*t', '=', '(8/15)*t', 'where', 't', 'is', 'hours.', 'so', 'the', 'time', 't', 'to', 'paint', 'exactly', 'one', 'house', 'is', '(8/15)*t', '=', '1', 'which', 'is', 'solved:', 't', '=', '15/8.', 'yes,', 'i', 'used', 'algebra', '-', 'i', 'feel', 'so', 'dirty', ':-('])
+
+
+
+
+('positive', 'negative', ['i', 'get', 'frustrated', '&', 'at', 'times', 'belittle', 'myself', 'thinking', 'i', 'am', 'stupid', ':('])
+
+
+
+
+('positive', 'negative', ['lets', 'try', 'dissecting', 'the', 'question', '"in', 'this', 'problem,', 'you', 'will', 'use', 'simulation', 'to', 'evaluate', '(by', 'monte', 'carlo)', 'the', 'expected', 'misclassification', 'error', 'rate', 'given', 'a', 'particular', 'generating', 'model."', '*<zipredac>)', 'we', 'first', 'identify', 'that', 'the', 'error', 'of', 'interest', 'is', 'the', 'misclassification', 'error.', 'that', 'is;', 'number', 'of', 'wrong', 'classification', 'over', 'total', 'number', 'of', 'classification*', '"let', 'yi', 'be', 'equally', 'divided', 'between', 'classes', '0', 'and', '<zipredac>,', 'and', 'let', 'xi?r<zipredac>0', 'be', 'normally', 'distributed."', '*2)', 'this', 'says', 'that', 'we', 'have', '2', 'different', 'kinds', 'of', 'responses,', '0', 'and', '<zipredac>.', 'each', 'of', 'these', 'responses', 'can', 'be', 'explained', 'by', '<zipredac>0', 'independent/explanatory', 'variables.*', '"given', 'yi=0,', 'xi?n<zipredac>0(0,i<zipredac>0).', 'given', 'yi=<zipredac>,', 'xi?n<zipredac>0(?,i<zipredac>0)', 'with', '?=(<zipredac>,<zipredac>,<zipredac>,<zipredac>,<zipredac>,0,0,0,0,0).', '"', '*3)', 'this', 'tells', 'us', 'the', 'distribution', 'of', 'the', '<zipredac>0', 'independent/explanatory', 'variables.', 'corresponding', 'to', 'the', 'responses', 'y=<zipredac>,', 'we', 'have', 'that', 'the', "x's", 'are', 'distributed', 'according', 'to', 'a', 'multivariate', 'normal', '(mvn)', 'distribution', 'with', 'mean', 'being', 'a', '<zipredac>0', 'by', '<zipredac>', 'vector', '?', 'and', 'variance', 'equal', 'to', 'the', '<zipredac>0', 'by', '<zipredac>0', 'identity', 'matrix.', 'similarly,', 'corresponding', 'to', 'the', 'responses', 'y', '=', '0,', 'we', 'have', 'that', 'the', "x's", 'are', 'distributed', 'according', 'to', 'a', 'mvn', 'distribution', 'with', 'mean', 'being', 'a', '<zipredac>0', 'by', '<zipredac>', 'vector', 'of', 'zeros', 'and', 'variance', 'equal', 'to', 'the', '<zipredac>0', 'by', '<zipredac>0', 'identity', 'matrix.*', '"now,', 'we', 'would', 'like', 'to', 'know', 'the', 'expected', 'test', 'error', 'rate', 'if', 'we', 'fit', 'an', 'svm', 'to', 'a', 'sample', 'of', '50', 'random', 'training', 'points', 'from', 'class', '<zipredac>', 'and', '50', 'more', 'from', 'class', '0.', 'we', 'can', 'calculate', 'this', 'to', 'high', 'precision', 'by', '<zipredac>)', 'generating', 'a', 'random', 'training', 'sample', 'to', 'train', 'on,', '2)', 'evaluating', 'the', 'number', 'of', 'mistakes', 'we', 'make', 'on', 'a', 'large', 'test', 'set,', 'and', 'then', '3)', 'repeating', '(<zipredac>-2)', 'many', 'times', 'and', 'averaging', 'the', 'error', 'rate', 'for', 'each', 'trial."', '4)', 'this', 'describes', 'how', 'a', 'typical', 'training', 'data', 'should', 'look', 'like.', 'the', 'training', 'data', 'should', 'contain', '<zipredac>00', 'observations:', '50', 'observations', 'with', 'responses', 'yi', '=', '0,', 'and', '<zipredac>0', 'xi?n<zipredac>0(0,i<zipredac>0)', '50', 'observations', 'with', 'responses', 'yi', '=', '<zipredac>,', 'and', '<zipredac>0', 'xi?n<zipredac>0(?,i<zipredac>0)', '(train', 'data', 'should', 'have', '<zipredac>00', 'rows', 'and', '<zipredac><zipredac>', 'columns)', '(hint:', 'use', 'mvrnorm', 'in', 'mass', 'package)', 'we', 'can', 'generate', 'one', 'test', 'data', 'with', 'say', 'a', 'large', 'enough', 'observation', '<zipredac>0000', 'such', 'that', '5000', 'observations', 'with', 'responses', 'yi', '=', '0,', 'and', '<zipredac>0', 'xi?n<zipredac>0(0,i<zipredac>0)', '5000', 'observations', 'with', 'responses', 'yi', '=', '<zipredac>,', 'a'])
+
+
+
+
+('positive', 'negative', ["i've", 'had', 'so', 'many', 'parents,', 'particularly', 'mothers,', 'say', 'in', 'front', 'of', 'their', 'daughters', '"', 'i', 'never', 'could', 'do', 'math"!', 'such', 'a', 'negative', 'message', 'to', 'send', 'to', 'these', 'girls.', ':-('])
+
+
+
+
+('positive', 'negative', ['oh', 'sorry', 'my', 'bad', 'hehehe,', 'i', 'was', 'very', 'sleepy', 'when', 'i', 'read', 'this.', 'and', "it's", 'because', 'i', 'see', 'people', 'are', 'using', 'different', 'value', 'for', 'the', '?matrix.', '<br>btw', 'when', 'we', 'calculate', 'the', 'e', '=', '2g(<zipredac>+mu)', 'i', 'think', 'it', 'should', 'be', 'divided', 'by', '<zipredac>000000', '<br>', 'e=(2g(<zipredac>+mu))/<zipredac>e6.', 'i', 'dont', 'know', 'i', 'did', 'that', 'and', 'i', 'got', 'the', 'correct', 'answer'])
+
+
+
+
+('positive', 'negative', ['i', 'somehow', 'missed', 'homework', '3', 'which', 'is', 'badly', 'going', 'to', 'effect', 'my', 'grades', 'as', 'i', 'joined', 'late', 'and', 'could', 'not', 'submit', 'even', 'homework', '1', ':(', 'and', 'now', 'i', 'have', 'seen', 'the', 'deadline', 'for', 'all', 'three', 'homeworks', 'was', '15', 'oct', 'and', 'i', 'even', 'missed', 'that', 'due', 'to', 'eid', 'in', 'our', 'country.', 'can', 'i', 'please', 'get', 'a', 'chance', 'to', 'submit', 'homework', '3', 'and', '1', '?'])
+
+
+
+
+('positive', 'negative', ['i', 'have', 'sent', '4', 'exercises', 'to', 'one', 'of', 'the', "ta's", 'mr', 'rajhansa.', 'i', 'am', 'not', 'sure', 'if', 'he', 'has', 'received', 'them', 'as', 'he', 'has', 'not', 'responded', 'to', 'my', 'direct', 'email', 'nor', 'to', 'the', 'message', 'on', 'this', 'board', ':(.', 'i', 'cannot', 'upload', 'to', 'the', 'wiki', 'as', 'it', 'does', 'not', 'allow', 'attachments.', 'so', 'i', 'really', 'do', 'not', 'know', 'what', 'to', 'do', 'now.', 'i', 'can', 'make', 'the', '.srt', 'files', 'as', 'and', 'when', 'i', 'complete', 'viewing', 'a', 'unit', 'as', 'i', 'found', 'that', 'blind', 'downloading', 'it', 'in', 'a', 'batch', 'can', 'cause', 'considerable', 'errors', 'and', 'wrong', '.srt', 'files', 'for', 'the', 'relevant', 'videos.', 'i', 'am', 'happy', 'to', 'help', 'but', 'the', 'limitations', 'are', 'there.', 'i', 'cannot', 'post', 'on', 'dropbox', 'and', 'other', 'cloud', 'servers', 'for', 'security', 'issues.', 'if', 'someone', 'can', 'help', 'including', 'them', 'in', 'the', 'wiki', 'they', 'can', 'tell', 'me', 'and', 'i', 'could', 'send', 'them', 'over', 'to', 'them', 'as', 'and', 'when', 'i', 'do', 'them.(i', 'have', 'done', 'units', '3-6', 'so', 'far', 'and', 'could', 'do', '1', 'and', '2', 'also', 'but', 'the', 'remaining', '3', 'could', 'be', 'posted', 'as', 'i', 'do', 'them', 'though', 'actually', 'i', 'am', 'in', 'a', 'hurry', 'due', 'to', 'personal', 'issues', 'forcing', 'me', 'to', 'finish', 'as', 'much', 'as', 'possible', 'early', 'at', 'a', 'pace', 'i', 'am', 'actually', 'not', 'that', 'comfortable', 'with', 'but', 'with', 'no', 'alternative', 'practically', 'possible', 'in', 'sight', 'so', 'hopefully', 'i', 'should', 'be', 'able', 'to', 'load', 'them', 'early', 'which', 'would', 'be', 'an', 'advantage', 'to', 'others', '(a', 'silver', 'lining', 'of', 'a', 'dark', 'cloud', ';).'])
+
+
+
+
+('positive', 'negative', ['my', 'data', 'has', 'a', 'binary', 'response', 'variable', 'with', 'probability', '50%.', 'the', 'actual', 'event', 'rate', 'is', 'right', 'around', '7%.', "i'm", 'not', 'necessarily', 'concerned', 'about', 'classifying', 'the', 'data', 'as', "0's", 'and', "1's,", 'but', 'more', 'interested', 'in', 'rank', 'ordering', 'them', 'in', 'terms', 'of', 'the', 'predicted', 'probability.', 'i', 'have', 'a', 'few', 'thoughts', 'on', 'my', 'cross', 'validation', 'measure.', 'the', 'first', 'is', 'to', 'use', 'the', 'misclassification', 'rate', 'as', 'defined', 'in', 'the', 'notes', '(using', 'the', 'parameter', 'estimates', 'with', 'the', 'intercept', 'adjusted', 'for', 'the', 'rare', 'event).', 'the', 'second', 'is', 'to', 'use', 'the', 'mean', 'deviance', '=(-2*loglikelihood)/n_k,', 'where', 'n_k', 'is', 'the', 'number', 'of', 'observations', 'from', 'the', 'kth', 'fold.', 'i', 'consider', 'the', 'mean', 'deviance', 'because', 'the', 'size', 'of', 'the', 'data', 'is', 'not', 'a', 'multiply', 'of', 'k.', 'the', 'third', 'is', 'using', 'percent', 'concordant', '-', 'this', 'seems', 'desirable', 'since', "i'm", 'interested', 'in', 'ranking', 'customers.', 'any', 'thoughts', 'on', 'which', 'may', 'be', 'best', 'for', 'my', 'purposes,', 'or', 'where', 'they', 'may', 'be', 'flaws', 'that', 'i', 'have', 'not', 'considered?', 'thank', 'you!'])
+
+
+
+
+('positive', 'negative', ['##', 'first', 'question', 'let', '$a$', 'be', '$:m', 'imes', 'n$', 'matrix', 'of', 'rows', '$a_i$', 'for', 'simplicity.', 'so,', 'as', 'a', 'least-squares', 'estimate,', 'we', 'get', '$;hat', 'x=(a^ta)^{-1}a^ty$.', 'then', 'we', 'can', 'express', '$e=hat', 'x-x$:', '$e', '=', 'hat', 'x-x', '=', '(a^ta)^{-1}a^ty-x', '=', '(a^ta)^{-1}a^t(ax+w)-x', '=\\', '=', '(a^ta)^{-1}a^tax+(a^ta)^{-1}a^tw-x', '=', '(a^ta)^{-1}a^tw$', '$mathbb', 'ee=(a^ta)^{-1}a^tmathbb', 'ew=0:$', 'and', 'therefore', 'the', 'covariance', 'matrix', '$;e=mathrm{var}(e):$', 'is', 'basically', '$;mathbb', 'e[ee^t]$.', '$e', '=', 'mathbb', 'e[ee^t]', '=', 'mathbb', 'e[(a^ta)^{-1}a^tww^ta(a^ta)^{-1}]', '=\\', '=', '(a^ta)^{-1}a^tcdotmathbb', 'e[ww^t]cdot', 'a(a^ta)^{-1}', '=', '(a^ta)^{-1}$', 'notes:', '1.', '$a^ta;$', 'is', 'symmetric', 'and', 'hence', '$;(a^ta)^{-1};$', 'is', 'symmetric.', '2.', '$mathbb', 'e[ww^t]=i;$', 'since', 'it', 'is', '$;mathrm{var}(w);$', 'and', 'all', 'the', 'measurement', 'errors', '$w_i$', 'are', 'iids', 'and', 'standard-normal', '(this', 'is', 'the', 'initial', 'assumption).', '3.', 'well,', '$a^ta=sumlimits_{i=1}^m(a_ia_i^t)$.', 'you', 'can', 'check', 'it', 'zillions', 'of', 'ways.', '##', 'second', 'question', 'comlementary', 'slackness', 'condition', 'for', 'the', 'dual', 'of', 'the', 'd-optimal', 'design', 'problem', '(slide', '7-13', 'of', 'the', 'lecture)', 'shows', 'that', '$:lambda_k(1-v_k^twv_k)=0$.', 'it', 'means', 'that', 'if', '$lambda_k>0$', '(the', 'measurement', 'is', 'selected)', 'then', '$v_k$', 'belongs', 'to', 'a', 'boundary', 'of', 'the', 'ellipsoid.', 'in', 'fact', 'if', '$:v_k^twv_k<1:$', 'the', 'point', '$v_k$', 'is', 'inside,', 'and', 'if', '$;v_k^twv_k>1:$', 'it', 'is', 'outside', 'the', 'ellipsoid.', 'for', 'example,', 'if', '$;w=iinmathbb', 'r^{2', 'imes2}$,', 'then', 'the', 'boundary', 'is', '${(x,y)inmathbb', 'r^2,|,x^2+y^2=1}$', 'and', 'is', 'a', 'plain', 'circle.', 'in', 'general,', 'that', 'equation', 'for', 'a', 'positive', 'definite', 'matrix', 'forms', 'an', 'ellipsoid.', 'on', 'the', 'next', 'slide', 'you', 'see', 'the', 'picture', 'which', 'illustrates', 'that', 'idea.', 'dashed', 'line', 'is', 'the', 'ellipsoid', '$;v^twv=1$,', 'and', 'only', 'two', 'points', 'are', 'chosen', 'with', 'lambdas', '0.5,', 'and', 'those', 'are', 'exactly', 'ones', 'that', 'lie', 'on', 'that', "ellipsoid's", 'boundary.', 'you', 'get', 'the', 'idea.', 'another', 'question', 'you', 'could', 'ask', 'is', 'why', 'that', 'problem', 'is', 'the', 'dual', 'of', 'the', 'original', 'one', 'of', 'd-optimal', 'design', 'and', 'why', 'the', 'complementary', 'slackness', 'holds,', 'but', "that's", 'another', 'story.', 'i', 'hope', 'you', 'can', 'find', 'a', 'more', 'detailed', 'explanation', 'in', 'the', 'book.'])
+
+
+
+
+('positive', 'negative', ['i', 'completely', 'agree', 'with', 'doc.', 'in', 'that', 'way', 'the', 'percentage', 'would', 'be', '5,82%', 'which', 'i', 'got', 'but', 'was', 'considered', 'incorrect.', 'even', 'so', 'that', 'the', 'exercise', 'specifically', 'tells', 'you', '(bold)', 'to', 'consider', '112', 'or', 'more,', 'so', '112', 'is', 'considered.', 'therefore:', 'x~bin', '(n=200,p=0,5).', 'mean', 'of', 'x=100.', 'sd(x)=7.', 'what', 'is', 'asked', 'is', 'p(x>=112)', 'which', 'is', 'equal', 'to', 'asking', '1-p(x<111).', 'then,', 'if', 'x=111', 'then', 'z=(111-100)/7=1,57', 'and', 'from', 'the', 'statical', 'calculator', 'you', 'get', 'that', 'p(z<1,57)=0,9418.', 'then:', 'p(x>=112)=1-p(x<111)=1-p(z<1,57)=1-0,9418=0,0582', 'giving', 'a', 'percentage', 'of', '5,82%.'])
+
+
+
+
+('positive', 'negative', ['jrbouma', '-', 'like', 'you,', 'my', 'initial', 'answer', 'was', 'incorrect.', 'i', 'understand', 'the', 'over', 'pressure', 'is', 'the', 'difference', 'between', 'the', 'calculated', 'pore', 'pressure', 'and', 'the', 'hydrostatic', 'pressure', 'at', '10,000', 'ft.', 'for', 'calculated', 'pore', 'pressure,', 'i', 'calculated', '67.89', 'mpa', 'by', 'using', 'the', 'equation', 'for', 'porosity', '(phi=(phi_0)exp(-beta*sv)', 'rearranged', 'to', 'solve', 'for', 'pore', 'pressure', 'and', 'using', 'porosity', 'from', 'the', 'density', 'log', 'for', 'phi_0.', 'is', 'this', 'how', 'you', 'calculated', 'pore', 'pressure?', 'i.e.,', 'did', 'you', 'use', 'the', 'density', 'porosity', 'in', 'this', 'calculation?', 'for', 'hydrostatic,', 'it', 'is', 'simply', '.44', 'psi/ft', 'x', '10,000', 'ft', 'x', '1/(145.038', 'psi/mpa).', 'thanks!'])
+
+
+
+
+('positive', 'negative', ['thanks', 'hcastorp', '!', 'spent', '5', 'mins', 'on', 'markdown.', 'it', 'is', 'kind', 'of', 'intimidating', 'to', 'me', ':(', 'will', 'take', 'a', 'look', 'at', 'latex', 'later', ':)'])
+
+
+
+
+('positive', 'negative', ['i', 'used', 'chrome', 'for', 'android', 'from', 'my', 'tab.', 'this', 'is', 'the', 'second', 'time', 'this', 'happened', ':('])
+
+
+
+
+('positive', 'negative', ['spine', 'bone', 'density', 'is', 'normally', 'distributed', 'in', 'the', 'population', 'with', 'a', 'mean', 'of', '1.0', 'g/cm2', 'and', 'a', 'standard', 'deviation', 'of', '0.10', 'g/cm2.', 'if', 'a', 'woman', 'has', 'a', 'spine', 'bone', 'density', 'of', '0.95', 'g/cm2,', 'translate', 'this', 'number', 'into', 'a', 'z-score', '(i.e.,', 'give', 'the', 'woman\x92s', 'distance', 'from', 'the', 'mean', 'in', 'standard', 'deviation', 'units).', 'z=1.0', 'z=-0.5', 'status:', 'correct', 'z=-1.0', 'z=0.5', 'i', 'said', 'that', 'because', 'if', 'we', 'want', 'to', 'normalize', 'one', 'distribution', 'we', 'just', 'do', 'z=', '((x', 'bar)', '-u)/sigma.', 'an', 'with', 'the', 'information', 'from', 'the', 'probles', 'if', 'would', 'be', 'z=(1-0.95)/0.1=0.5', 'not', '-0.5'])
+
+
+
+
+('positive', 'negative', ['below', 'gives', 'the', 'upper', 'bound.', 'replace', 'maximize', 'with', 'minimize', 'to', 'get', 'the', 'lower', 'bound.', 'n', '=', '200;', 's', '=', 'linspace(0.5,2,n);', 's', '=', "s.';", '%', 'stock', 'price', '%', '200-by-1', 's0', '=', '1;', '%', 'price', 'of', 'underlying', 'stock', 'r', '=', '1;', '%', 'price', 'of', 'risk', 'free', 'asset', 'f', '=', '0.9;', 'c', '=', '1.15;', '%', 'set', 'up', 'the', 'v', 'matrix', 'for', 'known', 'asset', 'prices', '%', '[risk-free,', 'stock,', 'call-1,call-2,put1-,put-2]', 'v1', '=[1.05*ones(n,1),', 's,', 'max(0,s-1.1),max(0,s-1.2),max(0,0.8-s),max(0,0.7-s)];', '%', 'prices', 'of', 'known', 'assets', 'p1', '=', '[1;s0;0.06;0.03;0.02;0.01];', '%', 'we', 'have', 'the', 'equality:', 'v1^t*', 'y', '=', 'p1', ',', 'y>=0', '%', 'unknown', 'collar', 'collar', '=', '(c-s0)*(s', '>', 'c)', '+', '(s-s0).*(s', '<=', 'c).*(s', '>=', 'f)', '+', '(f-s0)*(s', '<=', 'f);', 'cvx_begin', 'variables', 'y(n)', 'pc', 'maximize', 'pc', 'subject', 'to', "v1'*y", '==', 'p1', "collar'*y", '==', 'pc', 'y', '>=', '0', 'cvx_end'])
+
+
+
+
+('positive', 'negative', ['i', 'had', 'accidentally', 'submitted', 'my', 'homework', 'by', 'pressing"final', 'check"', 'after', 'having', 'done', 'only', 'one', 'question.', '.this', 'is', 'my', 'first', 'ever', 'online', 'experience.', '.', 'i', 'hope', 'i', "don't", 'commit', 'any', 'such', 'blunders', 'ahead', ':(', 'could', 'you', 'please', 'also', 'explain', 'the', 'difference', 'between', 'a', 'percentage', 'and', 'a', 'percentile.', '.will', 'help', 'me', 'grasp', 'the', 'context', 'better.', '.thanks.', '.'])
+
+
+
+
+('positive', 'negative', ['me', 'too', ':('])
+
+
+
+
+('positive', 'negative', ['one', 'of', 'the', 'problem', 'in', 'premature', 'rounding', 'is', 'errors', 'compound.', 'unfortunately', 'when', 'setting', 'the', 'autograder', 'if', 'the', 'margin', 'is', 'kept', 'narrow', 'you', 'can', 'be', 'perfectly', 'right', 'and', 'have', 'a', 'wrong', 'answer', 'if', 'the', 'problem', 'was', 'done', 'with', 'premature', 'rounding', 'or', 'vice', 'versa(you', 'can', 'be', 'wrong', '-', 'in', 'both', 'cases', 'the', 'steps', 'may', 'be', 'correct.', 'in', 'some', 'edx', 'courses', 'they', 'allow', 'you', 'to', 'enter', 'answers', 'with', 'greater', 'precision', 'than', 'the', 'given', 'decimal', 'places', '(the', 'edx', 'autograder', 'can', 'be', 'set', 'up', 'for', 'this', 'ie', 'be', 'accurate', 'to', 'at', 'least', '2', 'decimal', 'places', '-', 'so', 'you', 'can', 'answer', 'upto', '4', 'decimals', 'and', 'still', 'be', 'marked', 'correct))', 'and', 'this', 'can', 'remove', 'the', 'fear', 'of', 'being', 'penalized', 'for', 'being', 'more', '"precise".', 'in', 'fact', 'i', 'automatically', 'used', 'that', 'method', 'in', 'the', 'first', 'hw', 'thinking', 'it', 'will', 'be', 'the', 'same', 'as', 'in', 'the', 'other', 'edx', 'platforms', 'and', 'realized', 'that', 'that', 'method', 'is', 'not', 'being', 'used', ':('])
+
+
+
+
+('positive', 'negative', ['after', 'a', 'first', 'trial', 'to', 'answer', 'the', 'fermi', 'energy', 'quiz', '(graded', 'wrong),', 'in', 'order', 'to', 'better', 'understand', 'i', 'tried', 'to', 'reconstruct', 'the', 'calculation', 'for', 'copper', 'fermi', 'energy', '(7', 'ev)', 'given', 'as', 'example', 'in', 'the', 'lecture.', 'using', 'the', 'formula', 'for', 'n', 'given', 'in', 'the', 'lecture', '(n=(1/3*pi^3)*((2*m*ef)/(h_bar^2))^(3/2))', 'i', 'calculated', 'n', 'equal', 'to', '2.27e54', 'in', 'units', 'of', 'm^-3', '(that', 'result', 'from', 'dimensional', 'analysis', 'applied', 'to', 'the', 'above', 'formula:', 'm', 'is', 'expressed', 'in', 'ev*s^2*m^-2,', 'ef', 'in', 'ev,', 'h_bar', 'is', 'in', 'ev*s', 'therefore', 'n', 'units', 'are', 'm^-3).', 'the', 'numerical', 'values', 'are', 'm=', '5.11e05', 'ev/c^2,', 'ef=7', 'ev,', 'h_bar=', '6.58e-16', 'ev*s.', 'using', 'the', 'above', 'formula', 'i', 'got', 'n=2.27e54', 'electrons', 'per', 'cubic', 'meter.', 'since', 'in', 'the', 'lecture', 'the', 'formula', 'used', 'for', 'n', 'was', 'n=4/(a^3),', 'i', 'calculated', 'the', 'value', 'of', 'the', 'lattice', 'parameter', 'for', 'copper', 'a=1.21e-18.', 'google', '(http://www.infoplease.com/periodictable.php?id=29)', 'gives', 'the', 'value', 'of', 'the', 'lattice', 'parameter', 'for', 'pure', 'copper', 'equal', 'to', '3.61', 'a\xb0', '(3.61e-10', 'm).', 'before', 'trying', 'to', 'solve', 'the', 'fermi', 'energy', 'quiz,', 'i', 'would', 'like', 'to', 'ask', 'if', 'anybody', 'from', 'staff', 'could', 'please', 'explain', 'where', 'am', 'i', 'wrong??', 'does', 'the', 'fact', 'that', 'the', 'ratio', 'of', 'the', 'value', 'of', 'the', 'lattice', 'parameter', 'found', 'by', 'google', 'to', 'the', 'value', 'calculated', 'above', 'is', 'about', '3e8', 'have', 'any', 'explanation??', 'thank', 'you', 'for', 'the', 'patience', 'of', 'whoever', 'reads', 'this', 'post', 'and', 'answers', 'my', 'question.', 'and', 'please', 'excuse', 'me', 'for', 'any', 'mistakes', 'and/or', 'misunderstandings.'])
+
+
+
+
+('positive', 'negative', ['also', 'me', 'i', 'got', '89.5', '%', ':(', ',', 'i', "don't", 'know', 'if', 'some', 'way', 'to', 'calculate', 'question', 'number', '21', 'from', 'the', 'final', 'grade', 'and', 'like', 'that', 'we', 'can', 'cross', 'the', '90%', 'and', 'we', 'receive', 'a', 'certificate', 'with', 'distinction.'])
+
+
+
+
+('positive', 'negative', ['hi', 'raj,', 'i', 'think', 'you', 'are', 'among', 'the', 'course', 'staff.', "i'd", 'like', 'to', 'ask', 'that', 'how', 'will', 'be', 'the', 'final', 'exam?', 'i', 'mean,', 'will', 'it', 'be', 'like', 'homework', 'that', 'we', 'will', 'be', 'submitting', 'it', 'at', 'our', 'disposal', 'or', 'it', 'will', 'be', 'a', 'timed', 'exam', 'to', 'be', 'done', 'in', 'one', 'sitting?', 'the', 'problem', 'is', 'that', 'in', 'our', 'country', 'there', 'is', 'huge', 'problem', 'of', 'power', 'outages', 'and', 'we', 'are', 'seldom', 'able', 'to', 'work', 'continuously', 'beyond', 'one', 'hour', 'in', 'a', 'stretch:(', 'so', 'please', 'tell', 'me', 'if', 'the', 'case', 'is', 'to', 'do', 'final', 'exam', 'in', 'one', 'sitting', 'in', 'a', 'limited', 'time,', 'then', 'i', 'should', 'look', 'for', 'ways', 'to', 'resolve', 'this', 'issue', 'well', 'in', 'time.', 'best', 'regards,'])
+
+
+
+
+('positive', 'negative', ['my', 'initial', 'answer', 'to', 'this', 'problem', 'was', 'incorrect', 'so', 'i', 'am', 'seeking', 'guidance.', 'i', 'understand', 'the', 'over', 'pressure', 'is', 'the', 'difference', 'between', 'the', 'calculated', 'pore', 'pressure', 'and', 'the', 'hydrostatic', 'pressure', 'at', '10,000', 'ft.', 'for', 'calculated', 'pore', 'pressure,', 'i', 'calculated', '67.89', 'mpa', 'by', 'using', 'the', 'equation', 'for', 'porosity', '(phi=(phi_0)exp((-beta*(sv-pp))', 'rearranged', 'to', 'solve', 'for', 'pore', 'pressure', 'and', 'using', 'porosity', 'from', 'the', 'density', 'log', 'at', '10,000', 'ft', 'for', 'phi_0.', 'for', 'hydrostatic,', 'it', 'is', 'simply', '.44', 'psi/ft', 'x', '10,000', 'ft', 'x', '1/(145.038', 'psi/mpa),', 'so', 'i', 'assume', 'my', 'error', 'is', 'in', 'the', 'calculated', 'pore', 'pressure', 'of', '67.89', 'mpa.', 'my', 'rearranged', 'equation', 'for', 'pp', 'looks', 'like', 'this:', 'p_p=s_v-(ln', '?/?_0', ')/(-?)', 'any', 'constructive', 'feedback', 'on', 'this', 'would', 'be', 'greatly', 'appreciated.', 'thanks!'])
+
+
+
+
+('positive', 'negative', ['i', 'have', 'to', 'admit', 'that', 'the', 'problem', 'of', 'painting', 'the', 'house', 'is', 'one', 'that', 'gave', 'me', 'nightmares', 'throughout', 'my', 'school', 'career', 'and', 'now', 'give', 'me', 'nightmares', 'during', 'my', 'teaching', 'career.', 'i', 'do', 'not', 'and', 'never', 'have', 'understood', 'problems', 'like', 'that.', 'i', 'took', 'a', 'complete', 'guess', 'and', 'came', 'very', 'close', 'to', 'getting', 'the', '"right"', 'answer.', 'my', 'guess', 'was', '2', 'hours......so', 'i', 'was', 'close:('])
+
+
+
+
+('positive', 'negative', ['i', 'actually', 'enjoy', 'very', 'much', 'being', 'in', 'a', 'jacuzzi', 'in', 'the', 'beach!', "it's", 'so', 'great,', 'especially', 'if', 'it', 'is', 'a', 'bit', 'windy', 'outside.', 'i', 'am', 'trying', 'to', 'figure', 'out', 'why', 'i', 'like', 'hot', 'water', 'in', 'a', 'hot', 'climate,', 'maybe', 'as', 'other', 'colleagues', 'said', 'before,', 'my', 'body', 'will', 'be', 'cooling', 'down', 'after', 'the', 'hot', 'shower', 'and', 'then', 'i', 'feel', 'refreshment...', 'but', 'the', 'nice', 'sensation', 'in', 'during', 'jacuzzi..maybe', 'my', 'body', 'is', 'relaxed', 'or', 'perhaps', 'i', 'am', 'just', 'a', 'bit', 'weird...', 'mm', 'i', 'have', 'finished', 'the', 'heat', 'module', 'but', 'i', 'cannot', 'solve', 'the', 'mistery', 'yet', ':(', 'any', 'ideas?', 'thanks'])
+
+
+
+
+('positive', 'negative', ['hi', 'lisa', '--', 'cedaw', 'is', 'an', 'interesting', 'document', 'and', 'it', 'is', 'true', 'that', 'one', 'of', 'the', 'main', 'reasons', 'it', 'has', 'not', 'yet', 'been', 'ratified', 'is', 'because', 'of', 'the', 'abortion', 'issue.', 'during', 'a', 'past', 'internship', 'i', 'went', 'to', 'congress', 'to', 'lobby', 'for', 'cedaw', 'and', 'after', 'a', 'whole', 'bunch', 'of', 'talk,', 'i', 'was', 'asked', 'what', 'the', 'stance', 'was', 'on', 'abortion-', 'showing', 'of', 'course,', 'that', 'this', 'representative', 'was', 'not', 'so', 'familiar', 'with', 'the', 'document', 'itself.', 'anyway,', 'the', 'stance', 'is', 'technically', 'neutral.', 'the', 'document', 'itself', 'is', 'silent', 'on', 'the', 'issue,', 'but', 'these', 'reports', 'you', 'mention', 'have', 'made', 'ratification', 'difficult.', ':(', 'why', 'must', 'these', 'things', 'relating', 'to', 'women', 'always', 'turn', 'out', 'to', 'be', 'so', 'controversial!'])
+
+
+
+
+('positive', 'negative', ['i', 'still', 'could', 'not', 'understand', 'why', 'all', 'the', 'vmax', 'values', 'should', 'be', 'capped', 'to', 'the', 'same', 'value.', 'dude,', 'each', 'entry', 'of', 'vmax', 'represents', 'the', 'maximum', 'rate', 'for', 'a', 'specific', 'reaction,', 'which', 'should', 'be', 'different', 'from', 'others.', 'capping', 'them', 'to', 'justify', 'the', 'correctness', 'of', 'the', 'answer', "doesn't", 'make', 'me', 'feel', 'better.', 'i', 'would', 'just', 'wait', ':('])
+
+
+
+
+('positive', 'negative', ['how', 'do', 'you', 'get', 'only', 'these', 'course', 'titles', 'which', 'have', 'taught', 'by', 'the', 'chair', 'of', 'a', 'department?', 'the', 'best', 'i', 'can', 'do', 'is', 'get', 'all', 'course', 'titles', 'which', 'are', 'the', 'same', 'department', 'where', 'the', 'specific', 'one', 'is', ':('])
+
+
+
+
+('positive', 'negative', ['same', 'problem', ':('])
+
+
+
+
+('positive', 'negative', ['hi,', 'this', 'course', 'is', 'awesome.', 'it', 'gives', 'insights', 'to', 'applications,', 'i', 'never', 'looked', 'at', 'that', 'way.', 'nevertheless,', 'i', 'could', 'not', 'get', 'the', 'topic', '"experiment', 'design"', 'quite', 'well.', '1.', 'how', 'did', 'we', 'get', 'the', 'covariance', 'matrix', '$e=(sum_{i=1}^{m}a_ia_i^t)^{-1}$?', '2.', 'i', 'cant', 'understand', 'the', 'interpretation', 'described', 'with', 'respect', 'to', 'the', 'ellipsoid', ':"**optimal', 'experiment', 'uses', 'vectors', 'vk', 'on', 'boundary', 'of', 'ellipsoid', 'defined', 'by', 'w**"', 'and', 'how', 'is', 'that', 'shown', 'in', 'the', 'figure', 'below?', '![list', 'item][1]', 'thanks', '!', '[1]:', 'https://edx-west-uploads.s3.amazonaws.com/1<phoneredac><phoneredac>73.png'])
+
+
+
+
+('positive', 'negative', ["i'm", 'using', 'a', 'mac', 'and', 'everytime', 'i', 'hit', '"delete"', 'on', 'my', 'keyboard', 'to', 'cross', 'out', 'while', 'editing.', 'the', 'page', 'refreshes', 'and', 'i', 'lost', 'everything', ':(.', 'and', "i'm", 'not', 'even', 'sure', 'if', 'then', 'that', 'student', 'essay', 'got', 'garbage', 'or', 'half', 'edited', 'content?', 'anyone', 'had', 'the', 'same', 'problem?', 'please', 'help!', "i'm", 'considering', 'editing', 'outside', 'of', 'that', 'finicky', 'text', 'box', 'and', 'pasting', 'my', 'final', 'edit', 'in', 'and', 'hopefully', 'the', 'page', "doesn't", 'refreesh', 'before', 'i', 'hit', 'submit.', 'oh', "it's", 'a', 'pain.', 'i', 'have', 'read', 'like', 'a', 'million', 'essays', 'and', 'they', 'disappear.', 'so', 'i', 'keep', 'trying', 'new', 'essays.', '<nameredac_anon_screen_name_redacted>'])
+
+
+
+
+('positive', 'negative', ['i', 'believe', 'that', 'problem', 'lies', 'in', 'calculation', 'based', 'on', 'the', 'binomial', 'distribution', 'while', 'the', 'course', 'authors', 'are', 'using', 'a', 'normal', 'distribution', 'to', 'approximate', 'p', 'values.', 'i', 'have', 'written', 'matlab', 'script', 'to', 'calculate', 'p', 'values', 'from', 'simulation', 'and', 'from', 'binomial,', 'normal', 'and', 't', 'distributions.', '----------', 'function', 'result=hiv_ex(xrep,xflip,xdif)', 'result=[];', 'for', 'c=1:xrep', ';', 'rv=randi(2,xflip,1);', 'rv2=rv-1;', 'rs=xflip-2*sum(rv2);', 'result=[result,rs];', 'end', 'mean_sim=mean(result)', 'std_sim=std(result)', '[mm,varbin]=binostat(xflip,0.5);', 'std_dist=sqrt(varbin)*2', 'p_sim=(sum(abs(result)>=xdif))/xrep', 'p_dist_bin=2*(binocdf(((xflip-xdif)*0.5),xflip,0.5))', 'p_dist_norm=(1-(normcdf(xdif,0,std_dist)))*2', 't', '=xdif/std_dist;', 'p_dist_t=(1-(tcdf(t,(xflip-1))))*2', '----------', 'my', 'results', 'for', 'the', 'same', 'data', 'as', 'in', 'the', 'video', 'was', 'p=~5%', 'calculated', 'from', 'simulation', 'and', 'binomial', 'distribution,', 'and', 'p=~4', 'for', 't', 'and', 'z', 'distribution.', 'binomial', 'and', 'normal', 'curves', 'are', 'not', 'identical', 'and', 'i', 'think', 'that', 'is', 'the', 'source', 'of', 'difference.'])
+
+
+
+
+('positive', 'negative', ['in', 'another', 'thread', 'attached', 'to', 'some', 'module', '(i', "can't", 'figure', 'out', 'which', 'one', 'because', 'these', 'notations', 'seem', 'somehow', 'to', 'have', 'disappeared', 'in', 'two', 'browsers)', ':(', 'corey', 'said,', '*"if', 'you', 'find', 'yourself', 'breathing', 'heavily', '(even', 'if', 'its', 'not', 'for', 'very', 'long!),', 'you', 'are', 'likely', 'dipping', 'in', 'to', 'nonoxidative', 'metabolism', 'aka', '"going', 'anaerobic".*', '"', 'i', 'never', 'breathe', 'heavily.', 'whenever', 'i', 'take', 'a', 'treadmill', 'test,', 'they', 'stop', 'it', 'at', '9', 'or', '10', 'minutes', 'because,', 'if', 'they', "didn't,", "i'd", 'continue', 'forever', '(well,', "that's", 'a', 'long', 'time....).', ':)', 'anyway,', 'i', "don't", 'mouth', 'breathe;', 'i', 'carry', 'on', 'conversations', 'with', 'the', "test's", 'monitors,', 'etc.', 'this', 'past', 'saturday', 'night', 'i', 'did', 'fast', 'latin', 'dancing', 'for', '4.5', 'hours', 'straight,', 'sitting', 'down', 'only', 'for', 'the', 'ten', 'minute', 'break', 'when', 'the', 'music', 'stopped.', 'i', "don't", 'know', 'what', 'deep', 'breathing', 'is', 'unless', 'i', 'force', 'it.', 'so,', 'does', 'this', 'mean', 'i', 'never', 'dip', 'into', 'my', 'nonoxidative', 'metabilism;', 'or', 'do', 'i', 'do', 'so', 'even', 'though', 'i', "don't", 'breathe', 'heavily?', 'thanks!'])
+
+
+
+
+('positive', 'negative', ['guys,', 'could', 'you', 'please', 'light', 'me', 'a', 'little', 'bit', 'here?,', 'the', 'equation:', 'rhoblog=(1-phi)*rhobmatrix', '+', '(phi*rhobfluid)', 'looks', 'like', 'have', 'an', 'analytic', 'solution', 'like:', 'phi=(27-(1<zipredac>*rhoblog))/17,', 'the', 'solution', 'for', 'it', 'at', '5<zipredac><zipredac><zipredac>', 'feet', 'is', 'phi=<zipredac>1729,', 'and', 'you', 'are', 'right', 'when', 'talked', 'about', 'negative', 'values', 'for', 'densities', 'greater', 'than', '2.7gr/cc,', 'however', 'i', 'have', 'serious', 'doubts', 'about', 'the', 'units,', 'because', 'we', 'need', 'to', 'submit', 'the', 'response', 'in', 'si', 'units', '(mpa)', 'right?', 'have', 'you', 'an', 'idea', 'of', 'it?', 'thanks', 'ernesto'])
+
+
+
+
+('positive', 'negative', ['thanks', 'michaela,', 'i', 'did,', 'but', 'then', 'asks', 'for', 'e-mail', 'and', 'all', 'turns', 'red.', ':(', '-t'])
+
+
+
+
+('positive', 'negative', ['i', 'confuse', 'myself', 'with', 'the', 'utc', 'time...', 'unfortunately...', 'we', 'all', 'missed', 'the', 'deadline', 'this', 'time...', ':-(', 'but', 'as', 'was', 'posted', 'in', 'september,', '23:', '>', 'your', 'grade', 'will', 'be', 'based', 'on', 'completion', 'of', 'quizzes', '(10%);', 'unit', '1-3', '>', 'homework', 'assignments', '(20%,', 'due', 'weekly', 'for', 'the', 'first', 'three', 'weeks);', '>', 'essays/peer', 'grading', '(50%)', 'and', 'a', 'multiple-choice', 'final', 'exam', '(20%)', 'so,', 'we', 'can', 'recover', 'in', 'other', 'activities', ':-)'])
+
+
+
+
+('positive', 'negative', ['why', 'i', 'only', 'got', 'the', 'answer', '2.<phoneredac><phoneredac>8e7', 'instead', 'of', 'the', 'correct', 'one?', ':('])
+
+
+
+
+('positive', 'negative', ["i've", 'done', 'session', '1', 'and', 'done', 'all', 'my', 'peer', 'reviews,', 'too,', 'and', 'the', 'progress', 'bar', 'shows', "i've", 'done', '0%.', ':('])
+
+
+
+
+('positive', 'negative', ['hello', 'all,', "i've", 'followed', 'all', 'of', 'the', 'advice', 'for', 'doing', '9.r.1,', 'but', 'my', 'three', 'submitted', 'answers', 'are', 'still', 'incorrect.', 'could', 'someone', 'please', 'provide', 'some', 'advice?', "**i'm", 'guessing', "i've", 'made', 'a', 'mistake', 'with', 'the', 'simulated', 'dataset?**', "i've", 'looked', 'over', 'the', 'related', 'threads', 'and', 'use', 'the', 'mvnorm()', 'function,', 'following', 'the', 'suggestions.', '(thanks', 'to', 'everyone', 'commenting', 'on', 'this', 'problem!)', "i've", 'tried', 'to', 'create', 'the', '1)', 'training', 'dataset', 'and', 'fit', 'the', 'model,', '2)', 'create', 'the', 'larger', 'test', 'data', 'set,', 'calculate', 'the', 'test', 'error', '---', 'and', 'then', 'repeat', 'this', 'process', 'in', 'the', 'monte', 'carlo', 'storing', 'the', 'test', 'error', 'as', 'an', 'element', 'in', 'the', 'test', 'error', 'vector.', 'i', "don't", 'know', 'if', 'it', 'would', 'violate', 'the', 'rules', 'to', 'dump', 'the', 'entire', 'code,', 'so', "here's", 'the', 'gist', 'and', 'some', 'code', 'mostly', 'from', 'the', 'right', 'side', 'of', 'the', '<-', 'operator:', 'initialize', 'the', 'error', 'vector', 'start', 'the', 'i', 'in', '1:1000', 'for', 'loop', '{', 'x1<-mvrnorm(n=50,', 'mu=rep(0,10),', 'sigma=diag(10))', '#', 'do', 'the', 'draws', 'and', 'store', 'as', 'object', 'x2<-mvrnorm(n=50,', 'mu=rep(c(1,0),', 'c(5,5)),', 'sigma=diag(10))', '#', 'thanks', 'to', 'you', 'all', 'on', 'the', 'other', 'threads', 'train<-rbind(x1,x2)', 'classes<-rep(c(0,1),c(50,50))', 'dat<-data.frame(train,classes=as.factor(classes))', 'svmfit<-svm(classes~.,data=dat)', 'predict(svmfit,dat)', '#', 'is', 'the', 'problem', 'in', 'the', 'test', 'dataset', 'mvnorm()?', 'mvrnorm(n=500,', 'mu=rep(0,10),', 'sigma=diag(10))', 'mvrnorm(n=500,', 'mu=rep(c(1,0),', 'c(5,5)),', 'sigma=diag(10))', 'rbind(x1a,x2a)', 'rep(c(0,1),c(500,500))', 'data.frame(test,', 'classest=as.factor(classest))', 'svm(classest~.,data=testdata', ')', 'predict(svmfitt,testdata)', 'sum(testdata$fit1', '!=', 'testdata$classest)/1000', '#', 'calc', 'error', 'rate', 'on', 'element', '[i]', '}', 'mean(errorrate)', '#', "doesn't", 'give', 'me', 'the', 'correct', 'answer', ':(', 'could', 'anyone', 'provide', 'some', 'advice', 'about', 'where', "i'm", 'not', 'understanding', 'how', 'to', 'correctly', 'answer', 'the', 'problem?', 'thanks', 'very', 'much!'])
+
+
+
+
+('positive', 'negative', ['oh', 'no', 'i', 'missed', 'the', 'quizz', 'too', ':('])
+
+
+
+
+('positive', 'negative', ['this', 'is', 'the', 'response', 'i', 'got', 'for', '#2', 'on', 'the', 'dtd', 'exercises...', 'any', 'insight', 'as', 'to', 'why', 'it', 'might', 'happen?', ':(', 'and', 'who', 'would', 'be', 'the', 'best', 'person', 'to', 'contact?'])
+
+
+
+
+('positive', 'negative', ['the', 'time', 'in', 'poland', 'was', 'changed', 'last', 'weekend,', "i've", 'checked', 'the', 'time', 'at', 'www.worldtimebuddy.com/pst-to-cst-converter,', 'but', 'anyway', 'i', 'can', 'not', 'add', 'my', 'essey', 'due', 'to', 'time', 'passing.', ':((((', 'please', 'help!!!!!', '<nameredac_anon_screen_name_redacted>', '<nameredac_anon_screen_name_redacted>'])
+
+
+
+
+('positive', 'negative', ['i', 'would', 'like', 'to', 'ask', 'the', 'staff', 'if', 'there', 'will', 'be', 'the', 'possibility', 'of', 'submitting', 'one', 'of', 'the', 'two', 'first', 'essays', 'again.', 'colleagues', 'that', 'joined', 'us', 'later', 'were', 'given', 'the', 'opportunity', 'to', 'do', 'past', 'homeworks.', 'i', 'did', 'all', 'the', 'essays,', 'homeworks', 'and', 'quizzes', 'and', 'english', 'is', 'not', 'my', 'mother', 'language.', 'actually', "i've", 'never', 'taken', 'english', 'classes', 'and', 'i', 'tried', 'to', 'do', 'my', 'best', 'and', 'almost', 'achived', 'my', 'main', 'goal:', 'distinction.', 'meanwhile', 'i', 'had', 'to', 'travel', 'to', 'another', 'country', 'and', 'did', 'not', 'have', 'time', 'to', 'submit', 'one', 'of', 'my', 'essays', 'again.', 'would', 'it', 'be', 'possible', 'to', 'submit', 'one', 'of', 'them', 'once', 'again?', 'i', 'am', 'about', 'to', 'submit', 'the', 'thidrd', 'one', 'again,', 'but', 'i', 'think', 'it', 'will', 'not', 'be', 'possible', 'for', 'me', 'to', 'get', 'the', '90%', ':(', 'i', 'thank', 'you', 'all', 'in', 'advance'])
+
+
+
+
+('positive', 'negative', ["i'm", 'sorry', 'to', 'hear', 'that', ':(', 'seems', 'like', 'someone', 'was', 'not', 'very', 'attentive', 'to', 'your', 'work', 'and', 'rather', 'acted', 'according', 'to', 'some', '"pattern"', 'in', 'giving', 'the', 'grades.'])
+
+
+
+
+('positive', 'negative', ['wow.', "that's", 'unbelievable.', 'in', 'india', 'and', 'bangladesh', '(and', 'countries', 'nearby),', 'arranged', 'marriage', 'is', 'still', 'very', 'common.', 'many', 'women', 'marry', 'young', '(very', 'frequently)', 'to', 'someone', 'that', 'is', 'almost', 'twice', 'as', 'old.', 'in', 'countries', 'like', 'bangladesh', 'and', 'many', 'muslim', 'countries', 'that', 'still', 'allow', 'polygamy,', "women's", 'rights', 'are', 'devalued', 'too...', ':('])
+
+
+
+
+('positive', 'negative', ['hi', 'this', 'is', 'where', 'i', 'am', 'having', 'confusion...what', 'you', 'say', 'makes', 'sense', 'but', 'not', 'working', 'for', 'me', 'at', 'all', ':(', '<!element', 'department', '(title*,', 'course*,', '(professor', '|', 'lecturer)*)><!attlist', 'department', 'code', 'cdata', '#required', 'chair', 'idref', '#required>', '<!element', 'title', '(#pcdata)><!element', 'course', '(title,', 'description?)><!attlist', 'course', 'number', 'id', '#required', 'prerequisites', 'idrefs', '#required', 'instructors', 'idrefs', '#required', 'enrollment', 'cdata', '#implied><!element', 'description', '(#pcdata', '|', 'courseref)*><!element', 'courseref', 'empty><!attlist', 'courseref', 'course', 'idref', '#required><!element', 'professor', '(first_name,', 'middle_initial?,', 'last_name)><!attlist', 'professor', 'id', 'id', '#required><!element', 'first_name', '(#pcdata)><!element', 'middle_initial', '(#pcdata)><!element', 'last_name', '(#pcdata)>'])
+
+
+
+
+('positive', 'negative', ['suppose', '$x=(x_1,x_2)$,', 'then', '$xin[0,1]^2$', 'means', '$x_iin[0,1],~~i=1,2$.'])
+
+
+
+
+('positive', 'negative', ['same', 'here.', 'i', 'got', 'revenue', 'correct,', 'penalty', 'and', 'profit', 'got', 'wrong.', ':(', '----------', 'anyone', 'got', 'this', 'correct', 'put', 'up', 'a', 'post', 'will', 'you'])
+
+
+
+
+('positive', 'negative', ['nice', 'problems', 'professor', 'jo!', 'your', 'comment', 'about', 'how', 'those', 'fellas', 'in', 'the', 'movie', 'gives', 'us', 'a', 'very', 'negative', 'image', 'of', 'mathematics', 'and', 'maths', 'learners', 'reminded', 'me', 'of', 'this', 'post', 'i', 'saw', 'today', 'on', 'www.facebook.com/commoncoremathresources', 'about', 'a', 't-shirt', 'that', 'was', 'put', 'on,', 'and', 'then', 'taken', 'off', 'the', 'shelves', 'of', 'a', 'store', 'that', 'was', 'in', 'poor', 'taste', 'regarding', 'girls', 'and', 'math.', 'here', 'is', 'the', 'link', 'to', 'the', 'story.', 'what', 'poor', 'taste', ':(', 'http://www.wmur.com/news/national/childrens-place-pulls-math-shirt-after-backlash/-/<phoneredac>/<phoneredac>8/-/jhri7/-/index.html?utm_source=hootsuite&utm_medium=facebook&utm_campaign=wmur%2bfacebook'])
+
+
+
+
+('positive', 'negative', ['hi', 'all,', 'the', 'exercise', '3.3', 'on', 'the', 'text', 'book', 'is', 'about', 'finding', 'out', 'the', 'convexity/concavity', 'of', 'the', 'inverse', 'function', 'of', 'a', 'increasing', 'and', 'convex', 'function', 'f.', '>suppose', 'f', ':', 'r', '?', 'r', 'is', 'increasing', 'and', 'convex', 'on', 'its', 'domain', '(a,', 'b).', 'let', 'g', 'denote', 'its', 'inverse,', 'i.e.,', 'the', 'function', 'with', 'domain', '(f', '(a),', 'f', '(b))', 'and', 'g(f', '(x))', '=', 'x', 'for', 'a', '<', 'x', '<', 'b.', 'what', 'can', 'you', 'say', 'about', 'convexity', 'or', 'concavity', 'of', 'g?"', 'it', 'is', 'not', 'hard', 'to', 'figure', 'out', 'g', 'is', 'concave.', 'but', 'i', 'can', 'not', 'understand', 'the', 'epigraph/hypograph', 'version', 'of', 'illustration', 'of', 'this', 'problem.', 'the', 'solution', 'is', 'as', 'follows:', '>hypo(g)={(y,t)|t<=g(y)}', '>>={(y,t)|f(t)<=f(g(y))}', '>>={(y,t)|f(t)<=y}', '>>=[0', '1;', '1', '0]epi(f)', 'why', 'the', 'last', 'two', 'steps', 'happen?', 'i', 'can', 'not', 'understand.', 'i', 'will', 'appreciate', 'a', 'lot', 'any', 'help', 'from', 'you!', 'thanks!'])
+
+
+
+
+('positive', 'negative', ['no', 'help', 'yet', 'so', 'i', 'just', 'plod', 'along.', 'there', 'must', 'be', 'an', 'easy', 'way', 'to', 'see', 'this', 'but', 'i', "can't.", 'if', 'i', 'try', 'to', 'solve', 'this', 'for', 'the', 'general', 'quadratic', 'norm', '$left', '|', 'x', 'ight', '|_p$', 'it', 'looks', 'like:', '$delta_{nsd}=argminleft{', 'abla', 'f(x)^tvmid', '(v^tpv)^frac{1}{2}=1', 'ight}$', 'so', 'to', 'just', 'pound', 'through', 'it:', 'minimize', '$', 'abla', 'f(x)^tv$', 'subject', 'to', '$(v^tpv)^frac{1}{2}leq1$', '$l(v,lambda)=', 'abla', 'f(x)^tv+lambdaleft', '[(v^tpv)^frac{1}{2}-1', 'ight', ']$', '$frac{partial', 'l}{partial', 'v}=', 'abla', 'f(x)+lambda', '(v^tpv)^{-frac{1}{2}}pv=0$', '$frac{partial', 'l}{partial', 'lambda}=(v^tpv)^frac{1}{2}-1=0$', 'solving', 'for', '$v$', 'gives', '$v=p^{-1}', 'abla', 'f(x)(', 'abla', 'f(x)^tp^{-1}', 'abla', 'f(x))^{-frac{1}{2}}$', 'then', 'substituting', '$p=', 'abla^2', 'f(x)$', '$v=alpha(', 'abla^2', 'f(x))^{-1}', 'abla', 'f(x)$', '$alpha=(', 'abla', 'f(x)^t(', 'abla^2', 'f(x))^{-1}', 'abla', 'f(x))^{-frac{1}{2}}$', 'surely', 'there', 'is', 'an', 'easier/clearer', 'way', 'to', 'do', 'this', '(and', 'i', 'seem', 'to', 'have', 'lost', 'track', 'of', 'a', 'minus', 'sign', 'somewhere', 'along', 'the', 'way...)???'])
+
+
+
+
+('positive', 'negative', ['re', 'question', '1:', 'note', 'that', 'it', 'says', 'the', 'sum', 'of', 'each', 'of', 'the', 'components', 'of', 'a', '3-dimensional', 'point,', 'and', 'that', 'is', 'a', 'real', 'number.', 'so', "there's", 'no', 'typo.', 're', 'question', '2:', "i'm", 'still', 'trying', 'to', 'figure', 'out', 'what', 'it', 'means', 'and', 'how', 'to', 'solve', 'it', ':-('])
+
+
+
+
+('positive', 'negative', ['i', 'am', 'very', 'sorry.', 'my', 'fault.', 'i', "don't", 'know', 'how,', 'but', 'i', 'had', 'forgotten', 'everything', 'about', 'the', 'final', 'part', 'of', 'the', '7.3.3', 'video.', 'i', 'should', 'revise', 'my', 'own', 'ram', ':('])
+
+
+
+
+('positive', 'negative', ['i', 'too', 'forgot', 'to', 'submit', 'it,', 'logged', 'in', 'now', 'to', 'submit', 'and', 'found', 'out', 'i', 'already', 'have', 'surpassed', 'the', 'timeline.', ':(', 'hope', 'to', 'submit', 'rest', 'of', 'assignments', 'on', 'time.'])
+
+
+
+
+('positive', 'negative', ['i', 'could', 'not', 'attach', 'my', 'concept', 'map', 'to', 'this', 'document', 'but', 'here', "it's", 'what', 'i', 'wnated', 'to', 'covey', 'through', 'it:', 'the', 'different', 'experiences', 'the', 'interviewed', 'students', 'had', 'were', 'very', 'procedural', 'and', 'detach', 'from', 'reality.', 'for', 'instance', 'they', 'remembered', 'learning', 'about', 'algorithms,', 'equations', 'and', 'formulas', 'as', 'well', 'as', 'math', 'in', 'scenarios', 'that', 'were', 'not', 'real.', 'these', 'experiences', 'encountering', 'math', 'is', 'such', 'that', 'their', 'feelings', 'about', 'math', 'were', 'negative.', 'they', 'experienced', 'anxiety,boredom;', 'they', 'felt', 'that', 'math', 'was', 'not', 'for', 'them.', 'some', 'expressed', 'they', 'hated', 'math', ':('])
+
+
+
+
+('positive', 'negative', ["it's", 'possible', 'for', '$a$', 'to', 'have', 'rank', '$n$', 'and', 'for', '$ax=b$', 'to', 'be', 'an', 'inconsistent', 'system', 'of', 'equations', 'if', '$a$', 'has', '$m$', 'rows', 'and', '$m>n$.', '$x=(a^{t}a)^{-1}a^{t}b$', 'does', 'give', 'the', 'unique', 'least', 'squares', 'solution', 'in', 'this', 'case.'])
+
+
+
+
+('positive', 'negative', ['another', 'yikes', 'here.', 'i', 'missed', 'all', '3', '&', 'still', 'do', 'not', 'get', 'it', ':('])
+
+
+
+
+('positive', 'negative', ['i', 'really', 'like', 'the', 'stressing', 'to', 'the', 'students', 'that', 'is', 'ok', 'to', 'make', 'mistake.', 'i', 'make', 'mistakes,', 'famous', 'people', 'have', 'made', 'mistakes...', 'and', 'we', 'need', 'to', 'really', 'be', 'okay', 'with', 'mistakes', 'as', 'long', 'as', 'we', 'are', 'learning', 'from', 'those', 'mistakes.', 'i', 'would', 'like', 'to', 'share', 'some', 'of', 'the', 'research', 'about', 'brain', 'activity', 'and', 'growth', 'when', 'making', 'a', 'mistakes', 'vs.', 'not', 'ever', 'making', 'mistakes.', 'i', 'have', 'heard', 'i', 'have', 'a', 'class', 'that', 'makes', 'many', 'mistakes', ':(', ',', 'so', 'this', 'might', 'be', 'a', 'good', 'way', 'to', 'start', 'off', 'the', 'year.'])
+
+
+
+
+('positive', 'negative', ['i', 'get', 'ke', 'as', '1.602*10e-16', 'j,', 'm', 'as', '9.16*10e-31', 'kg', 'calculate', 'v=(2ke/m)', 'it', 'given', '1.87e7', 'm/s', 'and', "i'm", 'trying', 'to', 'calculate', 'wavelength', 'ant', 'lambda=h/(m*v)=38.78', 'pm', "it's", 'wrong(', "i'm", "can't", 'understand,', 'where', 'i', 'wrong'])
+
+
+
+
+('positive', 'negative', ['i', 'could', 'not', 'see', 'the', 'hw', 'deadlines', 'in', 'the', 'courseware', 'section.', 'i', 'was', 'still', 'doing', 'hw5', 'q3', 'which', 'was', 'worth', '60', 'points', 'and', 'finally,', 'i', 'got', 'the', 'answers,', 'but', 'i', 'could', 'not', 'submit', 'the', 'hw.', 'after', 'seeing', 'these', 'posts,', 'i', 'feel', 'hw6', 'was', 'also', 'due', 'today', ':(.', 'the', 'deadlines', 'are', 'not', 'mentioned', 'in', 'the', 'courseware', 'section.', 'please', 'help!'])
+
+
+
+
+('positive', 'negative', ['yes,', 'i', 'am', 'having', 'the', 'exact', 'same', 'problem', ':('])
+
+
+
+
+('positive', 'negative', ['hi,', 'i', 'faced', 'similar', 'issue', 'in', 'my', 'assessment.', 'i', 'had', 'provided', 'response', 'in', 'upper', 'case', 'and', 'it', 'got', 'marked', 'as', 'wrong.', 'while', 'the', 'correct', 'answer', 'is', 'the', 'same', 'word', 'in', 'lower', 'case.', 'exact', 'same', 'word', 'but', 'still', 'case', 'sensitive', 'assessment', '...', 'duh', ':(', 'i', 'lost', 'a', 'point', 'there', ':(![for', 'question', '1.<zipredac>][1]', '[1]:', 'https://edx-west-uploads.s3.amazonaws.com/<phoneredac><zipredac>358<zipredac>1.jpg', 'i', 'agree,', 'that', 'these', 'type', 'of', 'cosmetic', 'points', 'should', 'be', 'taken', 'into', 'consideration', 'during', 'assessment.'])
+
+
+
+
+('positive', 'negative', ["that's", 'what', 'i', 'thought', 'too', ':('])
+
+
+
+
+('positive', 'negative', ['there', 'is', 'still', '4', 'hrs', '!', 'and', 'i', 'am', 'the', 'same', 'as', 'u', ':('])
+
+
+
+
+('positive', 'negative', ['i', 'still', 'have', 'flagged', 'essay', ':-('])
+
+
+
+
+('positive', 'negative', ['me', 'either.', "can't", 'download', ':('])
+
+
+
+
+('positive', 'negative', ['i', 'also', 'find', 'this', 'section', 'vague', 'and', 'confusing.', ':('])
+
+
+
+
+('positive', 'negative', ['i', 'was', 'embarrassed', 'to', 'see', '"mad', 'minute', 'math"', 'used', 'as', 'an', 'example', 'of', 'timed', 'tests.', 'that', 'is', 'precisely', 'what', 'we', 'used', 'to', 'use', 'when', 'i', 'taught', 'first', 'grade.', ':('])
+
+
+
+
+('positive', 'negative', ['we', 'also', 'have', 'tried', 'to', 'do', 'away', 'with', '"honors', 'geometry"', 'at', 'our', 'high', 'school', 'which', 'is', 'basically', 'not', 'much', 'different', 'in', 'content', 'than', 'regular', 'geometry', 'but', 'rather', 'a', 'way', 'to', 'group', 'out', 'the', 'top', '10%', 'or', 'so', 'of', 'the', 'higher', 'ability', 'students.', 'all', 'the', 'teachers', 'were', 'in', 'favor', 'of', 'getting', 'rid', 'of', 'it', 'but', 'the', 'parents', 'came', 'in', 'with', 'the', 'backlash', 'and', 'thus', 'it', 'still', 'exists', ':(', 'we', 'do', 'have', 'a', 'new', 'administration', 'team', 'now', 'so', 'perhaps', 'i', 'will', 're-initiate', 'the', 'idea', 'to', 'get', 'rid', 'of', 'it', 'in', 'light', 'of', 'this', 'data', "we've", 'seen.'])
+
+
+
+
+('positive', 'negative', ['can', 'anyone', 'please', 'help', 'me', 'on', 'these', 'two', 'questions,', 'they', 'seem', 'to', 'be', 'similar', 'and', 'i', 'cant', 'get', 'a', 'hold', 'on', 'either', 'of', 'them', ':(', 'quiz', '5.3.3', 'q3', 'and', 'assignment', '5', 'q4'])
+
+
+
+
+('positive', 'negative', ['history', 'and', 'biographies', 'make', 'things', 'come', 'alive,', 'showing', 'the', 'process', 'behind', 'a', 'disovery,', 'plus', 'present', 'opportunities', 'for', 'interdisciplinary', 'connections', '(bring', 'in', 'the', 'philosophy', 'too', 'upon', 'which', 'so', 'much', 'early', 'math', 'was', 'founded)', 'which', 'really', 'make', 'learning', 'come', 'alive.', 'i', 'did', 'this', 'with', 'my', 'own,', 'but', 'then', 'sat', 'and', 'college', 'admissions', 'pressures', 'rushed', 'things', 'along', ':('])
+
+
+
+
+('positive', 'negative', ['i', 'have', 'problems', 'with', 'this', 'problem', ':(', 'i', 'use', 'the', 'formula', 'k=2*pi/lambda'])
+
+
+
+
+('positive', 'negative', ['hi!', 'i', 'know', 'that', "i'm", 'supposed', 'to', 'be', 'using', 'the', 'difference', 'operator', 'to', 'get', 'all', 'the', 'places', 'people', 'frequent', 'that', "aren't", 'dominos,', 'but', 'i', "can't", 'for', 'the', 'life', 'of', 'me', 'figure', 'out', 'the', 'syntax', 'of', 'how', 'this', 'should', 'be', 'done', ':(', 'please', 'halp?', ':('])
+
+
+
+
+('positive', 'negative', ['the', 'time', 'in', 'poland', 'was', 'changed', 'last', 'weekend,', "i've", 'checked', 'the', 'time', 'at', 'www.worldtimebuddy.com/pst-to-cst-converter,', 'but', 'anyway', 'i', 'can', 'not', 'add', 'my', 'essey', 'due', 'to', 'time', 'passing.', ':((((', 'please', 'help!!!!!', '<nameredac_anon_screen_name_redacted>', '<nameredac_anon_screen_name_redacted>'])
+
+
+
+
+('positive', 'negative', ['right', 'now', "it's", '8:34pm', 'utc', 'time', 'in', 'coordinated', 'universal', 'time)', 'time,', 'which', 'is', '1:34pm', 'california', 'time.', 'the', 'deadline', 'is', '7:00pm', 'utc,', 'so', 'we', 'need', 'to', 'submit', 'our', 'homework', 'before', '12:00', 'california', 'time.', 'i', 'also', 'failed', 'to', 'realize', 'it', 'until', 'now', ':-('])
+
+
+
+
+('positive', 'negative', ['greetings,', 'is', 'rr', 'relative', 'risk,', 'relative', 'ratio', 'or', 'relative', 'rate?', 'would', 'it', 'be', 'possible', 'to', 'organize', 'a', 'reference', 'file', 'in', 'which', 'all', 'the', 'acronyms', 'are', 'spelled', 'out', 'and', 'the', 'formulas', 'provided', 'in', 'a', 'bit', 'more', 'detail?', 'finally,', "i'm", 'lost', 'with', 'these', 'person', 'years:', 'when', 'and', 'how', 'do', 'you', 'cancel', 'them', 'out', 'and', 'how', 'exactly', 'should', 'they', 'be', 'used?', 'thanks,', 'from', 'a', 'student', "who's", 'not', 'doing', 'too', 'well', 'in', 'this', 'course', ':('])
+
+
+
+
+('positive', 'negative', ['i', 'had', 'seen', 'this', 'ted', 'talk', 'before', 'but', 'found', 'it', 'worth', 'watching', 'again.', 'with', 'a', 'few', 'obese', 'members', 'of', 'my', 'family,', 'i', 'have', 'often', 'thought', 'about', 'why', 'the', 'docs', 'kept', 'trying', 'drugs,', 'surgeries', 'etc', 'to', 'remedy', 'the', 'problem..........but', 'never', 'addressing', 'why', 'they', 'could', 'not', 'seem', 'to', 'stop', 'eating', 'regardless', 'of', 'how', 'hard', 'they', 'tried.', ':('])
+
+
+
+
+('positive', 'negative', ['same', 'here,', "it's", 'not', 'there', ':('])
+
+
+
+
