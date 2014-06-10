@@ -114,7 +114,7 @@ def write_all_training(forum, path, concise):
 		all_neg_posts[train_neg_num:train_neg_num + dev_neg_num], 'negative')
 
 	write_posts_to_file(f_test, all_pos_posts[train_pos_num + dev_pos_num:], 'positive')
-	write_posts_to_file(f_test, all_pos_posts[train_neg_num + dev_neg_num:], 'negative')
+	write_posts_to_file(f_test, all_neg_posts[train_neg_num + dev_neg_num:], 'negative')
 
 	f_train.close()
 	f_dev.close()
