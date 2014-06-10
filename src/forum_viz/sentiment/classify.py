@@ -45,16 +45,15 @@ class PostClassifier:
 	@type path_to_labeled_data: string
 	'''
 	def sentiment_train(self, path_to_labeled_data):
-		# 1) Unpickle Data
+		# 1) Unpickle data
 		posts = util.unpickle_file(path_to_labeled_data)
 
-		# 2) Eliminate Noise Words and Inflate sentiment_feature_words
+		# 2) Eliminate noise words and inflate sentiment_features
 		self.sentiment_features = self.build_sentiment_features(posts)
 
 		# Build the training set	
 		training_set = self.lazy_apply_feautres(posts)
 
-		print 'Training ... '
 		# 4) Train Classifier
 		self.sentiment_classifier = \
 			naivebayes.NaiveBayesClassifier.train(training_set)	
@@ -85,7 +84,6 @@ class PostClassifier:
 
 		# 3) Test with classifier
 		print 'Testing ...'
-		test_accuracy = accuracy(self.sentiment_classifier, testing_set)
 		errors = []
 		f_iter  = testing_set.iterate_from(0)
 		i = 0
@@ -94,6 +92,9 @@ class PostClassifier:
 			guess = self.sentiment_classifier.classify(features)
 			if guess != sentiment:
 				errors.append((guess, sentiment, post))
+		print 'Done errors'
+		test_accuracy = (len (testing_set) - len (errors)) / len (testing_set)
+		print 'Calculated accuracy'
 		return (test_accuracy, errors)
 
 	def classify_sentiment_core_nlp(self, sentences):

@@ -157,7 +157,7 @@ def main():
 	forum = Forum(user=user, host=host, db=db)
 	if args.path is not None:
 		if not args.path.endswith('/'):
-			args.path = args.path.append('/')
+			args.path = args.path + '/'
 		write_all_training(forum, args.path, args.concise)
 	else:
 		if args.coursename is None:

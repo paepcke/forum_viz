@@ -36,8 +36,9 @@ def classify_and_write_results(posts):
 
 def sentiment_test(train_path, test_path):
 	classifier = PostClassifier()
+	print 'Training ... '
 	classifier.sentiment_train(train_path)
-	print 'done training'
+	print 'Done training'
 	result = classifier.sentiment_test(test_path)
 	print 'Accuracy: ' + str(result[0])
 	print 'Num Errors: ' + str(len(result[1]))
