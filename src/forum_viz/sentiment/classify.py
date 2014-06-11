@@ -57,6 +57,7 @@ class PostClassifier:
 		# 4) Train Classifier
 		self.sentiment_classifier = \
 			naivebayes.NaiveBayesClassifier.train(training_set)	
+		self.sentiment_classifier.show_most_informative_features(300)
 
 	'''
 	Given a path to a testing file (formatted in the same manner
@@ -119,8 +120,15 @@ class PostClassifier:
 				labeled_token[0]), labeled_token[1])
 		return LazyMap(lazy_func, toks)
 
-	#TODO Filter out stop words 
 	@staticmethod
+	# TODO: I want a more fine-grained feature set.
+	# Perhaps filter out the more common words as well?
+	# Perhaps come up with an ad-hoc list of words that
+	# shouldn't be filtered out as well?
+	# Ideas:
+	# tf-idf
+	# just chuck out words that don't seem meaningful
+	# bigrams / trigrams
 	def build_sentiment_features(posts):
 		features = set()
 		for (words, sentiment) in posts:

@@ -11,6 +11,7 @@ import argparse
 from forum import Forum
 import pickle
 from random import shuffle
+import re
 
 host = 'datastage.stanford.edu'
 db = 'EdxForum'
@@ -21,7 +22,9 @@ attr = ['body']
 fields = ','.join(attr)
 happy_emoticons = '.*(:-?|=|;)[])DP].*'
 sad_emoticons = '.*(:-?|=)[[(].*'
-all_emoticons = '.*(:-?|=|;)[])DP[(].*'
+all_emoticons = '.*(:-?|=-?|;-?)[])DP[(].*'
+
+token_regex = '[\w+\']|(' + all_emoticons + ')|[.,!?;]'
 
 train_percent = 0.6
 dev_percent = 0.2
@@ -29,7 +32,14 @@ test_percent = 0.2
 
 def write_posts_to_file(f, posts, label):
 	for post in posts:
-		words  = [w.lower() for w in post.body.split()]
+		words = []
+		for matches in re.findall(r"([\w']+)|((:-?|=-?|;-?)[]\)DP[\(])|([.,!?;])", post.body):
+			# TODO: HACK HACK HACK
+			# I don't want findall to return a list of groups, I just want it to return the
+			# match ...
+			found = list (matches)
+			found.pop(2)
+			words.append (''.join(found))
 		entry = (words, label)
 		pickle.dump(entry, f)
 
