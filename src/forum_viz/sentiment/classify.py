@@ -2,6 +2,7 @@ from nltk.classify import naivebayes, accuracy
 from nltk.classify.util import LazyMap
 from nltk.corpus import stopwords
 from subprocess import Popen, PIPE, STDOUT
+import operator
 import util
 
 path_to_corenlp_jars = \
@@ -87,16 +88,20 @@ class PostClassifier:
 		print 'Testing ...'
 		errors = []
 		f_iter  = testing_set.iterate_from(0)
-		i = 0
+		false_pos = false_neg = 0
 		for (post, sentiment) in posts:
 			features = f_iter.next()[0]
 			guess = self.sentiment_classifier.classify(features)
 			if guess != sentiment:
 				errors.append((guess, sentiment, post))
-		print 'Done errors'
-		test_accuracy = (len (testing_set) - len (errors)) / len (testing_set)
-		print 'Calculated accuracy'
-		return (test_accuracy, errors)
+				if guess == 'positive':
+					false_pos += 1
+				else:
+					false_neg += 1
+		# TODO Clean this up
+		print "fp: " + str (false_pos)
+		print "fn: " + str (false_neg)
+		return (len (errors) / len (posts), errors)
 
 	def classify_sentiment_core_nlp(self, sentences):
 		# A basic implementation that uses the stanford sentiment classifier
@@ -129,9 +134,21 @@ class PostClassifier:
 	# tf-idf
 	# just chuck out words that don't seem meaningful
 	# bigrams / trigrams
+	# probably going to have to implement my own naive bayes
+	# 	variant so that I can try tf-idf
 	def build_sentiment_features(posts):
-		features = set()
+		# calculate frequencies
+		freqmap = {}
 		for (words, sentiment) in posts:
-			for feature in [x for x in words if x not in stop_words]:
-				features.add(feature)
-		return features	
+			for w in [x for x in words if x not in stop_words]:
+				if w in freqmap:
+					freqmap[w] += 1
+				else:
+					freqmap[w] = 1	
+		sorted_freq = sorted (freqmap.iteritems(), key=operator.itemgetter(1))
+		features = []
+		for (key, value) in sorted_freq:
+			# Filter out uncommon / esoteric words
+			if value >= 20: #TODO This feels hacky as well & the number seems too high
+				features.append(key)
+		return set(features)

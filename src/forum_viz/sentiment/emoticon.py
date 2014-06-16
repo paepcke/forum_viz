@@ -34,12 +34,12 @@ def write_posts_to_file(f, posts, label):
 	for post in posts:
 		words = []
 		for matches in re.findall(r"([\w']+)|((:-?|=-?|;-?)[]\)DP[\(])|([.,!?;])", post.body):
-			# TODO: HACK HACK HACK
-			# I don't want findall to return a list of groups, I just want it to return the
-			# match ...
 			found = list (matches)
+			# TODO: This is a hack.
+			# findall returns a list of four groups with the supplied regex. The third group
+			# is irrelevant.
 			found.pop(2)
-			words.append (''.join(found))
+			words.append (''.join(found).lower())
 		entry = (words, label)
 		pickle.dump(entry, f)
 
@@ -94,6 +94,9 @@ def write_all_training(forum, path, concise):
 	shuffle(all_pos_posts)
 	shuffle(all_neg_posts)
 	total_num_posts = len(all_pos_posts) + len(all_neg_posts)
+
+	# TODO: It might be advisable to inflate the negative ratio
+	#		and defalte the positive ratio.
 	pos_ratio = float(len(all_pos_posts)) / total_num_posts
 	neg_ratio = 1 - pos_ratio
 
