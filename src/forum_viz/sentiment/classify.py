@@ -10,9 +10,9 @@ path_to_corenlp_jars = \
 path_to_corenlp_sentiment = \
 	'edu.stanford.nlp.sentiment.SentimentPipeline'
 stop_words = stopwords.words('english')
-negative_words = ['no, not, but, aren\'t, can\'t, couldn\'t,\
-	didn\'t, doesn\'t, don\'t, hadn\'t, hasn\'t, haven\'t, isn\'t, shouldn\'t,\
-	wasn\'t, weren\'t, won\'t, wouldn\'t']
+negative_words = ['no', 'not', 'but', 'aren\'t', 'can\'t', 'couldn\'t',
+	'didn\'t', 'doesn\'t', 'don\'t', 'hadn\'t', 'hasn\'t', 'haven\'t',
+	'isn\'t', 'shouldn\'t', 'wasn\'t', 'weren\'t', 'won\'t', 'wouldn\'t']
 
 class PostClassifier:
 	
@@ -73,8 +73,9 @@ class PostClassifier:
 				  before calling this method.
 	@param path_to_testing_data: The path to the testing file.
 	@type path_to_testing_data: string
-	@return A tuple (accuracy, errors), where accuracy is a double
-			describing the success rate and errors is a list of three-tuples
+	@return A tuple (fp, fn, errors), where fp is the number of false positives,
+			fn is the number of false negatives,
+			and errors is a list of three-tuples
 			(guess, sentiment, post), where guess is the classification result,
 			sentiment is the label attached to the post, and post is the text of
 			the post (broken into words). A tuple appears in errors if and only
@@ -104,7 +105,7 @@ class PostClassifier:
 		# TODO Clean this up
 		print "fp: " + str (false_pos)
 		print "fn: " + str (false_neg)
-		return (len (errors) / len (posts), errors)
+		return (false_pos, false_neg, errors)
 
 	def classify_sentiment_core_nlp(self, sentences):
 		# A basic implementation that uses the stanford sentiment classifier
