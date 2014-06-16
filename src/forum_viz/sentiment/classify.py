@@ -10,6 +10,9 @@ path_to_corenlp_jars = \
 path_to_corenlp_sentiment = \
 	'edu.stanford.nlp.sentiment.SentimentPipeline'
 stop_words = stopwords.words('english')
+negative_words = ['no, not, but, aren\'t, can\'t, couldn\'t,\
+	didn\'t, doesn\'t, don\'t, hadn\'t, hasn\'t, haven\'t, isn\'t, shouldn\'t,\
+	wasn\'t, weren\'t, won\'t, wouldn\'t']
 
 class PostClassifier:
 	
@@ -115,8 +118,11 @@ class PostClassifier:
 	def sentiment_extract_features(self, post):
 		post_set = set(post)
 		features = {}
+		features['contains(negative word)'] = False
 		for feature in self.sentiment_features:
-			features['contains(%s)' % feature] = (feature in post_set)
+			if feature in post_set:
+				features['contains(%s)' % feature] = True
+				features['contains(negative word)'] = (feature in negative_words)
 		return features
 			
 	def lazy_apply_feautres(self, toks):
@@ -149,6 +155,6 @@ class PostClassifier:
 		features = []
 		for (key, value) in sorted_freq:
 			# Filter out uncommon / esoteric words
-			if value >= 20: #TODO This feels hacky as well & the number seems too high
+			if value >= 10: #TODO This feels hacky as well & the number seems too high
 				features.append(key)
 		return set(features)
