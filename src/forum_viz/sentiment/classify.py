@@ -73,8 +73,9 @@ class PostClassifier:
 				  before calling this method.
 	@param path_to_testing_data: The path to the testing file.
 	@type path_to_testing_data: string
-	@return A tuple (fp, fn, errors), where fp is the number of false positives,
-			fn is the number of false negatives,
+	@return A tuple (fp, fn, accuracy, errors), where fp is the false positive rate,
+			fn is the false negative rate,
+			accuracy is the overall accuracy,
 			and errors is a list of three-tuples
 			(guess, sentiment, post), where guess is the classification result,
 			sentiment is the label attached to the post, and post is the text of
@@ -92,8 +93,15 @@ class PostClassifier:
 		print 'Testing ...'
 		errors = []
 		f_iter  = testing_set.iterate_from(0)
-		false_pos = false_neg = 0
+		false_pos = false_neg = num_pos = num_neg = 0
 		for (post, sentiment) in posts:
+			assert sentiment == 'positive' or sentiment == 'negative', \
+				'Unknown label: \'' + sentiment + '\''	
+			if sentiment == 'positive':
+				num_pos += 1
+			else:
+				num_neg += 1
+
 			features = f_iter.next()[0]
 			guess = self.sentiment_classifier.classify(features)
 			if guess != sentiment:
@@ -102,10 +110,8 @@ class PostClassifier:
 					false_pos += 1
 				else:
 					false_neg += 1
-		# TODO Clean this up
-		print "fp: " + str (false_pos)
-		print "fn: " + str (false_neg)
-		return (false_pos, false_neg, errors)
+		return (float(false_pos) / num_neg, float(false_neg) / num_pos,
+			float(len(posts) - len(errors)) / len(posts), errors)
 
 	def classify_sentiment_core_nlp(self, sentences):
 		# A basic implementation that uses the stanford sentiment classifier

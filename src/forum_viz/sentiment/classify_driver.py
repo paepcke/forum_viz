@@ -40,11 +40,12 @@ def sentiment_test(train_path, test_path):
 	classifier.sentiment_train(train_path)
 	print 'Done training'
 	result = classifier.sentiment_test(test_path)
-	for elem in result[2]:
+	for elem in result[3]:
 		print elem 
 		print '\n\n\n'
-	print 'False Positives: ' + str(result[0])
-	print 'False Negatives: ' + str(result[1])
+	print 'False Positive Rate: ' + str(result[0])
+	print 'False Negative Rate: ' + str(result[1])
+	print 'Accuracy: ' + str(result[2])
 	
 def main():
 	parser = argparse.ArgumentParser(description='Uses classify module ' \
