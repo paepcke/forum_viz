@@ -156,6 +156,6 @@ class PostClassifier:
 		features = []
 		for (key, value) in sorted_freq:
 			# Filter out uncommon / esoteric words
-			if value >= 10: #TODO This feels hacky as well & the number seems too high
+			#if value >= 10: #TODO This feels hacky as well & the number seems too high
 				features.append(key)
 		return set(features)
