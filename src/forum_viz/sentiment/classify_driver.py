@@ -34,10 +34,10 @@ def classify_and_write_results(posts):
 		else:
 			print output
 
-def sentiment_test(train_path, test_path):
+def sentiment_test(lt, nb, train_path, test_path):
 	classifier = PostClassifier()
 	print 'Training ... '
-	classifier.sentiment_train(train_path)
+	classifier.sentiment_train(train_path, lt, nb)
 	print 'Done training'
 	result = classifier.sentiment_test(test_path)
 	for elem in result[3]:
@@ -55,8 +55,13 @@ def main():
 	parser.add_argument('-cn', '--coursename', type=str,
 		help='Retrieve posts for a particular course; course defaults to ' \
 			+ default_course_name)
-	parser.add_argument('-c', '--classifier', type=str,
+	parser.add_argument('-c', '--classifier', type=str, default='s',
 		help='Applies a particular classifier: \'s\' for sentiment')
+	parser.add_argument('-lt', '--lower_threshold', type=int, default=0,
+		help='Lower threshold for feature selection; defaults to 0.')
+	parser.add_argument('-nb', '--negative_bucket', default=False,
+		action='store_true', help='If included, classifier will include a ' \
+			'feature that is activated by the presence of negative words.')
 	parser.add_argument('-tr', '--train', type=str,
 		help='Path to training data.')
 	parser.add_argument('-tst', '--test', type=str,
@@ -64,12 +69,15 @@ def main():
 	args = parser.parse_args()
 
 	if args.classifier == 's':
-		sentiment_test(args.train, args.test)
+		sentiment_test(args.lower_threshold, args.negative_bucket,
+			args.train, args.test)
 	else:
+		print 'Error: Classifier not implemented.'
+	'''else:
 		user = args.username if args.username is not None else ''
 		course = args.course if args.coursename is not None else default_course_name
 		posts = retrieve_posts(user, course)
-		classify_and_write_results(posts)
+		classify_and_write_results(posts)'''
 
 if __name__ == "__main__":
     main()

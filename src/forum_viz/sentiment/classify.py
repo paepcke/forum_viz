@@ -48,12 +48,16 @@ class PostClassifier:
 	@param path_to_labeled_data: The path to the labeled data file
 	@type path_to_labeled_data: string
 	'''
-	def sentiment_train(self, path_to_labeled_data):
+	def sentiment_train(self, path_to_labeled_data, lower_threshold=0, negative_bucket=True):
+		self.lower_threshold = lower_threshold
+		self.negative_bucket = negative_bucket
+
 		# 1) Unpickle data
 		posts = util.unpickle_file(path_to_labeled_data)
 
 		# 2) Eliminate noise words and inflate sentiment_features
-		self.sentiment_features = self.build_sentiment_features(posts)
+		self.sentiment_features = \
+			self.build_sentiment_features(posts)
 
 		# Build the training set	
 		training_set = self.lazy_apply_feautres(posts)
@@ -129,7 +133,8 @@ class PostClassifier:
 		for feature in self.sentiment_features:
 			if feature in post_set:
 				features['contains(%s)' % feature] = True
-				features['contains(negative word)'] = (feature in negative_words)
+				if self.negative_bucket:
+					features['contains(negative word)'] = (feature in negative_words)
 		return features
 			
 	def lazy_apply_feautres(self, toks):
@@ -138,7 +143,6 @@ class PostClassifier:
 				labeled_token[0]), labeled_token[1])
 		return LazyMap(lazy_func, toks)
 
-	@staticmethod
 	# TODO: I want a more fine-grained feature set.
 	# Perhaps filter out the more common words as well?
 	# Perhaps come up with an ad-hoc list of words that
@@ -149,7 +153,7 @@ class PostClassifier:
 	# bigrams / trigrams
 	# probably going to have to implement my own naive bayes
 	# 	variant so that I can try tf-idf
-	def build_sentiment_features(posts):
+	def build_sentiment_features(self, posts):
 		# calculate frequencies
 		freqmap = {}
 		for (words, sentiment) in posts:
@@ -162,6 +166,6 @@ class PostClassifier:
 		features = []
 		for (key, value) in sorted_freq:
 			# Filter out uncommon / esoteric words
-			#if value >= 10: #TODO This feels hacky as well & the number seems too high
+			if value >= self.lower_threshold: 
 				features.append(key)
 		return set(features)

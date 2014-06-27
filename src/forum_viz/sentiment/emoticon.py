@@ -108,9 +108,11 @@ def main():
 		help='username for database')
 	parser.add_argument('-cn', '--coursename', type=str,
 		help='Retrieve posts for a particular course; defaults to all courses')
-	parser.add_argument('-p', '--path', type=str,
+	parser.add_argument('-p', '--path', type=str, default='./',
 		help='Directory to write the training and testing data to; defaults to ' \
 			'the working directory.')
+	parser.add_argument('-px', '--prefix', type=str, default='',
+		help='Prefix to add to the training and testing data files.')
 	parser.add_argument ('-v', '--verbose', default=False, action='store_true',
 		help='verbose')
 	args = parser.parse_args()
@@ -118,10 +120,9 @@ def main():
 	user = args.username if args.username is not None else ''
 	forum = Forum(user=user, host=host, db=db)
 
-	args.path = './' if args.path is None else args.path
 	if not args.path.endswith('/'):
 		args.path = args.path + '/'
-	generate_data(forum, args.coursename, args.path, args.verbose)
+	generate_data(forum, args.coursename, args.path + args.prefix, args.verbose)
 
 if __name__ == "__main__":
 	main()
