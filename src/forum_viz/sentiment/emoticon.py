@@ -42,7 +42,7 @@ def write_posts_to_file(f, posts, label):
 		entry = (words, label)
 		pickle.dump(entry, f)
 
-def generate_data(forum, course, path, verbose):
+def generate_data(forum, course, path, pos_ratio_arg, verbose):
 	course_list	= []
 	if course is None:
 		course_list = forum.course_names()
@@ -71,11 +71,26 @@ def generate_data(forum, course, path, verbose):
 	shuffle(all_neg_posts)
 	total_num_posts = len(all_pos_posts) + len(all_neg_posts)
 
-	# TODO: It might be advisable to inflate the negative ratio
-	#		and defalte the positive ratio.
 	pos_ratio = float(len(all_pos_posts)) / total_num_posts
 	neg_ratio = 1 - pos_ratio
-
+	if pos_ratio_arg is not None:
+		# Artificially deflate the number of positive posts or the number of
+		# negative posts, if pos_ratio_arg does not equal pos_ratio.
+		if pos_ratio_arg > pos_ratio:
+			total_num_posts = int(float(len(all_pos_posts)) / pos_ratio_arg)
+			reduced_neg_posts = total_num_posts - len(all_pos_posts)
+			all_neg_posts = all_neg_posts[:reduced_neg_posts]
+			print total_num_posts
+			print reduced_neg_posts
+		elif 1 - pos_ratio_arg > neg_ratio:
+			total_num_posts = int(float(len(all_neg_posts)) / (1 - pos_ratio_arg))
+			reduced_pos_posts = total_num_posts - len(all_neg_posts)
+			all_pos_posts = all_pos_posts[:reduced_pos_posts]
+			print total_num_posts
+			print reduced_pos_posts
+		pos_ratio = pos_ratio_arg
+		neg_ratio = 1 - pos_ratio
+			
 	train_pos_num = int(train_percent * total_num_posts * pos_ratio)
 	train_neg_num = int(train_percent * total_num_posts * neg_ratio)
 	test_pos_num = len(all_pos_posts) - train_pos_num
@@ -111,6 +126,9 @@ def main():
 	parser.add_argument('-p', '--path', type=str, default='./',
 		help='Directory to write the training and testing data to; defaults to ' \
 			'the working directory.')
+	parser.add_argument('-pr', '--positive_ratio', type=float,
+		help='Percentage of positive labeled posts to collect; defaults to \
+        	a representative proportion.')
 	parser.add_argument('-px', '--prefix', type=str, default='',
 		help='Prefix to add to the training and testing data files.')
 	parser.add_argument ('-v', '--verbose', default=False, action='store_true',
@@ -122,7 +140,7 @@ def main():
 
 	if not args.path.endswith('/'):
 		args.path = args.path + '/'
-	generate_data(forum, args.coursename, args.path + args.prefix, args.verbose)
+	generate_data(forum, args.coursename, args.path + args.prefix, args.positive_ratio, args.verbose)
 
 if __name__ == "__main__":
 	main()
