@@ -82,14 +82,10 @@ def generate_data(forum, course, path, pos_ratio_arg, runs, verbose):
 				total_num_posts = int(float(len(all_pos_posts)) / pos_ratio_arg)
 				reduced_neg_posts = total_num_posts - len(all_pos_posts)
 				all_neg_posts = all_neg_posts[:reduced_neg_posts]
-				print total_num_posts
-				print reduced_neg_posts
 			elif 1 - pos_ratio_arg > neg_ratio:
 				total_num_posts = int(float(len(all_neg_posts)) / (1 - pos_ratio_arg))
 				reduced_pos_posts = total_num_posts - len(all_neg_posts)
 				all_pos_posts = all_pos_posts[:reduced_pos_posts]
-				print total_num_posts
-				print reduced_pos_posts
 				pos_ratio = pos_ratio_arg
 				neg_ratio = 1 - pos_ratio
 					
