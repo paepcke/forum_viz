@@ -1,6 +1,7 @@
 import mysqldb
 import nltk
 import getpass
+import sys
 
 # A struct of sorts that holds information field values
 # for a given post (e.g. body, author_id), depending on the query.
@@ -17,7 +18,13 @@ class Forum:
 		if user == '':
 			user = raw_input("Username: ")
 		if passwd == '':
-			passwd = getpass.getpass("Password: ")
+			try:
+				f = open('password.txt', 'r')
+				passwd = f.readline().strip()
+			except IOError:
+				print 'failed to open password.txt'
+				sys.exit()
+			f.close()
 		self.db = mysqldb.MySQLDB(host, user=user, passwd=passwd, db=db)
 
 	'''

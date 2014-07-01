@@ -48,7 +48,7 @@ class PostClassifier:
 	@param path_to_labeled_data: The path to the labeled data file
 	@type path_to_labeled_data: string
 	'''
-	def sentiment_train(self, path_to_labeled_data, lower_threshold=0, negative_bucket=True):
+	def sentiment_train(self, path_to_labeled_data, lower_threshold=0, negative_bucket=False):
 		self.lower_threshold = lower_threshold
 		self.negative_bucket = negative_bucket
 
@@ -94,7 +94,6 @@ class PostClassifier:
 		testing_set = self.lazy_apply_feautres(posts)
 
 		# 3) Test with classifier
-		print 'Testing ...'
 		errors = []
 		f_iter  = testing_set.iterate_from(0)
 		false_pos = false_neg = num_pos = num_neg = 0
