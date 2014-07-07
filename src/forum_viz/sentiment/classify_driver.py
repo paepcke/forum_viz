@@ -112,7 +112,7 @@ def main():
 
 	if args.classifier == 's':
 		sentiment_test(args.lower_threshold, args.negative_bucket,
-			args.directory, args.output)
+			args.directory + '/', args.output)
 	else:
 		print 'Error: Classifier not implemented.'
 

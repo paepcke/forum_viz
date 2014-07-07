@@ -6,12 +6,12 @@ pickle the fetched posts.
 
 @author Akshay Agrawal: akshayka@cs.stanford.edu
 '''
+from forum import Forum
+import util
 
 import argparse
-from forum import Forum
 import pickle
 from random import shuffle
-import re
 
 host = 'datastage.stanford.edu'
 db = 'EdxForum'
@@ -29,19 +29,6 @@ token_regex = '[\w+\']|(' + all_emoticons + ')|[.,!?;]'
 train_percent = 0.6
 test_percent = 0.4
 
-def write_posts_to_file(f, posts, label):
-	for post in posts:
-		words = []
-		for matches in re.findall(r"([\w']+)|((:-?|=-?|;-?)[]\)DP[\(])|([.,!?;])", post.body):
-			found = list (matches)
-			# TODO: This is a hack.
-			# findall returns a list of four groups with the supplied regex. The third group
-			# is irrelevant.
-			found.pop(2)
-			words.append (''.join(found).lower())
-		entry = (words, label)
-		pickle.dump(entry, f)
-
 def generate_data(forum, course, path, pos_ratio_arg, runs, verbose):
 	course_list	= []
 	if course is None:
@@ -49,6 +36,8 @@ def generate_data(forum, course, path, pos_ratio_arg, runs, verbose):
 	else:
 		course_list = [course]
 	for run in range (1, runs + 1):
+		if verbose:
+			print 'Run number ' + str(run)
 		all_pos_posts = []
 		all_neg_posts = []
 		for course in course_list:
@@ -66,6 +55,14 @@ def generate_data(forum, course, path, pos_ratio_arg, runs, verbose):
 			all_neg_posts.extend(neg_posts)
 			pos_len = len(pos_posts)
 			neg_len = len(neg_posts)
+
+		# Add labels to the classified data
+		for index, item in enumerate(all_pos_posts):
+			item.forum_viz_label = 'positive'
+			all_pos_posts[index] = item
+		for index, item in enumerate(all_neg_posts):
+			item.forum_viz_label = 'negative'
+			all_neg_posts[index] = item
 
 		# Generate the training and test data
 		shuffle(all_pos_posts)
@@ -103,11 +100,11 @@ def generate_data(forum, course, path, pos_ratio_arg, runs, verbose):
 			print 'failed to open train / test'
 			return
 
-		write_posts_to_file(f_train, all_pos_posts[:train_pos_num], 'positive')
-		write_posts_to_file(f_train, all_neg_posts[:train_neg_num], 'negative')
+		util.pickle_posts_to_file(f_train, all_pos_posts[:train_pos_num])
+		util.pickle_posts_to_file(f_train, all_neg_posts[:train_neg_num])
 
-		write_posts_to_file(f_test, all_pos_posts[train_pos_num:], 'positive')
-		write_posts_to_file(f_test, all_neg_posts[train_neg_num:], 'negative')
+		util.pickle_posts_to_file(f_test, all_pos_posts[train_pos_num:])
+		util.pickle_posts_to_file(f_test, all_neg_posts[train_neg_num:])
 
 		f_train.close()
 		f_test.close()

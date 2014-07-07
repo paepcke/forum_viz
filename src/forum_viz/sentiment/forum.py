@@ -66,8 +66,17 @@ class Forum:
 				print result_str
 
 			post = Post()
+
+			# TODO: this is hacky ... ! the forum interface needs
+			# to be rethought or done away with altogether
+			if attr is None:
+				attr = []
+				assert table != '', 'table not provided and attr is *'
+				attr_describe = list(self.db.query('describe ' + table))
+				for elem in attr_describe:
+					attr.append(elem[0])
 			for i in range(0, len(attr)):
-				setattr(post, attr[i], result[i])
+				setattr(post, attr[i].lower(), result[i])
 			posts.append(post)
 		return posts
 
