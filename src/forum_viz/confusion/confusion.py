@@ -59,7 +59,7 @@ def getdata_test(qq,nb):
     print ctr  
     print pos
     print neg
-    mydb.executeParameterized("update EdxForum.contents set confused = %s where created_at=%s and user_int_id = %s and sk=%s", (x,c[0],c[1],c[2]) );
+    mydb.executeParameterized("update EdxForum.contents set confusion = %s where created_at=%s and forum_uid = %s and sk=%s", (x,c[0],c[1],c[2]) );
 
   return happy_posts
 
@@ -100,7 +100,7 @@ mydb.execute('SET NAMES utf8;');
 mydb.execute('SET CHARACTER SET utf8;');
 mydb.execute('SET character_set_connection=utf8;');
 if (len(sys.argv) !=2):
-  print 'usage: python testgen.py test/train'
+  print 'usage: python confusion.py test/train'
   sys.exit (1)
 
 
@@ -184,7 +184,7 @@ print len(classes)
 data2=[]
 cat2=[]
 #qq="select body from EdxForum.contents where body like '%confused%' or body like '%not understand%' or body like '%don''t understand%' or body like '%not follow%' or body like '%don''t follow%' or body like '%quite understand%' or body like '%unclear to%' or body like '%can''t understand%'"
-qq="select body from EdxForum.contents where body not like '%confused%' and body not like '%confusing%' and body not like '%confusion%' and body not like '%confusing%'  and body not like '%not understand%' and body not like '%don''t understand%' and body not like '%not follow%' and body not like '%don''t follow%' and body not like '%quite understand%' and body not like '%unclear to%' and body not like '%can''t understand%' and user_int_id > 1000 order by  RAND() limit 0,999"
+qq="select body from EdxForum.contents where body not like '%confused%' and body not like '%confusing%' and body not like '%confusion%' and body not like '%confusing%'  and body not like '%not understand%' and body not like '%don''t understand%' and body not like '%not follow%' and body not like '%don''t follow%' and body not like '%quite understand%' and body not like '%unclear to%' and body not like '%can''t understand%' and forum_uid > 1000 order by  RAND() limit 0,999"
 getdata1(qq,1,data2,cat2)
 
 
@@ -521,7 +521,7 @@ I'd say, it all depends on your implementation. If your implementation is very t
   ))
 
 
-getdata_test ("select body,created_at,user_int_id,sk from EdxForum.contents",nb)
+getdata_test ("select body,created_at,forum_uid,sk from EdxForum.contents",nb)
 
 
 for test in tests:
