@@ -1,5 +1,4 @@
 import mysqldb
-import nltk
 import getpass
 
 # A struct of sorts that holds information field values

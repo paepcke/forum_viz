@@ -2,6 +2,7 @@ import argparse
 from forum import Forum
 import pickle
 from random import shuffle
+import re
 
 host = 'datastage.stanford.edu'
 db = 'EdxForum'
@@ -20,7 +21,7 @@ test_percent = 0.2
 
 def write_posts_to_file(f, posts, label):
 	for post in posts:
-		words  = [w.lower() for w in post.body.split()]
+		words = [w.lower () for w in re.findall(r"[\w']+|(" + all_emoticons + ")|[.,!?;]", post.body)]	
 		entry = (words, label)
 		pickle.dump(entry, f)
 
