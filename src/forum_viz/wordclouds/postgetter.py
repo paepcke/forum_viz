@@ -1,7 +1,7 @@
 
 from pymysql_utils1 import MySQLDB
 from topia.termextract import extract
-from sklearn.feature_extraction.text import CountVectorizer
+#from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 
 class PostGetter:
@@ -74,7 +74,7 @@ class PostGetter:
     
 
 
-   
+"""   
 def main():
   p=PostGetter()
   cname='Medicine/HRP258/Statistics_in_Medicine'
@@ -98,5 +98,5 @@ def main():
 
   print words        
 
-
+"""
 #main()  
