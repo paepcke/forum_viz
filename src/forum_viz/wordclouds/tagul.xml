@@ -1,0 +1,159 @@
+<tagul>
+
+<head>
+
+<shape type="gradient" useCustomColors="true">iVBORw0KGgoAAAANSUhEUgAAAMgAAAB1CAYAAAALDK41AAADBUlEQVR4nO3WMU1EYRCFUazggIKKguCAGgGoQAQmKCiwgAEMYIWQbJaWChIe++bO/Ke4Dubkm7Pj5cXxpx1un/68z/vDrjt/6bm79+eT7vHt+l/38XpTuuPD1bb9cvPfdwZI/QABBBBAAAEEEEAAaYdkEg5AFgSiIIAAUoQDEEBaA1EQQAABBBBA1gBSjQMQQKKBJCABBJBYINU4AAEkGkgCEkAAAQQQQDoCqcYBCCCAAAIIIIAAAggggKwFJAFJDJAtOAABZDwQBQEkDQcggADSBUgnHIB4sRQEkHIg1TgAASQaSAISQAABBBBAAAEEEEAAAQQQQAABBJD/A7I3DkAAaQVEQWYCqcYBCCDRQBKQjADixQIEkDAk1YeeiMOLBUhrIAqyKBAvVgYOQEKBKEgOEkAAAQQQQACpB1KNAxBAooEkIAEEkFgg1TgAASQaSAISQAABBBBAAAEEEEAAAQQQQAABBBBAAAEEkLABAggggAACCCCAALI0kGocgAASDSQBCSCAxAKpxhEFZAsOQAAZD0RBAAEEkPJ1ApKAZASQvXEAsk5BNiNJAKIgM4EkIBlREEAAAQSQ5YBU4wAEkGggCUgAAQSQ6UD2xgGIF6sVEAWZCSQBCSCAxAKpxgEIINFAEpAAAggggADSEUg1DkAAiQaSgAQQQGKBVOMYA2RvHIAoSCsgCjITSDUOQACJBpKABBBAAAEEEECaA9mCAxBAxgNREEDScAACCCCAANIVSAISQACJBVKNAxBAAAEEkK5AEpAAAgggp0QCSK/BoSCAKAgggAACCCBLA6nGAQgggAACCCCAADIQSAKSEUD2xgEIILsD2VIPBQFkPBAvFiCAAFI+QAABZAiQahyAAAIIIIAAAggggAACyFpAEpAAAggggADSEUg1DkAAAQQQQAABBBBAAAEEEEAAASQICSCAxAKpxgHIYkBOjQMQQFoD6VaQBCSALAbk1Egm4RgDZG8cnYF0Kkg1jjFAFGQmkAQkgAASC6QaByCARANJQAIIIICEAPkCW1kp5qjvtacAAAAASUVORK5CYII=</shape>
+
+<relativeSize>0</relativeSize>
+
+<tagsAmount>0</tagsAmount>
+
+<fonts>
+
+<font>Mkorsair Medium</font>
+
+</fonts>
+
+<colors>
+
+<color>893889</color>
+
+<color>070af4</color>
+
+</colors>
+
+<angles>
+
+<angle>0</angle>
+
+</angles>
+
+<styleOptions>
+
+<backgroundColor>140202</backgroundColor>
+
+<backgroundColorAlpha>1</backgroundColorAlpha>
+
+<animationSpeed>0.2</animationSpeed>
+
+<textColor>ffffff</textColor>
+
+<textAlpha>1</textAlpha>
+
+<boxColor>000000</boxColor>
+
+<boxAlpha>0.7</boxAlpha>
+
+<zoom>1</zoom>
+
+<rotate>1</rotate>
+
+<openLinksInNewWindow>0</openLinksInNewWindow>
+
+</styleOptions>
+
+</head>
+
+<tags>
+
+<tag weight="3" url="http://datastage.stanford.edu/?tag=non-convex">non-convex</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=randn">randn</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=input">input</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=transformation">transformation</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=P">P</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=semi">semi</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=Agent">Agent</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=iff">iff</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=nondecreasing">nondecreasing</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=NP-hard">NP-hard</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=requirement">requirement</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=rate">rate</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=radius">radius</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=log-concave">log-concave</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=bottom">bottom</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=Youtube">Youtube</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=shouldn">shouldn</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=box">box</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=derivation">derivation</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=programming">programming</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=nonnegative">nonnegative</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=logic">logic</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=rand">rand</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=respect">respect</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=addition">addition</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=reset">reset</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=cvx">cvx</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=Unix">Unix</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=Chrome">Chrome</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=site">site</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=agent">agent</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=Lect">Lect</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=hessian">hessian</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=instance">instance</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=map">map</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=trivially">trivially</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=assignment">assignment</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=meaning">meaning</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=opinion">opinion</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=QR">QR</tag>
+<tag weight="3" url="http://datastage.stanford.edu/?tag=software">software</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=code">code</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=component-wise">component-wise</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=folder">folder</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=format">format</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=element-wise">element-wise</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=misunderstanding">misunderstanding</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=Example">Example</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=Java">Java</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=relint">relint</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=measure">measure</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=math">math</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=Optimization">Optimization</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=installation">installation</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=amount">amount</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=lambda">lambda</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=grade">grade</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=calculation">calculation</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=argument">argument</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=Lambda">Lambda</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=member">member</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=Mac">Mac</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=U">U</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=multiplication">multiplication</tag>
+<tag weight="4" url="http://datastage.stanford.edu/?tag=exp">exp</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=text">text</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=uniform">uniform</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=step">step</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=Download">Download</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=Error">Error</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=v">v</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=fun">fun</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=situation">situation</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=piece">piece</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=discussion">discussion</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=mapping">mapping</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=data">data</tag>
+<tag weight="5" url="http://datastage.stanford.edu/?tag=correlation">correlation</tag>
+<tag weight="6" url="http://datastage.stanford.edu/?tag=ge">ge</tag>
+<tag weight="6" url="http://datastage.stanford.edu/?tag=hint">hint</tag>
+<tag weight="6" url="http://datastage.stanford.edu/?tag=trouble">trouble</tag>
+<tag weight="6" url="http://datastage.stanford.edu/?tag=mathcal">mathcal</tag>
+<tag weight="6" url="http://datastage.stanford.edu/?tag=Sn">Sn</tag>
+<tag weight="6" url="http://datastage.stanford.edu/?tag=installer">installer</tag>
+<tag weight="6" url="http://datastage.stanford.edu/?tag=D">D</tag>
+<tag weight="6" url="http://datastage.stanford.edu/?tag=epi">epi</tag>
+<tag weight="7" url="http://datastage.stanford.edu/?tag=quasiconvex">quasiconvex</tag>
+<tag weight="7" url="http://datastage.stanford.edu/?tag=r">r</tag>
+<tag weight="7" url="http://datastage.stanford.edu/?tag=Matlab">Matlab</tag>
+<tag weight="8" url="http://datastage.stanford.edu/?tag=polyhedron">polyhedron</tag>
+<tag weight="9" url="http://datastage.stanford.edu/?tag=hull">hull</tag>
+<tag weight="10" url="http://datastage.stanford.edu/?tag=deal">deal</tag>
+<tag weight="10" url="http://datastage.stanford.edu/?tag=deviation">deviation</tag>
+<tag weight="12" url="http://datastage.stanford.edu/?tag=variance">variance</tag>
+<tag weight="13" url="http://datastage.stanford.edu/?tag=return">return</tag>
+<tag weight="13" url="http://datastage.stanford.edu/?tag=T">T</tag>
+<tag weight="13" url="http://datastage.stanford.edu/?tag=segment">segment</tag>
+<tag weight="14" url="http://datastage.stanford.edu/?tag=portfolio">portfolio</tag>
+<tag weight="18" url="http://datastage.stanford.edu/?tag=risk">risk</tag>
+</tags>
+</tagul>
