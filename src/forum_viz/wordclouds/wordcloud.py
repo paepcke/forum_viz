@@ -6,25 +6,32 @@
 import random
 import os
 import sys
+import xmlrpclib
+import zlib
 
+"""
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
+"""
 from postgetter import PostGetter
 from topia.termextract import extract
-from sklearn.feature_extraction.text import CountVectorizer
+
+#from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
-from query_integral_image import query_integral_image
+#from query_integral_image import query_integral_image
 from collections import defaultdict
 import operator
 from collections import Counter
 
 FONT_PATH = "/System/Library/Fonts/DroidSansMono.ttf"
 
-
+"""
 def make_wordcloud(words, counts, fname, font_path=None, width=400, height=200,
                    margin=5, ranks_only=False):
-    """Build word cloud using word counts, store in image.
+    
+
+    Build word cloud using word counts, store in image.
 
     Parameters
     ----------
@@ -68,7 +75,8 @@ def make_wordcloud(words, counts, fname, font_path=None, width=400, height=200,
     Adjusting the percentages at the very end gives differnt color ranges.
     Obviously you can also set all at random - haven't tried that.
 
-    """
+    
+    
     if len(counts) <= 0:
         print("We need at least 1 word to plot a word cloud, got %d."
               % len(counts))
@@ -159,6 +167,7 @@ def make_wordcloud(words, counts, fname, font_path=None, width=400, height=200,
                   fill="hsl(%d" % random.randint(0, 255) + ", 80%, 50%)")
     img.show()
     img.save(fname)
+"""
 
 def loadstopwords (filen):
   f = open(filen,'r')
@@ -350,9 +359,115 @@ def getWordCountsAdj (text, f1, f2, smartStopWords):
 
   return wdict,w_,c_
 
+wcctr=0
+
+def generate_html(wcctr1):
+  f=open('tagulhtml.config')
+  s=''
+  for line in f:
+    s+=line
+  for i in range(1, wcctr1+1):  
+    s+= """<script src='myCloud%s.js'></script>\n"""%i
+
+  s+="""</div></body></html>"""
+  print s
+  f=open('viz1.html','w')
+  f.write(s)
+  f.close()
+  raw_input('written to viz1.html')
+
+
+
+def do_tagul():
+  global wcctr
+  wcctr+=1
+
+
+  API_ENDPOINT = "https://tagul.com:8889/api"
+
+  # There are 2 API methods available:
+  # * getJS - to get javascript code to be placed on your webpage.
+  # * getSVG - to get SVG that can be converted to any kind of image. No animation is available in SVG.
+  METHOD = "getJS"
+
+  #CHANGE the below lines to your Tagul login and password
+  USERNAME = "paepcke";
+  PASSWORD = "tagul123";
+
+  #CHANGE to your cloud xml path
+  CLOUD_XML_PATH = "tagul.xml"
+
+
+  #CODE starts here. No need to change anything.
+  #create XML-RPC client instance connected to Tagul
+
+  xmlrpcClient = xmlrpclib.ServerProxy(API_ENDPOINT)
+
+  #read cloudAPI.xml file
+  with open(CLOUD_XML_PATH, "r") as file:
+    cloudXML = file.read()
+
+  if METHOD == "getJS":
+    callMethod = xmlrpcClient.getJS
+    outputFileName = "myCloud%s.js"%(wcctr)
+  else: #METHOD == "getSVG":
+    callMethod = xmlrpcClient.getSVG
+    outputFileName = "myCloud.svg"
+
+  cloud = callMethod (
+    {
+      'username': USERNAME,
+      'password': PASSWORD
+    },
+    cloudXML
+  )
+
+  #data is compressed with zlib - decompress it
+  data = zlib.decompress(cloud.data)
+  with open(outputFileName, 'wb') as file:
+    file.write(data)
+    print('Cloud has been saved to ' + outputFileName)
+
+
+
+def generate_xml(w,c):
+  f = open('tagul.config','r')
+  s=''
+  for line in f:
+    s+=line
+    s+='\n'
+
+  for i in range(0, len(w)):
+    word = w[i]
+    count = c[i]
+    string = """<tag weight="%s" url="http://datastage.stanford.edu/?tag=%s">%s</tag>"""%(count,word,word)
+    s+=string+'\n'
+
+  s+='</tags>\n</tagul>'
+
+  f=open('tagul.xml','w')
+  f.write(s)
+  f.close()
+  print 'written....'
+  raw_input('before writing')
+  
+
+
+
+
+
 
 def generateWC (w_, c_, f1):  
-  make_wordcloud(w_, c_, "%s.png"%f1)
+  print 'GENERATE REQUEST'
+  print w_
+  print c_
+  raw_input('PAUSE')
+  generate_xml(w_,c_)
+  do_tagul()
+  raw_input('TAGUL DONE')
+  #make_wordcloud(w_, c_, "%s.png"%f1)
+  if(wcctr==6):
+    generate_html(wcctr)
 
 def generateWeeklyWCAdj (cname, prefix, smartStopWords):
   p = PostGetter()
@@ -582,11 +697,11 @@ def main():
   #(wordcountDict,w_,c_)=getWordCounts(text,'wc_cvx_full_stop','wc_cvx_full', smartStopWords)
   #generateWC(w_,c_,'wc_cvx_full_stop')
   #generateWeeklyWC(cname, 'WEEKLYwc_cvx', smartStopWords)
-  #generateDiff (cname,'WEEKL_DIFF_lmath', smartStopWords)
+  generateDiff (cname,'WEEKL_DIFF_lmath', smartStopWords)
   #generateDiffConfigurableWeeks (cname,'WEEKLZ_CONFDIFFwc_cvx',3)
   #generatePenalizeWeeks (cname, 'PENALIZE_PREVwc_cvx', 3)
   #generatePenalizeWeeklyWindows (cname, 'PENALIZE_morewc_cvx', 3)
-  generateWeeklyWCAdj (cname, 'ADJwc_cvx', smartStopWords)
+  #generateWeeklyWCAdj (cname, 'ADJwc_cvx', smartStopWords)
 
 main()
 

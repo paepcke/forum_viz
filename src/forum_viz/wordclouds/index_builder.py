@@ -40,13 +40,36 @@ class IndexBuilder:
 	def getMinutes(self,word):
 		return self.index[input]	
 
+	def getVideoContentAsString(self, files):
+		s = ''
+		for filename in files:
+			f = open(filename)
+			while True:
+				try:
+						line1 = next(f)
+						if not line1:
+							break
+						if '-->' in line1:
+							line2 = next(f)
+							if not line2:
+								break
+							words = line2.split()
+							for word in words:
+								s+=word+' '
+		return s						
+
+
+
 def main():		
-	i = IndexBuilder('/Users/jag/Downloads/Stanford medstats')
+	path = '/Users/jag/Downloads/Stanford medstats'
+	i = IndexBuilder(path)
 	print 'Index Building completed'
-	input = ''
-	while input != 'exit':
-		input = raw_input('Enter a word (exit to end the program)')
-		print i.getMinutes(input)
+	input1 = path+'/BWH Module 1   Intro to Course   HD 1080p.srt'
+	print i.getVideoContentAsString([input1])
+
+	#while input != 'exit':
+	#	input = raw_input('Enter a word (exit to end the program)')
+	#	print i.getMinutes(input)
 
 		
 	
