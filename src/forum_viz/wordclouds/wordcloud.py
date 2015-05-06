@@ -294,7 +294,7 @@ def getWordCountsAdj (text, f1, f2, smartStopWords):
   ff = open(f1,'w')
   ff1 = open(f2,'w')
   wordcountDict = defaultdict(lambda:0)
-  stopwords = loadstopwords('a')
+  stopwords = loadstopwords('stoplist1')
   poswords = loadstopwords ('pos.txt')
   negwords = loadstopwords ('neg.txt')
   print 'stop words'
