@@ -15,7 +15,7 @@ import subprocess
 import sys
 import tempfile
 import MySQLdb
-#import pymysql
+import pymysql
 
 
 #import MySQLdb

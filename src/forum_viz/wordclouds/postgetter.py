@@ -1,8 +1,10 @@
-
 from pymysql_utils1 import MySQLDB
+#****from pymysql_utils import MySQLDB
 from topia.termextract import extract
 #from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
+import getpass
+import os
 
 class PostGetter:
 
@@ -12,12 +14,13 @@ class PostGetter:
   '''
   def __init__(self):
 	mysql_dbhost='localhost'
-	mysql_user='root'#getpass.getuser()
+	#mysql_user='paepcke'#getpass.getuser()
+	mysql_user=getpass.getuser()
 	mysql_db='EdxForum'
-	mysql_passwd=self.getmysqlpasswd()
+	mysql_passwd=self.getMysqlPasswd()
 	self.type='all'
 	print('got passwd from file %s'%(mysql_passwd))
-	self.db=MySQLDB('127.0.0.1',3306,'root','','EdxForum')
+	self.db=MySQLDB('127.0.0.1',3306,mysql_user,mysql_passwd,'EdxForum')
 	
   '''
   Used only for testing. Test password provided.
@@ -28,7 +31,7 @@ class PostGetter:
   '''
   Password is typically stored in ~user_name/.ssh/mysql
   '''
-  def getMysqlPasswd():
+  def getMysqlPasswd(self):
     homeDir=os.path.expanduser('~'+getpass.getuser())
     f_name=homeDir+'/.ssh/mysql'
     with open(f_name, 'r') as f:
